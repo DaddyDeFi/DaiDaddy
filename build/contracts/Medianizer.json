@@ -1,0 +1,454 @@
+{
+  "contractName": "Medianizer",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "read",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "pure",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.8+commit.23d335f2\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"read\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"pure\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chris/Projects/daidaddy/contracts/mocks/Medianizer.sol\":\"Medianizer\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chris/Projects/daidaddy/contracts/mocks/Medianizer.sol\":{\"keccak256\":\"0x18a4f258f49e137c4d88fe05c59b053507fa86d47727ad59535b030b4e217bbb\",\"urls\":[\"bzzr://27ff5e7800f8e40a0de5fc91a4081eb3a71b6c3befb8d3ff413c7d5adc7fd286\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b5060898061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336049565b6040518082815260200191505060405180910390f35b6000680ad78ebc5ac620000060001b90509056fea165627a7a723058207f29182f5bad72b36acc3d923d3ba33df7e4daaa1bc72b1039807c112c6dae8f0029",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336049565b6040518082815260200191505060405180910390f35b6000680ad78ebc5ac620000060001b90509056fea165627a7a723058207f29182f5bad72b36acc3d923d3ba33df7e4daaa1bc72b1039807c112c6dae8f0029",
+  "sourceMap": "702:127:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;702:127:2;;;;;;;",
+  "deployedSourceMap": "702:127:2:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;702:127:2;;;;;;;;;;;;;;;;;;;728:97;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;765:7;807:9;791:27;;784:34;;728:97;:::o",
+  "source": "// This is a mock implementation of the MakerDAO medianizer contract. It has the\n// same interfaces as the publicly deployed contracts that can be found here:\n//1) kovan: https://kovan.etherscan.io/address/0x9FfFE440258B79c5d6604001674A4722FfC0f7Bc#code\n//2) mainnet: https://etherscan.io/address/0x729D19f657BD0614b4985Cf1D82531c67569197B#readContract\n// To get the ether price in USD as a bytes32 from the medianizer you must call the\n// read() function. This functions implementation has been changed in the mock to return\n// a value of 200 usd/ether for testing purposes. The rest of the contract and it's logic\n// has been left the same.\n\n/// return median value of feeds\n\npragma solidity^0.5.3;\n\ncontract Medianizer {\n    function read() public pure returns (bytes32) {\n        return bytes32(uint256(200 ether));\n    }  \n}",
+  "sourcePath": "/Users/chris/Projects/daidaddy/contracts/mocks/Medianizer.sol",
+  "ast": {
+    "absolutePath": "/Users/chris/Projects/daidaddy/contracts/mocks/Medianizer.sol",
+    "exportedSymbols": {
+      "Medianizer": [
+        417
+      ]
+    },
+    "id": 418,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 404,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "678:22:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 417,
+        "linearizedBaseContracts": [
+          417
+        ],
+        "name": "Medianizer",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 415,
+              "nodeType": "Block",
+              "src": "774:51:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "hexValue": "323030",
+                            "id": 411,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "807:9:2",
+                            "subdenomination": "ether",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_200000000000000000000_by_1",
+                              "typeString": "int_const 200000000000000000000"
+                            },
+                            "value": "200"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_rational_200000000000000000000_by_1",
+                              "typeString": "int_const 200000000000000000000"
+                            }
+                          ],
+                          "id": 410,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "799:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_uint256_$",
+                            "typeString": "type(uint256)"
+                          },
+                          "typeName": "uint256"
+                        },
+                        "id": 412,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "799:18:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 409,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "nodeType": "ElementaryTypeNameExpression",
+                      "src": "791:7:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_bytes32_$",
+                        "typeString": "type(bytes32)"
+                      },
+                      "typeName": "bytes32"
+                    },
+                    "id": 413,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "791:27:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 408,
+                  "id": 414,
+                  "nodeType": "Return",
+                  "src": "784:34:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 416,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "read",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "741:2:2"
+            },
+            "returnParameters": {
+              "id": 408,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 407,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 416,
+                  "src": "765:7:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 406,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "765:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "764:9:2"
+            },
+            "scope": 417,
+            "src": "728:97:2",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 418,
+        "src": "702:127:2"
+      }
+    ],
+    "src": "678:151:2"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/chris/Projects/daidaddy/contracts/mocks/Medianizer.sol",
+    "exportedSymbols": {
+      "Medianizer": [
+        417
+      ]
+    },
+    "id": 418,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 404,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".3"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "678:22:2"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 417,
+        "linearizedBaseContracts": [
+          417
+        ],
+        "name": "Medianizer",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 415,
+              "nodeType": "Block",
+              "src": "774:51:2",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "hexValue": "323030",
+                            "id": 411,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "kind": "number",
+                            "lValueRequested": false,
+                            "nodeType": "Literal",
+                            "src": "807:9:2",
+                            "subdenomination": "ether",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_rational_200000000000000000000_by_1",
+                              "typeString": "int_const 200000000000000000000"
+                            },
+                            "value": "200"
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_rational_200000000000000000000_by_1",
+                              "typeString": "int_const 200000000000000000000"
+                            }
+                          ],
+                          "id": 410,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "799:7:2",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_uint256_$",
+                            "typeString": "type(uint256)"
+                          },
+                          "typeName": "uint256"
+                        },
+                        "id": 412,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "799:18:2",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 409,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "nodeType": "ElementaryTypeNameExpression",
+                      "src": "791:7:2",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_bytes32_$",
+                        "typeString": "type(bytes32)"
+                      },
+                      "typeName": "bytes32"
+                    },
+                    "id": 413,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": true,
+                    "kind": "typeConversion",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "791:27:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 408,
+                  "id": 414,
+                  "nodeType": "Return",
+                  "src": "784:34:2"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 416,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "read",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "741:2:2"
+            },
+            "returnParameters": {
+              "id": 408,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 407,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 416,
+                  "src": "765:7:2",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 406,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "765:7:2",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "764:9:2"
+            },
+            "scope": 417,
+            "src": "728:97:2",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 418,
+        "src": "702:127:2"
+      }
+    ],
+    "src": "678:151:2"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.8+commit.23d335f2.Emscripten.clang"
+  },
+  "networks": {
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0x1d364EB562eE49d8b3006f6c26d73Ae1362e4A3F",
+      "transactionHash": "0x75a3a81e176c23d7522c2e1b1b7b189f2ac571bcf2e283a7eb1a20fecc74bbff"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x353a2b6D8641a1F823b54DA910843E70699c5D30",
+      "transactionHash": "0xb815ef8fb06fb63f5d7ea49d8f07c984c6b77eef6fa4bc0c31b7ecf37e70eea8"
+    }
+  },
+  "schemaVersion": "3.0.16",
+  "updatedAt": "2019-10-20T09:19:09.852Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
