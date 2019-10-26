@@ -30,7 +30,7 @@
 
 <script>
 export default {
-  name: "SellYourCDP"
+  name: "SellYourCDPSection"
 };
 </script>
 
