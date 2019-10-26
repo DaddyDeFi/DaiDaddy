@@ -102,6 +102,16 @@ export default {
   }
 }
 
+// Containers
+.container {
+  padding: 10px 25px;
+  box-sizing: border-box;
+  align-items: center;
+  text-align: left;
+  margin: 0 0 5rem 0;
+}
+
+// Buttons
 .pink-button {
   background: #ffc1cc !important;
   border: green;
@@ -114,17 +124,31 @@ export default {
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
+// Typography
 h1 {
   font-weight: 600;
-  font-size: 38px;
+  font-size: 34px;
   line-height: 50px;
   color: #1b0e33;
-  margin-bottom: 1em;
+  margin-bottom: 39px;
+}
+
+.pink-title {
+  color: #ff008a;
+}
+
+.subtitle {
+  font-weight: 600;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 36px;
+  color: #1b0e33;
+  margin-bottom: 39px;
 }
 
 .text {
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 34px;
   color: #1b0e33;
 }
 
@@ -136,6 +160,15 @@ h1 {
 
   .text {
     font-size: 25px;
+    line-height: 36px;
+  }
+
+  .container {
+    padding: 20px 80px;
+  }
+
+  .subtitle {
+    font-size: 28px;
   }
 }
 </style>

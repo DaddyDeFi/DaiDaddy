@@ -1,31 +1,25 @@
 <template>
-  <div class="container">
-    <h2 class="howitworksh">How it works</h2>
-    <a-row type="flex" align="center" :gutter="80">
-      <a-col :span="12" class="img-container" style="align-items: flex-end;">
-        <img src="img/sellMichael.png" class="hiw-michael" />
-        <a-row type="flex" justify="center" style="width: 75%;">
-          <div style="width: 234px;">
-            <router-link
-              class="btn pink-button ant-btn ant-btn-primary ant-btn-block ant-btn-lg"
-              to="/listing?open=true"
-            >Sell</router-link>
-          </div>
-        </a-row>
-      </a-col>
-      <a-col :span="12" class="img-container" style="align-items: flex-start;">
-        <img src="img/buyMichael.png" class="hiw-michael" />
-        <a-row type="flex" justify="center" style="width: 75%;">
-          <div style="width: 234px;">
-            <router-link
-              class="btn pink-button ant-btn ant-btn-primary ant-btn-block ant-btn-lg"
-              to="/buy"
-            >Buy</router-link>
-          </div>
-        </a-row>
-      </a-col>
-    </a-row>
-  </div>
+  <a-row class="container direction" type="flex" align="center">
+    <a-col class="col-1" :md="14" :span="24">
+      <div style="max-width: 420px">
+        <img src="/img/buyCdp.png" class="img" />
+      </div>
+    </a-col>
+    <a-col class="col-2" :md="10" :span="24">
+      <div style="max-width: 420px">
+        <h1>
+          Dai Daddy
+          <span class="pink-title">Market</span>
+        </h1>
+        <p class="subtitle">Buy CDPs and make HUGE profits!</p>
+        <p class="text">Do you want to make fast ⏩ easy 😅 🍑HUGE🍑 profits with your spare DAI 💸?</p>
+        <p
+          class="text"
+        >Want to 💪flex💪 your biiiiig👅 DeFi ⚡️energy⚡️ and save someone from 🚨forcible🚨 😫💦liquidation💦😫??</p>
+        <p class="text">Become a DAI daddy and buy CDPs!</p>
+      </div>
+    </a-col>
+  </a-row>
 </template>
 
 <script>
@@ -35,30 +29,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
-  padding: 80px;
-  box-sizing: border-box;
-  align-items: center;
+.btn {
+  margin-top: 2rem;
 }
-.howitworksh {
-  font-weight: 600;
-  font-size: 50px;
-  line-height: 68px;
-  color: #ff94ce;
-  text-align: center;
-  margin-bottom: 1.5em;
+
+.col-1 {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
-.hiw-michael {
-  max-width: 75%;
+
+.col-2 {
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  max-width: 100%;
   height: auto;
   object-fit: contain;
 }
-.img-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+
+.direction {
+  flex-direction: column-reverse;
 }
-.btn {
-  margin-top: 2rem;
+
+@media (min-width: 768px) {
+  .direction {
+    flex-direction: row;
+  }
+
+  .col-1 {
+    margin-top: 0;
+  }
+
+  .col-2 {
+    justify-content: left;
+  }
 }
 </style>

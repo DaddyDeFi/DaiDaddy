@@ -1,10 +1,10 @@
 <template>
   <a-row class="container" justify="center" align="middle" type="flex">
     <a-col class="col-1" :md="14" :span="24">
-      <img src="/img/bigMichaelLogo.png" class="biglogo" />
+      <img src="/img/bigMichaelLogo.png" class="logo" />
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
-      <img src="/img/Michael_Boxes.png" class="hero-michael" />
+      <img src="/img/michaelBoxes.png" class="hero-michael" />
       <router-link to="/listing?open=true" class="cta" />
     </a-col>
   </a-row>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.biglogo {
+.logo {
   width: 100%;
   max-width: 610px;
   height: auto;
@@ -28,6 +28,8 @@ export default {
 .container {
   height: 100vh;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .hero-michael {
@@ -47,7 +49,7 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .biglogo {
+  .logo {
     width: 90%;
     padding: 0px 71px;
   }
