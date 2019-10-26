@@ -1,5 +1,5 @@
 <template>
-  <a-row class="hero-row" justify="center" align="middle" type="flex">
+  <a-row class="container" justify="center" align="middle" type="flex">
     <a-col class="col-1" :md="14" :span="24">
       <img src="/img/bigMichaelLogo.png" class="biglogo" />
     </a-col>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "Hero"
+  name: "HomeHero"
 };
 </script>
 
@@ -22,10 +22,10 @@ export default {
   max-width: 610px;
   height: auto;
   align-content: center;
-  padding: 0px 71px;
+  padding: 0px 50px;
 }
 
-.hero-row {
+.container {
   height: 100vh;
   width: 100%;
 }
@@ -49,6 +49,7 @@ export default {
 @media (min-width: 768px) {
   .biglogo {
     width: 90%;
+    padding: 0px 71px;
   }
 
   .col-2 {

@@ -113,4 +113,29 @@ export default {
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
 }
+
+h1 {
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 50px;
+  color: #1b0e33;
+  margin-bottom: 1em;
+}
+
+.text {
+  font-size: 24px;
+  line-height: 36px;
+  color: #1b0e33;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 50px;
+    line-height: 68px;
+  }
+
+  .text {
+    font-size: 25px;
+  }
+}
 </style>
