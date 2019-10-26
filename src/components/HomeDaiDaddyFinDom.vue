@@ -1,22 +1,19 @@
 <template>
-  <a-row class="container" type="flex" align="center">
+  <a-row class="container unwind-container" type="flex" align="center">
     <a-col :md="14" :span="24" class="col-1">
       <div style="max-width: 463px">
         <h1>
           Dai Daddy
-          <span class="pink-title">Unwind</span>
+          <span class="pink-title">FinDom</span>
         </h1>
-        <p class="subtitle">Unwind and de-stress</p>
-        <p class="text">Is your 💰CDP💰 about to be 🚨forcibly🚨 😫💦liquidated?💦😫</p>
-        <p
-          class="text"
-        >Or 🙈️maybe🙈️ you just want to withdraw your ETH, but don’t have 💵cash💵 to buy 🔺📈more📈🔺 DAI?</p>
-        <p class="text">DAI daddy will unwind your CDP for you!</p>
+        <p class="subtitle">XXX</p>
+        <p class="text">XXX</p>
       </div>
     </a-col>
     <a-col :md="10" :span="24" class="col-2">
       <div style="max-width: 420px">
         <img src="/img/unwind.png" class="img" />
+        <router-link to="/" class="ant-btn ant-btn-lg ant-btn-block pink-button">💦 CUMMING SOON 💦</router-link>
       </div>
     </a-col>
   </a-row>
@@ -24,16 +21,13 @@
 
 <script>
 export default {
-  name: "HomeRescueYourCDP"
+  name: "HomeDaiDaddyFinDom"
 };
 </script>
 
 <style scoped lang="scss">
-.container {
-  padding: 10px 25px;
-  box-sizing: border-box;
-  align-items: center;
-  text-align: left;
+.unwind-container {
+  margin-bottom: 40px;
 }
 
 .col-1 {
@@ -55,6 +49,7 @@ export default {
   max-width: 100%;
   height: auto;
   object-fit: contain;
+  margin-bottom: 1rem;
 }
 
 @media (min-width: 768px) {

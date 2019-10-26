@@ -102,18 +102,10 @@ export default {
   }
 }
 
-// Containers
-.container {
-  padding: 10px 25px;
-  box-sizing: border-box;
-  align-items: center;
-  text-align: left;
-  margin: 0 0 5rem 0;
-}
-
 // Buttons
 .pink-button {
   background: #ffc1cc !important;
+  color: #ffffff !important;
   border: green;
   border-radius: 25px;
   font-family: Nunito;
@@ -122,6 +114,25 @@ export default {
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+// Containers
+.container {
+  padding: 10px 25px;
+  box-sizing: border-box;
+  align-items: center;
+  text-align: left;
+}
+
+// Dividers
+.divider {
+  background-color: #ff94ce;
+  opacity: 0.3;
+  margin: 35px;
+}
+
+.divider-container {
+  padding: 2px 25px;
 }
 
 // Typography
@@ -148,7 +159,7 @@ h1 {
 
 .text {
   font-size: 20px;
-  line-height: 34px;
+  line-height: 32px;
   color: #1b0e33;
 }
 
@@ -165,6 +176,15 @@ h1 {
 
   .container {
     padding: 20px 80px;
+  }
+
+  .divider {
+    background-color: #ff94ce;
+    opacity: 0.3;
+  }
+
+  .divider-container {
+    padding: 2px 80px;
   }
 
   .subtitle {
