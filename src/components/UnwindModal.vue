@@ -23,7 +23,7 @@
           >Cancel</a-button>
           <a-button
             key="connect"
-            class="ConnectButton"
+            class="Button"
             type="primary"
             @click="submit"
             :disabled="unwindOrder==null"
@@ -31,14 +31,14 @@
           >Connect me Daddy</a-button>
           <a-button
             key="submit"
-            class="SubmitButton"
+            class="Button"
             type="primary"
             @click="submit"
             v-if="current == 1"
           >Submit to Daddy</a-button>
           <a-button
             key="unwind"
-            class="BuyButton"
+            class="Button"
             type="primary"
             @click="submit"
             v-if="current == 2"
@@ -70,18 +70,25 @@ export default {
       if (this.current == 0) {
         //insert logic
         //fire metamask and loading modal
+        console.log(this.current);
         this.current++;
+        return;
       }
       if (this.current == 1) {
         //insert logic
         //fire metamask and loading modal
         this.current++;
+        return;
       }
       if (this.current == 2) {
         this.visible = false;
+
         //insert logic
         //fire metamask and loading modal
-        this.current = 0;
+        setTimeout(function() {
+          this.current = 0;
+        }, 2000);
+        return;
       }
       // insert logic
     },
@@ -137,7 +144,7 @@ export default {
   font-family: "Nunito" !important;
 }
 
-.BuyButton {
+.Button {
   background: #ff95cd;
   border: green;
   border-radius: 25px;

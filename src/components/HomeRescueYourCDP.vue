@@ -13,6 +13,7 @@
         >Or 🙈️maybe🙈️ you just want to withdraw your ETH, but don’t have 💵cash💵 to buy 🔺📈more📈🔺 DAI?</p>
         <p class="text">DAI daddy will unwind your CDP for you!</p>
       </div>
+      <UnwindModal />
     </a-col>
     <a-col :md="10" :span="24" class="col-2">
       <div style="max-width: 420px">
