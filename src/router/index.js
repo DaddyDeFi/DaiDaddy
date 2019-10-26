@@ -5,6 +5,7 @@ import SellDebt from '../views/SellDebt.vue'
 import BuyDebt from '../views/BuyDebt.vue'
 import Listings from '../views/Listings.vue'
 import Market from '../views/Market.vue'
+import ListCDPs from '../components/ListCDPs.vue'
 
 Vue.use(VueRouter)
 
@@ -33,7 +34,12 @@ const routes = [
     path: '/market',
     name: 'market',
     component: Market
-  }
+  },
+    {
+      path: '/list',
+      name: 'list',
+      component: ListCDPs
+    }
 ]
 
 const router = new VueRouter({
