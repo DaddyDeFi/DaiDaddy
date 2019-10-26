@@ -3,7 +3,8 @@ const {
     BN,
     constants,
     expectEvent,
-    expectRevert
+    expectRevert,
+    ether
 } = require("openzeppelin-test-helpers");
 const {
     expect
@@ -11,8 +12,10 @@ const {
 
 // Contracts
 const Unwinder = artifacts.require("./Unwinder.sol");
-const SaiTub = artifacts.require("./SaiTub.sol");
-const medianizerMock = artifacts.require("./Medianizer.sol");
+const SaiTub = artifacts.require("./SaiTubMock.sol");
+const medianizerMock = artifacts.require("./MedianizerMock.sol");
+const kyberNetworkProxyMock = artifacts.require("./kyberNetworkProxyMock.sol")
+const ERC20Mock = artifacts.require("./ERC20Mock.sol")
 
 // Cup constants(taken to mimic a deployed CDP from Etherscan)
 // the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
@@ -47,9 +50,20 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             from: contractOwner
         })
 
-        this.unwinder = await Unwinder.new(this.saiTub.address, this.medianizer.address, {
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new({
             from: contractOwner
-        });
+        })
+
+        this.dai = await ERC20Mock.new(this.kyberNetworkProxy.address, ether('1000'), {
+            from: contractOwner
+        })
+
+        this.unwinder = await Unwinder.new(this.saiTub.address,
+            this.medianizer.address,
+            this.kyberNetworkProxy.address,
+            this.dai.address, {
+                from: contractOwner
+            });
     });
 
     context("Contract Computation Functions", function () {

@@ -1,6 +1,6 @@
 pragma solidity ^0.5.7;
 
-contract SaiTub {
+contract SaiTubMock {
     uint256                   public  cupi;
     mapping (bytes32 => Cup)  public  cups;
 

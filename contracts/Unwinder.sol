@@ -9,12 +9,10 @@ import "./KyberNetworkProxyInterface.sol";
 import "./ERC20Interface.sol";
 
 contract Unwinder {
-    
     // constants
     uint256 safeNoLiquidationRatio = 151 * 10 ** 16;  // a value of 1.51, just above the liquidation amount of a CDP
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
-    
     // contract instances
     SaiTub public saiTubContract;
     Medianizer public medianizerContract;
@@ -39,7 +37,7 @@ contract Unwinder {
     function ceil(uint a, uint m) public pure returns (uint ) {
         return ((a + m - 1) / m) * m;
     }
-    
+
     // takes in all the information about a CDP and returns the current collateralization ratio scaled *10 ^ 18
     // uint256  ink             Locked collateral (in Weth)
     // uint256  art             Outstanding normalised debt(including tax)
