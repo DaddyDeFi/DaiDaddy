@@ -36,7 +36,7 @@ const wpRatio = "1046300000000000000"
 const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
 const ethAddress = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 
-contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
+contract("Kyber Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
     beforeEach(async function () {
         this.saiTub = await saiTub.new(
             cupId,
@@ -79,7 +79,9 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
         })
         it("Correctly trades tokens with Kyber exchange", async function () {
             //test mock value
-            let kyberBalanceBefore = await this.dai.balanceOf(this.kyberNetworkProxy.address)
+            let kyberDaiBalanceBefore = await this.dai.balanceOf(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceBefore = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let sellerDaiBalanceBefore = await this.dai.balanceOf(seller)
 
             await this.kyberNetworkProxy.trade(ethAddress,
                 ether("1"),
@@ -87,15 +89,23 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
                 this.kyberNetworkProxy.address,
                 ether("10000"),
                 etherPriceSlippage,
-                seller, {
-                    from: buyer,
+                daiDaddy, {
+                    from: seller,
                     value: ether("1")
                 })
 
-            let kyberBalanceAfter = await this.dai.balanceOf(this.kyberNetworkProxy.address)
-            console.log(kyberBalanceBefore.toString(10))
-            console.log(kyberBalanceAfter.toString(10))
-            assert.equal(true, false)
+            let kyberDaiBalanceAfter = await this.dai.balanceOf(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceAfter = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let sellerDaiBalanceAfter = await this.dai.balanceOf(seller)
+
+            let exchangeDaiDelta = kyberDaiBalanceBefore - kyberDaiBalanceAfter
+            assert.equal(Math.round(exchangeDaiDelta / 10 ** 10).toString(10), Math.round(etherPriceSlippage / 10 ** 10).toString(10), "Dai balance did not decrease correctly from exchange")
+
+            let sellerDaiDelta = sellerDaiBalanceAfter - sellerDaiBalanceBefore
+            assert.equal(Math.round(sellerDaiDelta / 10 ** 10).toString(10), Math.round(etherPriceSlippage / 10 ** 10).toString(), "seller dai balance did increase decrease correctly")
+
+            let exchangeEthDelta = kyberEtherBalanceAfter - kyberEtherBalanceBefore
+            assert.equal(Math.round(exchangeEthDelta / 10 ** 10).toString(10), Math.round(ether("1") / 10 ** 10).toString(), "Ether balance did increase decrease correctly")
         })
     })
 })
