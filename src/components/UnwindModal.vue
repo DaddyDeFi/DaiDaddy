@@ -119,7 +119,7 @@ export default {
           description: "Let us help you unwind"
         }
       ],
-      current: 1,
+      current: 0,
       debtOrder: {
         discount: 5,
         debtIndex: null,
