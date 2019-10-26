@@ -124,17 +124,6 @@ export default {
   text-align: left;
 }
 
-// Dividers
-.divider {
-  background-color: #ff94ce;
-  opacity: 0.3;
-  margin: 35px;
-}
-
-.divider-container {
-  padding: 2px 25px;
-}
-
 // Typography
 h1 {
   font-weight: 600;

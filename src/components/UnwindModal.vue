@@ -1,6 +1,5 @@
 <template>
   <div>
-    <a-button type="primary" @click="showModal">Open Modal</a-button>
     <a-modal class="model" :height="400" :width="900" style="width:900px" v-model="visible">
       <h1 class="unwindtitle">Unwind CDP</h1>
       <a-steps :current="current">
@@ -120,7 +119,7 @@ export default {
       ],
       current: 0,
       unwindOrder: null,
-      visible: true,
+      visible: false,
       myListings: []
     };
   }

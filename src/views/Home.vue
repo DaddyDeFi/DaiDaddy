@@ -2,17 +2,9 @@
   <div class="home">
     <HomeHero />
     <HomeDaiDaddyUnwind />
-
-    <div class="divider-container">
-      <a-divider class="divider" />
-    </div>
-
+    <a-divider class="divider" />
     <HomeDaiDaddyMarket />
-
-    <div class="divider-container">
-      <a-divider class="divider" />
-    </div>
-
+    <a-divider class="divider" />
     <HomeDaiDaddyFinDom />
   </div>
 </template>
@@ -36,3 +28,11 @@ export default {
   name: "home"
 };
 </script>
+
+<style>
+.divider {
+  background-color: #ff94ce;
+  opacity: 0.3;
+  margin: 35px;
+}
+</style>
