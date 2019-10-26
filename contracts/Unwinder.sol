@@ -61,32 +61,15 @@ contract Unwinder {
     }
     
     // See how much Dai can be gained from trading against keyber for the freed Ether
-    function ethToDaiGetKyberPrice(uint256 _etherToSell) public view returns (uint, uint) {
-        return kyberNetworkProxyContract.getExpectedRate(address(ETH_TOKEN_ADDRESS), address(daiContract), _etherToSell);
+    function ethToDaiGetKyberPrice(uint256 _etherToSell) public view returns (uint) {
+        (uint price,) = kyberNetworkProxyContract.getExpectedRate(address(ETH_TOKEN_ADDRESS), address(daiContract), _etherToSell);
+        return price;
     }
 
     function proveOwnershipOfCDP(bytes32 _cup) public {
         (address lad,,,) = saiTubContract.cups(_cup);
         require(lad == msg.sender, "Only the current owner of the cup can prove ownership");
         cupOwners[msg.sender] = _cup;
-    }
-
-    /**
-     * @dev Gets the conversion rate for the destToken given the srcQty.
-     * @param _srcToken source token contract address
-     * @param _srcQty amount of source tokens
-     * @param _destToken destination token contract address
-     */
-    function getConversionRates(
-        address _srcToken,
-        uint _srcQty,
-        address _destToken
-    ) public
-        view
-        returns (uint, uint)
-    {
-        return kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
-
     }
 
     /**
@@ -131,6 +114,10 @@ contract Unwinder {
         );
     }
 
-    function unwindCDP(bytes32 _cup)
+    function unwindCDP(bytes32 _cup) public {
+        (address lad,,,) = saiTubContract.cups(_cup);
+        require(lad == address(this), "Can only unwind CDPs that have been transfered to the Unwinder");
+        require(cupOwners[msg.sender] == _cup, "Can only unwind CDPs that were owned by the seller");
+    }
 }
 
