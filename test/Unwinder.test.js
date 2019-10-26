@@ -30,7 +30,12 @@ const rap = "1937914497665704"
 
 // other constants
 const etherPrice = "166770000000000000000"
+const etherPriceSlippage = "161770000000000000000"
 const wpRatio = "1046300000000000000"
+
+// contract constants (mimic the main net)
+const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
+const ethContractAddress = "0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 
 contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
@@ -50,11 +55,15 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             from: contractOwner
         })
 
-        this.kyberNetworkProxy = await kyberNetworkProxyMock.new({
+        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
+        // without implementing this logic.
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, {
             from: contractOwner
         })
 
-        this.dai = await ERC20Mock.new(this.kyberNetworkProxy.address, ether('1000'), {
+        // tokens are sent to the kyberNetworkProxy so that it can move around funds to close off the CDP when 
+        // a "trade" is done
+        this.dai = await ERC20Mock.new(this.kyberNetworkProxy.address, ether('10000000'), {
             from: contractOwner
         })
 
@@ -125,6 +134,18 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
             let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+        })
+    })
+    context("Kyber Calculations", function () {
+        it("Correctly gets the conversion rate from Kyber", async function () {
+            //test mock value
+            let rates = await this.kyberNetworkProxy.getExpectedRate(this.dai.address, this.dai.address, ether("1"))
+            assert.equal(rates[0], etherPrice, "Mock not returning the correct values")
+            assert.equal(rates[1], etherPriceSlippage, "Mock not returning the correct values")
+
+            //test kyber intregration into unwinder for price oracle
+            let unwinderRates = await this.unwinder.ethToDaiGetKyberPrice(ether("1"))
+            assert.equal(unwinderRates, etherPrice, "Unwinder rate incorrect")
         })
     })
 })

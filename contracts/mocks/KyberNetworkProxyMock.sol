@@ -13,6 +13,15 @@ contract KyberNetworkProxyMock {
     /// @param minConversionRate The minimal conversion rate. If actual rate is lower, trade is canceled.
     /// @param walletId is the wallet ID to send part of the fees
     /// @return amount of actual dest tokens
+    
+    uint expectedRate;
+    uint slippageRate;
+
+    constructor( uint _expectedRate, uint _slippageRate) public{
+        expectedRate = _expectedRate;
+        slippageRate = _slippageRate;
+    }
+    
     function trade(
         ERC20 src,
         uint srcAmount,
@@ -31,8 +40,8 @@ contract KyberNetworkProxyMock {
 
     function getExpectedRate(ERC20 src, ERC20 dest, uint srcQty)
         public view
-        returns(uint expectedRate, uint slippageRate)
+        returns(uint, uint)
     {
-        return (100, 101);
+        return (expectedRate, slippageRate);
     }
 }
