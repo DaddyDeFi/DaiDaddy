@@ -11,11 +11,11 @@ const {
 } = require("chai");
 
 // Contracts
-const Unwinder = artifacts.require("./Unwinder.sol");
-const SaiTub = artifacts.require("./SaiTubMock.sol");
-const medianizerMock = artifacts.require("./MedianizerMock.sol");
-const kyberNetworkProxyMock = artifacts.require("./kyberNetworkProxyMock.sol")
-const ERC20Mock = artifacts.require("./ERC20Mock.sol")
+const Unwinder = artifacts.require("Unwinder");
+const SaiTub = artifacts.require("SaiTubMock");
+const medianizerMock = artifacts.require("MedianizerMock");
+const kyberNetworkProxyMock = artifacts.require("kyberNetworkProxyMock")
+const ERC20Mock = artifacts.require("ERC20Mock")
 
 // Cup constants(taken to mimic a deployed CDP from Etherscan)
 // the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
@@ -55,15 +55,19 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             from: contractOwner
         })
 
-        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
-        // without implementing this logic.
-        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, {
+        // tokens are sent to the owner. later sent to the kyber exchange to simulate trading
+        this.dai = await ERC20Mock.new(contractOwner, ether('10000000'), {
             from: contractOwner
         })
 
-        // tokens are sent to the kyberNetworkProxy so that it can move around funds to close off the CDP when 
-        // a "trade" is done
-        this.dai = await ERC20Mock.new(this.kyberNetworkProxy.address, ether('10000000'), {
+        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
+        // without implementing this logic.
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, this.dai.address, {
+            from: contractOwner
+        })
+
+        //Fund the kyber exchange
+        this.dai.transfer(this.kyberNetworkProxy.address, ether('10000000'), {
             from: contractOwner
         })
 
@@ -134,18 +138,6 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
             let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
-        })
-    })
-    context("Kyber Calculations", function () {
-        it("Correctly gets the conversion rate from Kyber", async function () {
-            //test mock value
-            let rates = await this.kyberNetworkProxy.getExpectedRate(this.dai.address, this.dai.address, ether("1"))
-            assert.equal(rates[0], etherPrice, "Mock not returning the correct values")
-            assert.equal(rates[1], etherPriceSlippage, "Mock not returning the correct values")
-
-            //test kyber intregration into unwinder for price oracle
-            let unwinderRates = await this.unwinder.ethToDaiGetKyberPrice(ether("1"))
-            assert.equal(unwinderRates, etherPrice, "Unwinder rate incorrect")
         })
     })
 })
