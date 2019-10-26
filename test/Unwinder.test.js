@@ -3,7 +3,8 @@ const {
     BN,
     constants,
     expectEvent,
-    expectRevert
+    expectRevert,
+    ether
 } = require("openzeppelin-test-helpers");
 const {
     expect
@@ -11,8 +12,10 @@ const {
 
 // Contracts
 const Unwinder = artifacts.require("./Unwinder.sol");
-const SaiTub = artifacts.require("./SaiTub.sol");
-const medianizerMock = artifacts.require("./Medianizer.sol");
+const SaiTub = artifacts.require("./SaiTubMock.sol");
+const medianizerMock = artifacts.require("./MedianizerMock.sol");
+const kyberNetworkProxyMock = artifacts.require("./kyberNetworkProxyMock.sol")
+const ERC20Mock = artifacts.require("./ERC20Mock.sol")
 
 // Cup constants(taken to mimic a deployed CDP from Etherscan)
 // the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
@@ -27,7 +30,12 @@ const rap = "1937914497665704"
 
 // other constants
 const etherPrice = "166770000000000000000"
+const etherPriceSlippage = "161770000000000000000"
 const wpRatio = "1046300000000000000"
+
+// contract constants (mimic the main net)
+const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
+const ethContractAddress = "0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 
 contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
@@ -47,9 +55,24 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             from: contractOwner
         })
 
-        this.unwinder = await Unwinder.new(this.saiTub.address, this.medianizer.address, {
+        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
+        // without implementing this logic.
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, {
             from: contractOwner
-        });
+        })
+
+        // tokens are sent to the kyberNetworkProxy so that it can move around funds to close off the CDP when 
+        // a "trade" is done
+        this.dai = await ERC20Mock.new(this.kyberNetworkProxy.address, ether('10000000'), {
+            from: contractOwner
+        })
+
+        this.unwinder = await Unwinder.new(this.saiTub.address,
+            this.medianizer.address,
+            this.kyberNetworkProxy.address,
+            this.dai.address, {
+                from: contractOwner
+            });
     });
 
     context("Contract Computation Functions", function () {
@@ -111,6 +134,18 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
             let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+        })
+    })
+    context("Kyber Calculations", function () {
+        it("Correctly gets the conversion rate from Kyber", async function () {
+            //test mock value
+            let rates = await this.kyberNetworkProxy.getExpectedRate(this.dai.address, this.dai.address, ether("1"))
+            assert.equal(rates[0], etherPrice, "Mock not returning the correct values")
+            assert.equal(rates[1], etherPriceSlippage, "Mock not returning the correct values")
+
+            //test kyber intregration into unwinder for price oracle
+            let unwinderRates = await this.unwinder.ethToDaiGetKyberPrice(ether("1"))
+            assert.equal(unwinderRates, etherPrice, "Unwinder rate incorrect")
         })
     })
 })

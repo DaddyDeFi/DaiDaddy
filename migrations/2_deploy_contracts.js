@@ -1,4 +1,4 @@
-var daiDaddy = artifacts.require("DaiDaddy");
+var unwinder = artifacts.require("Unwinder");
 var tub = artifacts.require("SaiTub");
 var medianizer = artifacts.require("Medianizer");
 
@@ -14,14 +14,14 @@ const rap = "1937914497665704"
 const etherPrice = "166770000000000000000"
 
 module.exports = function (deployer) {
-    deployer.deploy(tub, cupId, lad, ink, art, ire, tab, rap)
-        .then(async tubObject => {
-            await deployer.deploy(medianizer, etherPrice).then(async medianizerObject => {
-                await deployer.deploy(daiDaddy, tubObject.address, medianizerObject.address).then(async daiDaddyObject => {
-                    await daiDaddyObject.sellCDP(cupId,5).then(c => {
-                        console.log("deployment done! 🚀")
-                    })
-                })
-            })
-        });
+    // deployer.deploy(tub, cupId, lad, ink, art, ire, tab, rap)
+    //     .then(async tubObject => {
+    //         await deployer.deploy(medianizer, etherPrice).then(async medianizerObject => {
+    //             await deployer.deploy(unwinder, tubObject.address, medianizerObject.address).then(async unwinderObject => {
+    //                 await unwinderObject.sellCDP(cupId,5).then(c => {
+    //                     console.log("deployment done! 🚀")
+    //                 })
+    //             })
+    //         })
+    //     });
 };

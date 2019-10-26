@@ -1,7 +1,6 @@
-pragma solidity^0.5.3;
+pragma solidity ^0.5.7;
 
-
-contract SaiTub {
+contract SaiTubMock {
     uint256                   public  cupi;
     mapping (bytes32 => Cup)  public  cups;
 
@@ -17,9 +16,14 @@ contract SaiTub {
 
     uint256 _chi;  // Accumulated Tax Rates
 
-    event log(string log);
-
-    constructor(bytes32 cupId, address _cupLad, uint256 _cupInk, uint256 _cupArt, uint256 _cupIre, uint256 _cupTab, uint256 _uintRap) public {
+    constructor (bytes32 cupId,
+        address _cupLad,
+        uint256 _cupInk,
+        uint256 _cupArt,
+        uint256 _cupIre,
+        uint256 _cupTab,
+        uint256 _uintRap)
+    public {
         cups[cupId] = Cup(_cupLad, _cupInk, _cupArt, _cupIre);
         tabValue = _cupTab;
         rapValue = _uintRap;
@@ -42,8 +46,8 @@ contract SaiTub {
     
     // get the amount of debt in a cup
     function tab(bytes32 cup) public returns (uint) {
-        return tabValue;
         // return 50000000000000000000;
+        return tabValue;
     }
     // get the amount of governance debt in a cup
     function rap(bytes32 cup) public returns (uint) {
