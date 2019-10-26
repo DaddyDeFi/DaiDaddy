@@ -1,6 +1,6 @@
 pragma solidity ^0.5.7;
 
-contract Medianizer {
+contract MedianizerMock {
     uint256 etherPrice = 0;
     
     constructor(uint256 _etherPrice) public {
