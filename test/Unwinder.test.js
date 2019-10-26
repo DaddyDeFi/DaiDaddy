@@ -15,6 +15,8 @@ const SaiTub = artifacts.require("./SaiTub.sol");
 const medianizerMock = artifacts.require("./Medianizer.sol");
 
 // Cup constants(taken to mimic a deployed CDP from Etherscan)
+// the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
+// The collateralization ratio for this given CDP is 301.91%
 const cupId = "0x0000000000000000000000000000000000000000000000000000000000000f41"
 const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8"
 const ink = "166188150160920386823"
@@ -41,7 +43,6 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
                 from: contractOwner
             })
 
-
         this.medianizer = await medianizerMock.new(etherPrice, {
             from: contractOwner
         })
@@ -65,6 +66,50 @@ contract("Unwinder", ([contractOwner, seller, buyer, random]) => {
             //calculate the expected collateralization ratio given the amount of debt in the CDP, the dai drawn and the weth to peth ratio
             let expected = art * etherPrice * wpRatio / (ire * 10 ** 18)
             let contractCalculation = await this.unwinder.collateralizationRatio(art, ire, etherPrice, wpRatio)
+            assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+        })
+
+        it("Correctly calculate the number of unwinds needed to close the position", async function () {
+            // for a given collateralization ratio calculate the number of times the maximum draw and wipe needs to be done.
+            // these test values were taken from the simulation. 
+            // the cr is the collateralization ratio and unwinds is the number of times
+            // that the position will need to be undone. 
+            // see the spreasheet here: https://docs.google.com/spreadsheets/d/118z6e2dp9PFzla9QqMUGS5vI_kQx-5purT44Ut4maJM/edit?usp=sharing
+            // on page Generic Expression tab.
+            let testLookup = [{
+                    cr: 3,
+                    unwinds: 1
+                },
+                {
+                    cr: 2.49,
+                    unwinds: 2
+                }, {
+                    cr: 1.99,
+                    unwinds: 3
+                }, {
+                    cr: 1.83,
+                    unwinds: 4
+                },
+                {
+                    cr: 1.61,
+                    unwinds: 10
+                },
+                {
+                    cr: 1.55,
+                    unwinds: 20
+                }
+            ]
+
+            await testLookup.forEach(async (test) => {
+                let testRatio = test.cr * 10 ** 18
+                let unwindsNeeded = await this.unwinder.unwindsNeeded(testRatio.toString(10))
+                assert.equal((unwindsNeeded).toString(10), (test.unwinds).toString(10), "Incorrect number of unwinds calculated")
+            })
+        })
+
+        it("Correctly calculates freeable ether", async function () {
+            let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
+            let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
         })
     })
