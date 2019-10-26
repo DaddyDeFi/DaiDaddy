@@ -128,6 +128,7 @@ export default {
       this.myCdps[cdpId].selected = true;
       this.debtOrder.debtIndex = cdpId;
       this.debtOrder.cdpId = this.myCdps[cdpId].cdpId;
+      this.$emit("selected-cdp-id", this.debtOrder.cdpId);
     },
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

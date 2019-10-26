@@ -27,7 +27,7 @@
           </a-col>
         </a-row>
         <hr style="padding:0px; margin:0px" />
-        <div
+        <!-- <div
           v-for="(cdp, index) in myCdps"
           :key="index"
           :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
@@ -50,7 +50,7 @@
             </a-row>
           </div>
           <hr style="padding:0px; margin:0px" />
-        </div>
+        </div>-->
         <a-divider />
       </a-col>
     </a-row>
@@ -96,7 +96,7 @@ export default {
       this.debtOrder.cdpId = this.myCdps[cdpId].cdpId;
     },
     numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   },
   mounted() {
