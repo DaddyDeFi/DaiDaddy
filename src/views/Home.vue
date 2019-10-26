@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-    
     <Hero />
-    <SellYourCDP />
+    <SellYourCDPSection />
     <HowItWorks />
   </div>
 </template>

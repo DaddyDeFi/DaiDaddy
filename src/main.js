@@ -6,11 +6,12 @@ import {
   Modal,
   Radio,
   InputNumber,
-  Popover
+  Popover,
+  Divider
 } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
-import Jazzicon from 'vue-jazzicon';
+import Jazzicon from "vue-jazzicon";
 
 import App from "./App.vue";
 import router from "./router";
@@ -31,16 +32,17 @@ Vue.component(Button.name, Button);
 Vue.component(Logo.name, Logo);
 Vue.component(Nav.name, Nav);
 Vue.component(Hero.name, Hero);
-Vue.component(Modal.name, Modal)
-Vue.component(Radio.name, Radio)
+Vue.component(Modal.name, Modal);
+Vue.component(Radio.name, Radio);
 Vue.component(SellYourCDPSection.name, SellYourCDPSection);
 Vue.component(HowItWorks.name, HowItWorks);
 Vue.component(MadeBy.name, MadeBy);
 Vue.component(InputNumber.name, InputNumber);
 Vue.component(Popover.name, Popover);
+Vue.component(Michael.name, Michael);
 
 // Vue.use(VModal);
-Vue.component('jazzicon', Jazzicon);
+Vue.component("jazzicon", Jazzicon);
 
 Vue.config.productionTip = false;
 
