@@ -39,11 +39,9 @@ contract KyberNetworkProxyMock {
         payable
         returns(uint)
     {
-        uint256 tokensToSend = (minConversionRate * msg.value) / 10 ** 18;
+        uint256 tokensToSend = (minConversionRate * msg.value) / (10 ** 18);
         daiContract.transfer(msg.sender, tokensToSend);
-
         return tokensToSend;
-
     }
 
     function getExpectedRate(ERC20 src, ERC20 dest, uint srcQty)
