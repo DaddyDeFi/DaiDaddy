@@ -4,9 +4,11 @@
       <img src="/img/bigMichaelLogo.png" class="logo" />
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
-      <video class="MichaelVid" autoplay muted width="380">
+      <img src="/img/michaelBoxes.png" class="hero-michael" />
+      <!-- <video class="MichaelVid" autoplay muted>
         <source src="anim/HeroMichaels.webm" type="video/webm" />
-      </video>
+      </video>-->
+
       <router-link to="/listing?open=true" class="cta" />
     </a-col>
   </a-row>
@@ -19,6 +21,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// .MichaelVid {
+//   width: 80%;
+// }
 .logo {
   width: 100%;
   max-width: 610px;
