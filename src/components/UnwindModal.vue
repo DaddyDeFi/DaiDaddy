@@ -1,36 +1,32 @@
 <template>
   <div>
     <a-button type="primary" @click="showModal">Open Modal</a-button>
-    <a-modal
-      class="model"
-      :height="400"
-      :width="900"
-      style="width:900px"
-      v-model="visible"
-      @ok="handleOk"
-    >
+    <a-modal class="model" :height="400" :width="900" style="width:900px" v-model="visible">
       <h1 class="unwindtitle">Unwind CDP</h1>
-      <a-steps :current="1">
+      <a-steps :current="current">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
       </a-steps>
       <a-divider />
-      <Step1Unwind v-if="current == 0" />
+      <Step1Unwind v-if="current == 0" @selected-cdp-id="onChildInit" />
+      <!-- loading modal -->
       <Step2Unwind v-if="current == 1" />
+      <!-- loading modal -->
       <Step3Unwind v-if="current == 2" />
+      <!-- loading modal -->
       <template slot="footer">
         <div style="text-align:right">
           <a-button
-            key="submit"
+            key="cancel"
             type="secondary"
-            @click="handleOk"
+            @click="handleCancel"
             style="border-radius: 25px;"
           >Cancel</a-button>
           <a-button
-            key="submit"
+            key="connect"
             class="ConnectButton"
             type="primary"
-            @click="connect"
-            :disabled="debtOrder.cdpId==null"
+            @click="submit"
+            :disabled="unwindOrder==null"
             v-if="current == 0"
           >Connect me Daddy</a-button>
           <a-button
@@ -38,14 +34,13 @@
             class="SubmitButton"
             type="primary"
             @click="submit"
-            :disabled="debtOrder.cdpId==null"
             v-if="current == 1"
           >Submit to Daddy</a-button>
           <a-button
-            key="submit"
+            key="unwind"
             class="BuyButton"
             type="primary"
-            @click="unwind"
+            @click="submit"
             v-if="current == 2"
           >Unwind me Daddy</a-button>
         </div>
@@ -61,41 +56,38 @@ export default {
   name: "UnwindModal",
   methods: {
     ...mapActions(["SELL_CDP"]),
-    connect() {},
-    sellCDP() {
-      console.log("SELLING!");
-      this.SELL_CDP(this.debtOrder);
-      this.myListings.push({
-        cdpId:
-          "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-        CDPNo: 3905,
-        daiDrawn: 9605,
-        collateralRatio: "166.19 ETH | 307.93%",
-        fee: 884.0,
-        value: 118.165,
-        discount: 2,
-        finalPrice: 115.801,
-        selected: false
-      });
-    },
     showModal() {
       this.visible = true;
     },
-    handleOk(e) {
-      console.log(e);
+    handleCancel(e) {
       this.visible = false;
-    },
-    selectCDP(cdpId) {
-      this.myCdps = this.myCdps.map(x => {
-        x.selected = false;
-        return x;
-      });
-      this.myCdps[cdpId].selected = true;
-      this.debtOrder.debtIndex = cdpId;
-      this.debtOrder.cdpId = this.myCdps[cdpId].cdpId;
+      this.current = 0;
     },
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    submit() {
+      if (this.current == 0) {
+        //insert logic
+        //fire metamask and loading modal
+        this.current++;
+      }
+      if (this.current == 1) {
+        //insert logic
+        //fire metamask and loading modal
+        this.current++;
+      }
+      if (this.current == 2) {
+        this.visible = false;
+        //insert logic
+        //fire metamask and loading modal
+        this.current = 0;
+      }
+      // insert logic
+    },
+    onChildInit(selectedCDP) {
+      console.log("selectedCDP", selectedCDP);
+      this.unwindOrder = selectedCDP;
     }
   },
   mounted() {
@@ -120,39 +112,9 @@ export default {
         }
       ],
       current: 0,
-      debtOrder: {
-        discount: 5,
-        debtIndex: null,
-        cdpId: null
-      },
+      unwindOrder: null,
       visible: true,
-      myListings: [],
-      myCdps: [
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69420,
-          daiDrawn: 50,
-          collateralRatio: "1 ETH | 421%",
-          fee: 0.042069,
-          value: 0.75,
-          discount: 5,
-          finalPrice: 0.7125,
-          selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
-          selected: false
-        }
-      ]
+      myListings: []
     };
   }
 };

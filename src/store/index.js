@@ -24,8 +24,8 @@ import truffleContract from "truffle-contract";
 import SaiTubABI from "../../build/contracts/SaiTub.json"
 const SaiTub = truffleContract(SaiTubABI);
 
-import DaiDaddyABI from "../../build/contracts/DaiDaddy.json"
-const DaiDaddy = truffleContract(DaiDaddyABI);
+// import DaiDaddyABI from "../../build/contracts/DaiDaddy.json"
+// const DaiDaddy = truffleContract(DaiDaddyABI);
 
 Vue.use(Vuex)
 
