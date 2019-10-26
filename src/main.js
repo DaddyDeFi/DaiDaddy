@@ -23,7 +23,6 @@ import Hero from "./components/Hero";
 import SellYourCDPSection from "./components/SellYourCDPSection";
 import HowItWorks from "./components/HowItWorks";
 import MadeBy from "./components/MadeBy";
-import Michael from "./components/Michael";
 // import VModal from 'vue-js-modal'
 
 Vue.component(Button.name, Button);
