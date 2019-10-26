@@ -73,62 +73,64 @@ contract Unwinder {
 
     /**
      * @dev Gets the conversion rate for the destToken given the srcQty.
-     * @param srcToken source token contract address
-     * @param srcQty amount of source tokens
-     * @param destToken destination token contract address
+     * @param _srcToken source token contract address
+     * @param _srcQty amount of source tokens
+     * @param _destToken destination token contract address
      */
     function getConversionRates(
-        address srcToken,
-        uint srcQty,
-        address destToken
+        address _srcToken,
+        uint _srcQty,
+        address _destToken
     ) public
         view
         returns (uint, uint)
     {
-        return kyberNetworkProxyContract.getExpectedRate(srcToken, destToken, srcQty);
+        return kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
 
     }
 
     /**
      * @dev Swap the user's ERC20 token to another ERC20 token/ETH
-     * @param srcToken source token contract address
-     * @param srcQty amount of source tokens
-     * @param destToken destination token contract address
-     * @param destAddress address to send swapped tokens to
-     * @param maxDestAmount address to send swapped tokens to
+     * @param _srcToken source token contract address
+     * @param _srcQty amount of source tokens
+     * @param _destToken destination token contract address
+     * @param _destAddress address to send swapped tokens to
+     * @param _maxDestAmount address to send swapped tokens to
      */
     function executeSwap(
-        address srcToken,
-        uint srcQty,
-        address destToken,
-        address destAddress,
-        uint maxDestAmount
+        address _srcToken,
+        uint _srcQty,
+        address _destToken,
+        address _destAddress,
+        uint _maxDestAmount
     ) public {
-        uint minConversionRate;
+        uint _minConversionRate;
 
         // Check that the token transferFrom has succeeded
-        require(ERC20(srcToken).transferFrom(msg.sender, address(this), srcQty), "Token transfer did not complete successfully");
+        require(ERC20(_srcToken).transferFrom(msg.sender, address(this), _srcQty), "Token transfer did not complete successfully");
 
         // Mitigate ERC20 Approve front-running attack, by initially setting
         // allowance to 0
-        require(ERC20(srcToken).approve(address(kyberNetworkProxyContract), 0), "Token aprove did not complete successfully");
+        require(ERC20(_srcToken).approve(address(kyberNetworkProxyContract), 0), "Token aprove did not complete successfully");
 
         // Set the spender's token allowance to tokenQty
-        require(ERC20(srcToken).approve(address(kyberNetworkProxyContract), srcQty),"Token aprove did not complete successfully");
+        require(ERC20(_srcToken).approve(address(kyberNetworkProxyContract), _srcQty),"Token aprove did not complete successfully");
 
         // Get the minimum conversion rate
-        (minConversionRate,) = kyberNetworkProxyContract.getExpectedRate(srcToken, destToken, srcQty);
+        (_minConversionRate,) = kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
 
-        // Swap the ERC20 token and send to destAddress
+        // Swap the ERC20 token and send to _destAddress
         kyberNetworkProxyContract.trade(
-            srcToken,
-            srcQty,
-            destToken,
-            destAddress,
-            maxDestAmount,
-            minConversionRate,
+            _srcToken,
+            _srcQty,
+            _destToken,
+            _destAddress,
+            _maxDestAmount,
+            _minConversionRate,
             address(0) //walletId for fee sharing program
         );
     }
+
+    function unwindCDP(bytes32 _cup)
 }
 
