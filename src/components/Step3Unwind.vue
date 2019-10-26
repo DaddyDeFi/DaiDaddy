@@ -1,67 +1,68 @@
 <template>
   <div>
-    <a-button type="primary" @click="showModal">Open Modal</a-button>
-    <a-modal
-      class="model"
-      :height="400"
-      :width="900"
-      style="width:900px"
-      v-model="visible"
-      @ok="handleOk"
-    >
-      <h1 class="unwindtitle">Unwind CDP</h1>
-      <a-steps :current="1">
-        <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-      </a-steps>
-      <a-divider />
-      <Step1Unwind v-if="current == 0" />
-      <Step2Unwind v-if="current == 1" />
-      <Step3Unwind v-if="current == 2" />
-      <template slot="footer">
-        <div style="text-align:right">
-          <a-button
-            key="submit"
-            type="secondary"
-            @click="handleOk"
-            style="border-radius: 25px;"
-          >Cancel</a-button>
-          <a-button
-            key="submit"
-            class="ConnectButton"
-            type="primary"
-            @click="connect"
-            :disabled="debtOrder.cdpId==null"
-            v-if="current == 0"
-          >Connect me Daddy</a-button>
-          <a-button
-            key="submit"
-            class="SubmitButton"
-            type="primary"
-            @click="submit"
-            :disabled="debtOrder.cdpId==null"
-            v-if="current == 1"
-          >Submit to Daddy</a-button>
-          <a-button
-            key="submit"
-            class="BuyButton"
-            type="primary"
-            @click="unwind"
-            v-if="current == 2"
-          >Unwind me Daddy</a-button>
+    <h2 style="padding-bottom:25px; font-weight:900;">Time to Unwind</h2>
+    <p
+      style="padding-bottom:25px; font-weight:400;"
+    >Alright, no more teasing 😉 Time for me to help you unwind. Just lie back, relax, and let me do all the work 👸💕</p>
+    <!-- View smart contract link -->
+    <a-row>
+      <a-col :span="16">
+        <a-row>
+          <a-col :span="4">
+            <th style="font-weight: 900;"></th>
+          </a-col>
+          <a-col :span="5">
+            <th style="font-weight: 900">CDP Number</th>
+          </a-col>h4
+          <a-col :span="5">
+            <th style="font-weight: 900;">CDP Value</th>
+            <!-- i link -->
+          </a-col>
+          <a-col :span="5">
+            <th style="font-weight: 900;">Fees</th>
+            <!-- i link -->
+          </a-col>
+          <a-col :span="4">
+            <th class="PinkText" style="font-weight: 900;">You'll get:</th>
+          </a-col>
+        </a-row>
+        <hr style="padding:0px; margin:0px" />
+        <div
+          v-for="(cdp, index) in myCdps"
+          :key="index"
+          :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
+        >
+          <div @click="selectCDP(index)" style="cursor: pointer">
+            <a-row style="padding-top:15px; padding-bottom:15px;">
+              <a-col style="padding-left:25px" :span="4"></a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <span>{{numberWithCommas(cdp.CDPNo)}}</span>
+              </a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <span>{{numberWithCommas(cdp.CDPValue)}} DAI</span>
+              </a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <span>{{cdp.Fees}} ETH</span>
+              </a-col>
+              <a-col style="padding-top:5px" :span="4">
+                <span class="PinkText">{{cdp.final}} ETH</span>
+              </a-col>
+            </a-row>
+          </div>
+          <hr style="padding:0px; margin:0px" />
         </div>
-      </template>
-    </a-modal>
+        <a-divider />
+      </a-col>
+    </a-row>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
-import Step1UnwindVue from "./Step1Unwind.vue";
 export default {
-  name: "UnwindModal",
+  name: "Step3Unwind",
   methods: {
     ...mapActions(["SELL_CDP"]),
-    connect() {},
     sellCDP() {
       console.log("SELLING!");
       this.SELL_CDP(this.debtOrder);
@@ -105,21 +106,6 @@ export default {
   },
   data() {
     return {
-      steps: [
-        {
-          title: "Show me your CDP",
-          description: "Select a CDP to unwind"
-        },
-        {
-          title: "Submit to Daddy",
-          description: "We need your consent"
-        },
-        {
-          title: "Unwind me Daddy",
-          description: "Let us help you unwind"
-        }
-      ],
-      current: 1,
       debtOrder: {
         discount: 5,
         debtIndex: null,

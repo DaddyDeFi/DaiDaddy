@@ -7,7 +7,8 @@ import {
   Radio,
   InputNumber,
   Popover,
-  Divider
+  Divider,
+  Steps
 } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 
@@ -23,6 +24,10 @@ import Hero from "./components/Hero";
 import SellYourCDPSection from "./components/SellYourCDPSection";
 import HowItWorks from "./components/HowItWorks";
 import MadeBy from "./components/MadeBy";
+import UnwindModal from "./components/UnwindModal";
+import Step1Unwind from "./components/Step1Unwind";
+import Step2Unwind from "./components/Step2Unwind";
+import Step3Unwind from "./components/Step3Unwind";
 // import VModal from 'vue-js-modal'
 
 Vue.component(Button.name, Button);
@@ -39,7 +44,13 @@ Vue.component(HowItWorks.name, HowItWorks);
 Vue.component(MadeBy.name, MadeBy);
 Vue.component(InputNumber.name, InputNumber);
 Vue.component(Popover.name, Popover);
-Vue.component(Michael.name, Michael);
+Vue.component(Divider.name, Divider);
+Vue.component(Steps.name, Steps);
+Vue.component(Steps.Step.name, Steps.Step);
+Vue.component(UnwindModal.name, UnwindModal);
+Vue.component(Step1Unwind.name, Step1Unwind);
+Vue.component(Step2Unwind.name, Step2Unwind);
+Vue.component(Step3Unwind.name, Step3Unwind);
 
 // Vue.use(VModal);
 Vue.component("jazzicon", Jazzicon);
