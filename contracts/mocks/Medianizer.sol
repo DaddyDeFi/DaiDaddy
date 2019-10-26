@@ -12,7 +12,13 @@
 pragma solidity^0.5.3;
 
 contract Medianizer {
-    function read() public pure returns (bytes32) {
-        return bytes32(uint256(200 ether));
+    uint256 etherPrice;
+    
+    constructor(uint256 _etherPrice) public{
+        etherPrice = _etherPrice;
+    }
+    
+    function read() public view returns (bytes32) {
+        return bytes32(etherPrice);
     }  
 }
