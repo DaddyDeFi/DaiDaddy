@@ -11,31 +11,41 @@ import "./ERC20Interface.sol";
 contract Unwinder {
     // constants
     uint256 SAFE_NO_LIQUIDATION_RATE = 151 * 10 ** 16;  // a value of 1.51, just above the liquidation amount of a CDP
-    ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
     // contract instances for unwinding and trading
     SaiTub public saiTubContract;
     Medianizer public medianizerContract;
     KyberNetworkProxy public kyberNetworkProxyContract;
     ERC20 public daiContract;
+    ERC20 public wethContract;
 
     // state variables
     mapping (address => bytes32)  public  cupOwners; // prove that you owned the CDP before transfering it to DaiDaddy
     address daiDaddyFeeCollector;
 
+    struct Cup {
+        address  lad;      // CDP owner
+        uint256  ink;      // Locked collateral (in SKR)
+        uint256  art;      // Outstanding normalised debt (tax only)
+        uint256  ire;      // Outstanding normalised debt
+    }
+    
     constructor(address _saiTubAddress,
         address _medianizerAddress,
         address _KyberNetworkProxyAddress,
         address _daiTokenAddress,
+        address _wethTokenAddress,
         address _daiDaddyFeeCollector)
     public {
         saiTubContract = SaiTub(_saiTubAddress);
         medianizerContract = Medianizer(_medianizerAddress);
         kyberNetworkProxyContract = KyberNetworkProxy(_KyberNetworkProxyAddress);
         daiContract = ERC20(_daiTokenAddress);
+        wethContract = ERC20(_wethTokenAddress);
         daiDaddyFeeCollector = _daiDaddyFeeCollector;
 
         require(daiContract.approve(address(kyberNetworkProxyContract), 10 ** 26), "Token aprove did not complete successfully");
+        require(wethContract.approve(address(kyberNetworkProxyContract), 10 ** 26), "Token aprove did not complete successfully");
     }
 
     // round number a to b decimal points
@@ -48,7 +58,11 @@ contract Unwinder {
     // uint256  art             Outstanding normalised debt(including tax)
     // uint256  etherPrice      Current ether Price
     // uint256  wpRatio         Weth to Peth Ratio
-    function collateralizationRatio(uint256 ink, uint256 art, uint256 etherPrice, uint256 wpRatio) public pure returns (uint256) {
+    function collateralizationRatio(uint256 ink,
+        uint256 art,
+        uint256 etherPrice,
+        uint256 wpRatio)
+    public pure returns (uint256) {
         uint256 cr = (ink * etherPrice * wpRatio) / (art * 10 ** 18);
         return cr;
     }
@@ -78,29 +92,26 @@ contract Unwinder {
 
     // See how much Dai can be gained from trading against keyber for the freed Ether
     function ethToDaiKyberPrice(uint256 _etherToSell) public view returns (uint) {
-        (uint price,) = kyberNetworkProxyContract.getExpectedRate(ETH_TOKEN_ADDRESS,
+        (uint price,) = kyberNetworkProxyContract.getExpectedRate(wethContract,
         daiContract,
         _etherToSell);
         return price;
     }
 
-    // Exchange x amount of eth for dai at the best price.
-    function swapEthToDai(
-    ) public payable returns (uint){
-        require(msg.value > 0, "Must send eth to swap to dai");
-
-        uint _srcQty = msg.value;
+    // Exchange x amount of weth for dai at the best price.
+    function swapWethToDai(uint _srcQty) public returns (uint){
+        require(wethContract.balanceOf(address(this)) >= _srcQty, "Does not have enough weth to make exchange");
         uint _minConversionRate;
         address _destAddress = address(this);
         uint _maxDestAmount = 10 ** 26; // 1 billion of the dest token.
-        ERC20 _srcToken = ETH_TOKEN_ADDRESS;
+        ERC20 _srcToken = wethContract;
         ERC20 _destToken = daiContract;
         
         // Get the minimum conversion rate
         (_minConversionRate,) = kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
         
         // Swap the ERC20 token and send to _destAddress
-        return kyberNetworkProxyContract.trade.value(_srcQty)(
+        return kyberNetworkProxyContract.trade(
             _srcToken, //_srcToken source token contract address
             _srcQty, //_srcQty amount of source tokens
             _destToken, //_destToken destination token contract address
@@ -112,21 +123,20 @@ contract Unwinder {
     }
 
     // free the maximum amount of ether possible from the CDP without liquidating it
-    function drawMaxEtherFromCDP(uint256 _cup) public returns (uint) {
-        // (address lad,uint256  ink,uint256  art,uint256  ire) = saiTubContract.cups(_cup);
+    function drawMaxWethFromCDP(bytes32 _cup) public returns (uint256) {
+        // get cup info
+        (,uint256  ink, uint256  art,) = saiTubContract.cups(_cup);
         
-        // uint256 ethPrice = getEtherPrice();
-
+        // calculate how much ether can be freed from the cup
+        uint256 freeableEther = freeableCollateral(ink, art, getEtherPrice(), getWpRatio());
         
-        // uint256 freeableEther = freeableCollateral(ink, art, ethPrice, wpRatio);
+        // free peth from cdp
+        saiTubContract.free(_cup, freeableEther);
+        
+        //convert peth to Weth //this should include the wpratio...
+        saiTubContract.exit(freeableEther);
 
-
-    }
-
-    function unwindCDP(bytes32 _cup) public {
-        (address lad,,,) = saiTubContract.cups(_cup);
-        require(lad == address(this), "Can only unwind CDPs that have been transfered to the Unwinder");
-        require(cupOwners[msg.sender] == _cup, "Can only unwind CDPs that were owned by the seller");
+        return freeableEther;
     }
 
     function getEtherPrice() public view returns(uint256){
@@ -138,5 +148,14 @@ contract Unwinder {
     function getWpRatio() public view returns(uint256){
         return saiTubContract.per()/(10 ** 9);
     }
+
+    function giveCDPBack() public {}
+    
+    function unwindCDP(bytes32 _cup) public {
+        (address lad,,,) = saiTubContract.cups(_cup);
+        require(lad == address(this), "Can only unwind CDPs that have been transfered to the Unwinder");
+        require(cupOwners[msg.sender] == _cup, "Can only unwind CDPs that were owned by the seller");
+    }
+
 }
 
