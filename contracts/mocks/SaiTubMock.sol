@@ -121,4 +121,9 @@ contract SaiTubMock {
     function balancerOf(address _lad) public view returns(uint256) {
         return peth[_lad];
     }
+
+    function wipe(bytes32 cup, uint wad) public {
+        this.daiContract.transferFrom(msg.sender, address(0), wad);
+        cups[cup].art = cups[cup].art - wad;
+    }
 }

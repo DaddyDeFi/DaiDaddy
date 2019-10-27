@@ -170,7 +170,7 @@ contract Unwinder {
             uint etherNeededToSend = (art * 10 ** 18) / expectedRate;
             uint256 daiReceived = swapWethToDai(etherNeededToSend);
             require(daiReceived >= art, "Not enough dai received to wipe all debt");
-            saiTubContract.wipe(_cup, art);
+            saiTubContract.wipe(_cup, etherNeededToSend);
         }
     }
 
