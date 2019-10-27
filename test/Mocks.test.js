@@ -20,12 +20,13 @@ const ERC20Mock = artifacts.require("ERC20Mock")
 // the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
 // The collateralization ratio for this given CDP is 301.91%
 const cupId = "0x0000000000000000000000000000000000000000000000000000000000000f41"
-const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8"
-const ink = "166188150160920386823"
-const art = "9605000000000000000000"
-const ire = "9510786783831334714721"
-const tab = "50000000000000000000"
-const rap = "1937914497665704"
+const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8" // an example lad of a cup
+const ink = "166188150160920386823" //166.19 ether collateral
+const art = "9605000000000000000000" //9605 dai debt
+const ire = "9510786783831334714721" //debt before fee
+const tab = "50000000000000000000" //get the amount of debt in a cup
+const rap = "1937914497665704" //get the amount of governance debt in a cup
+const per = "1046338576393856513396626889" // weth to peth ratio
 
 // other constants
 const etherPrice = "166770000000000000000"
@@ -46,7 +47,8 @@ contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
             art,
             ire,
             tab,
-            rap, {
+            rap,
+            per, {
                 from: contractOwner
             })
 
