@@ -5,8 +5,9 @@
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
       <h2 style="font-weight: 900;">
-        Find yourself a
-        <span style="color:#FFA1D3">#daidaddy 🤑</span>
+        You're not on the market right now
+        <i class="em em-cry" />
+        <br />Looking for a Dai daddy?
       </h2>
       <a-button
         type="primary"

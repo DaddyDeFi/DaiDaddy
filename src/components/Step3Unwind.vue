@@ -1,9 +1,14 @@
 <template>
   <div>
     <h2 style="padding-bottom:25px; font-weight:900;">Time to Unwind</h2>
-    <p
-      style="padding-bottom:25px; font-weight:400;"
-    >Alright, no more teasing 😉 Time for me to help you unwind. Just lie back, relax, and let me do all the work 👸💕</p>
+    <p style="padding-bottom:25px; font-weight:400;">
+      Alright, no more teasing
+      <i class="em em-wink" /> Time for me to help you unwind. Just lie back, relax, and let me do all the work
+      <i
+        class="em em-princess"
+      />
+      <i class="em em-two_hearts" />
+    </p>
     <!-- View smart contract link -->
     <a-row>
       <a-col :span="16">

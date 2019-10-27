@@ -1,6 +1,12 @@
 <template>
   <a-row type="flex" align="center">
-    <p class="mb">🍬🍭 Made with 💖 by DAI daddy 😫💦</p>
+    <p class="mb">
+      <i class="em em-candy" />
+      <i class="em em-lollipop" /> Made with
+      <i class="em em-sparkling_heart" /> by DAI daddy
+      <i class="em em-tired_face" />
+      <i class="em em-sweat_drops" />
+    </p>
   </a-row>
 </template>
 

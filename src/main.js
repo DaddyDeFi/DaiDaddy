@@ -11,6 +11,7 @@ import {
   Steps
 } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
+import "emoji-awesome/dist/css/apple.min.css";
 
 import Jazzicon from "vue-jazzicon";
 

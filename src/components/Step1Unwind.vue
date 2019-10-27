@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="title">Select a CDP</div>
-    <div class="text">Choose a CDP to unwind 💦 and sign a transaction ✍️ to prove you own it.</div>
+    <div class="text">
+      Choose a CDP to unwind
+      <i class="em em-sweat_drops" /> and sign a transaction
+      <i class="em em-memo" /> to prove you own it.
+    </div>
     <a-row>
       <a-col :span="24">
         <a-row>

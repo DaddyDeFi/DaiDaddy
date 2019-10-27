@@ -9,8 +9,16 @@
         Transaction pending...
         <br />I'm almost ready baby!
       </p>
-      <div class="meme" v-if="status=='approve'">🙌 💖 😍</div>
-      <div class="meme" v-if="status=='pending'">🙈 👅 ⏰</div>
+      <div class="meme" v-if="status=='approve'">
+        <i class="em em-raised_hand" />
+        <i class="em em-sparkling_heart" />
+        <i class="em heart_eyes" />
+      </div>
+      <div class="meme" v-if="status=='pending'">
+        <i class="em em-see_no_evil" />
+        <i class="em em-tongue" />
+        <i class="em em-alarm_clock" />
+      </div>
       <template slot="footer" style="text-align:center">
         <div style="text-align:center">
           <a-button

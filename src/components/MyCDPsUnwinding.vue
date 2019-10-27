@@ -6,9 +6,11 @@
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
       <h4 style="font-weight: 900;">
-        Your CDPs are all currently
-        <span style="color:#FFA1D3">#tiedup 🤤🎀</span>
+        You're all wound up
+        <i class="em em-raised_hands"></i>
+        <br />Looking for a DAI daddy?
       </h4>
+      <!-- TODO: button to open unwind modal -->
     </div>
     <div v-if="myWallet.length>0">
       <a-row>

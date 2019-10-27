@@ -6,9 +6,11 @@
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
       <h4 style="font-weight: 900;">
-        Currently
-        <span style="color:#FFA1D3">#debtfree 🤑</span>
+        Someone's a bit uptight!
+        <i class="em em-tired_face" />
+        <br />You've never unwound before...
       </h4>
+      <!-- TODO: button to unwind modal -->
     </div>
     <div v-if="myWallet.length>0">
       <a-row>

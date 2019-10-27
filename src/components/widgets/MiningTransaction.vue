@@ -27,10 +27,10 @@
         style="height:150px;"
         src="../../assets/uploading.gif"
       />-->
-      <h1
-        style="font-size:45px; padding-top:15px"
-        v-if="miningTransactionObject.status=='pending'"
-      >🤞 🙌 🙏</h1>
+      <h1 style="font-size:45px; padding-top:15px" v-if="miningTransactionObject.status=='pending'">
+        <i class="em em-pray" />
+        <i class="em em-raised_hand" /> 🙏
+      </h1>
       <h1
         style="font-size:45px; padding-top:15px"
         v-if="miningTransactionObject.status=='done'"

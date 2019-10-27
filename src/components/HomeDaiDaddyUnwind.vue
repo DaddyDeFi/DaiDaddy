@@ -7,10 +7,28 @@
           <span class="pink-title">Unwind</span>
         </h1>
         <p class="subtitle">Unwind and de-stress</p>
-        <p class="text">Is your 💰CDP💰 about to be 🚨forcibly🚨 😫💦liquidated?💦😫</p>
-        <p
-          class="text"
-        >Or 🙈️maybe🙈️ you just want to withdraw your ETH, but don’t have 💵cash💵 to buy 🔺📈more📈🔺 DAI?</p>
+        <p class="text">
+          Is your
+          <i class="em em-moneybag" />CDP
+          <i class="em em-moneybag" /> about to be
+          <i class="em em-rotating_light" /> forcibly
+          <i class="em em-rotating_light" />
+          <i class="em em-tired_face" />
+          <i class="em em-sweat_drops" />liquidated?
+          <i class="em em-sweat_drops" />
+          <i class="em em-tired_face" />
+        </p>
+        <p class="text">
+          Or
+          <i class="em em-see_no_evil" />maybe
+          <i class="em em-see_no_evil" /> you just want to withdraw your ETH, but don’t have
+          <i class="em em-dollar" />cash
+          <i class="em em-dollar" /> to buy
+          <i class="em em-small_red_triangle" />
+          <i class="em em-chart_with_upwards_trend" />more
+          <i class="em em-chart_with_upwards_trend" />
+          <i class="em em-small_red_triangle" /> DAI?
+        </p>
         <p class="text">DAI daddy will unwind your CDP for you!</p>
       </div>
     </a-col>
