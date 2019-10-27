@@ -27,6 +27,8 @@ contract SaiTubMock {
     ERC20 public daiContract;
     ERC20 public wethContract;
 
+    event log(uint256 cr);
+
     constructor (bytes32 cupId,
         address _cupLad,
         uint256 _cupInk,
@@ -36,7 +38,9 @@ contract SaiTubMock {
         uint256 _uintRap,
         uint256 _per,
         address _daiTokenAddress,
-        address _wethTokenAddress)
+        address _wethTokenAddress,
+        uint256 _wpRatio,
+        uint256 _etherPrice)
     public {
         //create a new cup
         cups[cupId] = Cup(_cupLad, _cupInk, _cupArt, _cupIre);
@@ -45,6 +49,8 @@ contract SaiTubMock {
         tabValue = _cupTab;
         rapValue = _uintRap;
         perValue = _per;
+        wpRatio = _wpRatio;
+        etherPrice = _etherPrice;
 
         //init instance of the dai contract for testing
         daiContract = ERC20(_daiTokenAddress);
@@ -86,13 +92,16 @@ contract SaiTubMock {
     }
 
     function free(bytes32 cup, uint wad) public {
-        require(msg.sender == cups[cup].lad);
+        require(msg.sender == cups[cup].lad, "you are not the lad of this cup");
 
+        //first we subtract the wad from the cdp and then check that it is still safe. if not revert
         cups[cup].ink = cups[cup].ink - wad;
 
-        uint256 cr = (cups[cup].ink * etherPrice * wpRatio) / (cups[cup].art * 10 ** 18);
+        uint256 _wpRatio = per()/(10 ** 9);
+        uint256 cr = (cups[cup].ink * etherPrice * _wpRatio) / (cups[cup].art * 10 ** 18);
         //checks that the collateralization ratio is bigger than the 150% collateral requirement of a cdp
         //this is validated using the safe function in maker's tub contract. is is easier to mock it like this.
+        emit log(cr);
         require(cr > 150 * 10 ** 16, "Cant free that much collateral");
 
         //allocate peth to the user
@@ -103,6 +112,9 @@ contract SaiTubMock {
     function exit(uint wad) public {
         require(peth[msg.sender] >= wad, "Not enough peth");
         peth[msg.sender] = peth[msg.sender] - wad;
+        uint256 _wpRatio = per()/(10 ** 9);
+        // uint256 tokensToSend = wad * _wpRatio / (10 ** 18);
+        wethContract.transfer(msg.sender, wad);
     }
 
     // function is not part of tub. used to test mock
