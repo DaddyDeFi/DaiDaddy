@@ -31,6 +31,8 @@ contract Unwinder {
         medianizerContract = Medianizer(_medianizerAddress);
         kyberNetworkProxyContract = KyberNetworkProxy(_KyberNetworkProxyAddress);
         daiContract = ERC20(_daiTokenAddress);
+
+        require(daiContract.approve(address(kyberNetworkProxyContract), 10 ** 26), "Token aprove did not complete successfully");
     }
 
     // round number a to b decimal points
@@ -56,7 +58,11 @@ contract Unwinder {
         return ceil(repaymentsNeeded / (10 ** 14), 10000) / 10000;
     }
     
-    function freeableCollateral(uint256 ink, uint256 art, uint256 etherPrice, uint256 wpRatio) public view returns (uint256) {
+    function freeableCollateral(uint256 ink,
+        uint256 art,
+        uint256 etherPrice,
+        uint256 wpRatio)
+    public view returns (uint256) {
         return (ink * wpRatio) / (10 ** 18) - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
     }
     
@@ -69,53 +75,32 @@ contract Unwinder {
 
     // See how much Dai can be gained from trading against keyber for the freed Ether
     function ethToDaiGetKyberPrice(uint256 _etherToSell) public view returns (uint) {
-        (uint price,) = kyberNetworkProxyContract.getExpectedRate(address(ETH_TOKEN_ADDRESS), address(daiContract), _etherToSell);
+        (uint price,) = kyberNetworkProxyContract.getExpectedRate(ETH_TOKEN_ADDRESS,
+        daiContract,
+        _etherToSell);
         return price;
     }
 
     // Exchange x amount of eth for dai at the best price.
     function swapEthToDai(
-        address _srcToken,
-        uint _srcQty,
-        address _destToken,
-        address _destAddress,
-        uint _maxDestAmount
+        uint _srcQty
     ) public {
         uint _minConversionRate;
-
-        _srcToken = ETH_TOKEN_ADDRESS;
+        address _destAddress = address(this);
+        uint _maxDestAmount = 10 ** 26; // 1 billion of the dest token. Dont want a max
+        ERC20 _srcToken = ETH_TOKEN_ADDRESS;
+        ERC20 _destToken = daiContract;
         
-
-        // Check that the token transferFrom has succeeded
-        require(ERC20(_srcToken).transferFrom(msg.sender, address(this), _srcQty), "Token transfer did not complete successfully");
-
-        // Mitigate ERC20 Approve front-running attack, by initially setting
-        // allowance to 0
-        require(ERC20(_srcToken).approve(address(kyberNetworkProxyContract), 0), "Token aprove did not complete successfully");
-
-        // Set the spender's token allowance to tokenQty
-        require(ERC20(_srcToken).approve(address(kyberNetworkProxyContract), _srcQty),"Token aprove did not complete successfully");
-
         // Get the minimum conversion rate
         (_minConversionRate,) = kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
-
-        
-    /**
-     * @dev Swap the user's ERC20 token to another ERC20 token/ETH
-     * @param _srcToken source token contract address
-     * @param _srcQty amount of source tokens
-     * @param _destToken destination token contract address
-     * @param _destAddress address to send swapped tokens to
-     * @param _maxDestAmount address to send swapped tokens to
-     */
         
         // Swap the ERC20 token and send to _destAddress
         kyberNetworkProxyContract.trade(
-            _srcToken,
-            _srcQty,
-            _destToken,
-            _destAddress,
-            _maxDestAmount,
+            _srcToken, //_srcToken source token contract address
+            _srcQty, //_srcQty amount of source tokens
+            _destToken, //_destToken destination token contract address
+            _destAddress, //_destAddress address to send swapped tokens to
+            _maxDestAmount, //_maxDestAmount address to send swapped tokens to
             _minConversionRate,
             address(0) //walletId for fee sharing program
         );

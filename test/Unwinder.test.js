@@ -21,6 +21,7 @@ const ERC20Mock = artifacts.require("ERC20Mock")
 // the spesific info on this CDP can be found here: https://mkr.tools/cdp/3905
 // The collateralization ratio for this given CDP is 301.91%
 const cupId = "0x0000000000000000000000000000000000000000000000000000000000000f41"
+const otherCupId = "0x0000000000000000000000000000000000000000000000000000000000000f40"
 const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8"
 const ink = "166188150160920386823"
 const art = "9605000000000000000000"
@@ -79,7 +80,7 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             });
     });
 
-    context("Contract Computation Functions", function () {
+    context("Contract Computation Functions 🧮", function () {
         it("Ceil function rounds correctly", async function () {
             let number = 123456
             let base = 1000
@@ -138,6 +139,20 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
             let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+        })
+    })
+    context("CDP Unwinder functionality 🎐", function () {
+        it("Reverts if not CDP owner", async function () {
+            assert.equal(true,false)
+        })
+        it("Reverts if unwind called by non previous owner", async function () {
+            assert.equal(true, false)
+        })
+        it("Correctly Unwinds a CDP", async function () {
+            let cupObject = await this.saiTub.cups(cupId)
+            console.log("cup")
+            console.log(cupObject)
+            assert.equal(true,false)
         })
     })
 })
