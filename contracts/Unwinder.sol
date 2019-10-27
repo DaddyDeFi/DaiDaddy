@@ -10,7 +10,7 @@ import "./ERC20Interface.sol";
 
 contract Unwinder {
     // constants
-    uint256 safeNoLiquidationRatio = 151 * 10 ** 16;  // a value of 1.51, just above the liquidation amount of a CDP
+    uint256 SAFE_NO_LIQUIDATION_RATE = 151 * 10 ** 16;  // a value of 1.51, just above the liquidation amount of a CDP
     ERC20 constant internal ETH_TOKEN_ADDRESS = ERC20(0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee);
 
     // contract instances
@@ -57,30 +57,24 @@ contract Unwinder {
     }
     
     function freeableCollateral(uint256 ink, uint256 art, uint256 etherPrice, uint256 wpRatio) public view returns (uint256) {
-        return (ink * wpRatio) / (10 ** 18) - (art * safeNoLiquidationRatio) / etherPrice;
+        return (ink * wpRatio) / (10 ** 18) - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
     }
     
-    // See how much Dai can be gained from trading against keyber for the freed Ether
-    function ethToDaiGetKyberPrice(uint256 _etherToSell) public view returns (uint) {
-        (uint price,) = kyberNetworkProxyContract.getExpectedRate(address(ETH_TOKEN_ADDRESS), address(daiContract), _etherToSell);
-        return price;
-    }
-
+    // called at step 1 to show DaiDaddy that you own the CDP.
     function proveOwnershipOfCDP(bytes32 _cup) public {
         (address lad,,,) = saiTubContract.cups(_cup);
         require(lad == msg.sender, "Only the current owner of the cup can prove ownership");
         cupOwners[msg.sender] = _cup;
     }
 
-    /**
-     * @dev Swap the user's ERC20 token to another ERC20 token/ETH
-     * @param _srcToken source token contract address
-     * @param _srcQty amount of source tokens
-     * @param _destToken destination token contract address
-     * @param _destAddress address to send swapped tokens to
-     * @param _maxDestAmount address to send swapped tokens to
-     */
-    function executeSwap(
+    // See how much Dai can be gained from trading against keyber for the freed Ether
+    function ethToDaiGetKyberPrice(uint256 _etherToSell) public view returns (uint) {
+        (uint price,) = kyberNetworkProxyContract.getExpectedRate(address(ETH_TOKEN_ADDRESS), address(daiContract), _etherToSell);
+        return price;
+    }
+
+    // Exchange x amount of eth for dai at the best price.
+    function swapEthToDai(
         address _srcToken,
         uint _srcQty,
         address _destToken,
@@ -88,6 +82,9 @@ contract Unwinder {
         uint _maxDestAmount
     ) public {
         uint _minConversionRate;
+
+        _srcToken = ETH_TOKEN_ADDRESS;
+        
 
         // Check that the token transferFrom has succeeded
         require(ERC20(_srcToken).transferFrom(msg.sender, address(this), _srcQty), "Token transfer did not complete successfully");
@@ -102,6 +99,16 @@ contract Unwinder {
         // Get the minimum conversion rate
         (_minConversionRate,) = kyberNetworkProxyContract.getExpectedRate(_srcToken, _destToken, _srcQty);
 
+        
+    /**
+     * @dev Swap the user's ERC20 token to another ERC20 token/ETH
+     * @param _srcToken source token contract address
+     * @param _srcQty amount of source tokens
+     * @param _destToken destination token contract address
+     * @param _destAddress address to send swapped tokens to
+     * @param _maxDestAmount address to send swapped tokens to
+     */
+        
         // Swap the ERC20 token and send to _destAddress
         kyberNetworkProxyContract.trade(
             _srcToken,

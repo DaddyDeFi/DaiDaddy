@@ -6,9 +6,9 @@ import "./ERC20Interface.sol";
 interface KyberNetworkProxy {
 
     function trade(
-        address src,
+        ERC20 src,
         uint srcAmount,
-        address dest,
+        ERC20 dest,
         address destAddress,
         uint maxDestAmount,
         uint minConversionRate,
@@ -16,8 +16,8 @@ interface KyberNetworkProxy {
         ) external payable returns (uint);
 
     function getExpectedRate(
-        address src,
-        address dest,
+        ERC20 src,
+        ERC20 dest,
         uint srcQty
         ) external view returns (uint, uint);
 }

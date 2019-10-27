@@ -29,7 +29,7 @@ const discount = "5"
 //other constants
 const etherPrice = "166770000000000000000"
 
-contract("DaiDaddy::DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
+contract("DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
         this.saiTub = await SaiTub.new(
             cupId,
