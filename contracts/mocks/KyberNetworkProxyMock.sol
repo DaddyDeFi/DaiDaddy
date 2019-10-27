@@ -7,40 +7,35 @@ contract KyberNetworkProxyMock {
     uint slippageRate;
 
     ERC20 public daiContract;
+    ERC20 public wethContract;
 
-    constructor( uint _expectedRate, uint _slippageRate, address _daiTokenAddress) public{
+    constructor(uint _expectedRate,
+        uint _slippageRate,
+        address _daiTokenAddress,
+        address _wethTokenAddress)
+        public {
         expectedRate = _expectedRate;
         slippageRate = _slippageRate;
 
         daiContract = ERC20(_daiTokenAddress);
+        wethContract = ERC20(_wethTokenAddress);
     }
     
 
-    /// @notice use token address ETH_TOKEN_ADDRESS for ether
-    /// @dev makes a trade between src and dest token and send dest token to destAddress
-    /// @param src Src token
-    /// @param srcAmount amount of src tokens
-    /// @param dest   Destination token
-    /// @param destAddress Address to send tokens to
-    /// @param maxDestAmount A limit on the amount of dest tokens
-    /// @param minConversionRate The minimal conversion rate. If actual rate is lower, trade is canceled.
-    /// @param walletId is the wallet ID to send part of the fees
-    /// @return amount of actual dest tokens
     function trade(
-        ERC20 src,
-        uint srcAmount,
-        ERC20 dest,
-        address destAddress,
-        uint maxDestAmount,
-        uint minConversionRate,
-        address walletId
-    )
+        ERC20 src, //src Src token
+        uint srcAmount, //srcAmount amount of src tokens
+        ERC20 dest, //dest Destination token
+        address destAddress, //destAddress Address to send tokens to
+        uint maxDestAmount, //maxDestAmount A limit on the amount of dest tokens
+        uint minConversionRate, //minConversionRate The minimal conversion rate. If actual rate is lower, trade is canceled.
+        address walletId) //walletId is the wallet ID to send part of the fees
         public
-        payable
-        returns(uint)
-    {
-        uint256 tokensToSend = (minConversionRate * msg.value) / (10 ** 18);
-        daiContract.transfer(msg.sender, tokensToSend);
+        returns(uint) { //amount of actual dest tokens
+        uint256 tokensToSend = (minConversionRate * srcAmount) / (10 ** 18);
+        
+        require(daiContract.transfer(msg.sender, tokensToSend),"dai token transfer failed"); //send dai
+        require(wethContract.transferFrom(msg.sender, address(this), srcAmount),"weth token transfer failed"); //recive weth
         return tokensToSend;
     }
 
