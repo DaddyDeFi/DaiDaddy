@@ -41,6 +41,31 @@ const ethContractAddress = "0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 
 contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
+
+        this.medianizer = await medianizerMock.new(etherPrice, {
+            from: contractOwner
+        })
+
+        //dai mock token
+        // tokens are sent to the owner. later sent to the kyber exchange to simulate trading
+        this.dai = await ERC20Mock.new(contractOwner, ether('20000000'), {
+            from: contractOwner
+        })
+
+        // weth mock token
+        this.weth = await ERC20Mock.new(contractOwner, ether('20000000'), {
+            from: contractOwner
+        })
+
+        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
+        // without implementing this logic.
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice,
+            etherPriceSlippage,
+            this.dai.address,
+            this.weth.address, {
+                from: contractOwner
+            })
+
         this.saiTub = await SaiTub.new(
             cupId,
             // lad,
@@ -50,27 +75,19 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             ire,
             tab,
             rap,
-            per, {
+            per,
+            this.dai.address,
+            this.weth.address, {
                 from: contractOwner
             })
 
-        this.medianizer = await medianizerMock.new(etherPrice, {
-            from: contractOwner
-        })
-
-        // tokens are sent to the owner. later sent to the kyber exchange to simulate trading
-        this.dai = await ERC20Mock.new(contractOwner, ether('10000000'), {
-            from: contractOwner
-        })
-
-        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
-        // without implementing this logic.
-        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, this.dai.address, {
-            from: contractOwner
-        })
-
         //Fund the kyber exchange
         this.dai.transfer(this.kyberNetworkProxy.address, ether('10000000'), {
+            from: contractOwner
+        })
+
+        //Fund the tub exchange
+        this.weth.transfer(this.saiTub.address, ether('10000000'), {
             from: contractOwner
         })
 
@@ -78,6 +95,7 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             this.medianizer.address,
             this.kyberNetworkProxy.address,
             this.dai.address,
+            this.weth.address,
             contractOwner, {
                 from: contractOwner
             });
@@ -163,35 +181,49 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             assert.equal(contractRate.toString(10), etherPrice, "Kyber price intergration returned wrong value")
         })
 
-        it("Correctly exchanges eth send to swap for dai function", async function () {
+        it("Correctly exchanges weth send to swap for dai function", async function () {
             let kyberDaiBalanceBefore = await this.dai.balanceOf(this.kyberNetworkProxy.address)
-            let kyberEtherBalanceBefore = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let kyberWethBalanceBefore = await this.weth.balanceOf(this.kyberNetworkProxy.address)
             let UnwinderDaiBalanceBefore = await this.dai.balanceOf(this.unwinder.address)
 
-            let tokensSent = await this.unwinder.swapEthToDai({
-                from: seller,
-                value: ether("1")
+            //send the seller weth to test against
+            await this.weth.transfer(this.unwinder.address, ether("10000"), {
+                from: contractOwner
+            })
+
+            let tokensSent = await this.unwinder.swapWethToDai(ether("1"), {
+                from: seller
             })
 
             let kyberDaiBalanceAfter = await this.dai.balanceOf(this.kyberNetworkProxy.address)
-            let kyberEtherBalanceAfter = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let kyberWethBalanceAfter = await this.weth.balanceOf(this.kyberNetworkProxy.address)
             let UnwinderDaiBalanceAfter = await this.dai.balanceOf(this.unwinder.address)
 
             let exchangeDaiDelta = kyberDaiBalanceBefore - kyberDaiBalanceAfter
             assert.equal(Math.round(exchangeDaiDelta / 10 ** 10).toString(10), Math.round(etherPrice / 10 ** 10).toString(10), "Dai balance did not decrease correctly from exchange")
 
-            let exchangeEthDelta = kyberEtherBalanceAfter - kyberEtherBalanceBefore
+            let exchangeEthDelta = kyberWethBalanceAfter - kyberWethBalanceBefore
             assert.equal(Math.round(exchangeEthDelta / 10 ** 10).toString(10), Math.round(ether("1") / 10 ** 10).toString(), "Ether balance did increase decrease correctly")
 
             let UnwinderDaiDelta = UnwinderDaiBalanceAfter - UnwinderDaiBalanceBefore
             assert.equal(Math.round(UnwinderDaiDelta / 10 ** 10).toString(10), Math.round(etherPrice / 10 ** 10).toString(), "seller dai balance did increase decrease correctly")
         })
-        it("Reverts on empty exchange", async function () {
-            await expectRevert.unspecified(this.unwinder.swapEthToDai({
+        it("Reverts if too much attempted to be exchanged", async function () {
+            await expectRevert.unspecified(this.unwinder.swapWethToDai(ether("1000000000000000"), {
                 from: seller,
-                value: ether("0")
             }))
         })
+    })
+
+    context("Helper functions tests 🧨", function () {
+        // it("Can Draw max Ether From CDP", async function () {
+        //     let UnwinderEtherBalanceBefore = await this.dai.balanceOf(this.unwinder.address)
+        //     let returned = await this.unwinder.drawMaxWethFromCDP.call(cupId)
+        //     console.log("value", returned.toString(10))
+        //     let UnwinderEtherBalanceAfter = await this.dai.balanceOf(this.unwinder.address)
+
+        //     console.log(UnwinderEtherBalanceBefore.toString(10), UnwinderEtherBalanceAfter.toString(10))
+        // })
     })
 
     context("CDP Unwinder functionality 🎐", function () {
@@ -202,7 +234,12 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             }))
         })
         it("Reverts if unwind called by non previous owner", async function () {
-            // first we give the cup to the Unwinder from the seller
+            // first prove we own the cdp
+            await this.unwinder.proveOwnershipOfCDP(cupId, {
+                from: seller
+            })
+
+            // then give the cup to the Unwinder from the seller
             await this.saiTub.give(cupId, this.unwinder.address, {
                 from: seller
             })
@@ -213,15 +250,22 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             }))
         })
         it("Correctly Unwinds a CDP", async function () {
-            // first we give the cup to the Unwinder from the seller
+            // first prove we own the cdp
+            await this.unwinder.proveOwnershipOfCDP(cupId, {
+                from: seller
+            })
+
+            // then we give the cup to the Unwinder from the seller
             await this.saiTub.give(cupId, this.unwinder.address, {
                 from: seller
             })
 
-            // then try to unwind from a diffrent address
-            this.unwinder.unwindCDP(cupId, {
+            // finally unwind the cdp
+            let valueReturned = await this.unwinder.unwindCDP(cupId, {
                 from: seller
             })
+
+            // console.log("valueReturned", valueReturned)
         })
     })
 })
