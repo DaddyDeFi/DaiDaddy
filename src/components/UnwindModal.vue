@@ -1,52 +1,54 @@
 <template>
-  <div>
-    <a-button type="primary" @click="showModal">Open Modal</a-button>
-    <a-modal class="model" :height="400" :width="900" style="width:900px" v-model="visible">
-      <h1 class="unwindtitle">Unwind CDP</h1>
-      <a-steps :current="current">
-        <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-      </a-steps>
-      <a-divider />
-      <Step1Unwind v-if="current == 0" @selected-cdp-id="onChildInit" />
-      <!-- loading modal -->
-      <Step2Unwind v-if="current == 1" />
-      <!-- loading modal -->
-      <Step3Unwind v-if="current == 2" />
-      <!-- loading modal -->
-      <template slot="footer">
-        <div style="text-align:right">
-          <a-button
-            key="cancel"
-            type="secondary"
-            @click="handleCancel"
-            style="border-radius: 25px;"
-          >Cancel</a-button>
-          <a-button
-            key="connect"
-            class="Button"
-            type="primary"
-            @click="submit"
-            :disabled="unwindOrder==null"
-            v-if="current == 0"
-          >Connect me Daddy</a-button>
-          <a-button
-            key="submit"
-            class="Button"
-            type="primary"
-            @click="submit"
-            v-if="current == 1"
-          >Submit to Daddy</a-button>
-          <a-button
-            key="unwind"
-            class="Button"
-            type="primary"
-            @click="submit"
-            v-if="current == 2"
-          >Unwind me Daddy</a-button>
-        </div>
-      </template>
-    </a-modal>
-  </div>
+  <a-modal class="model" :height="400" :width="680" v-model="isVisible" @cancel="handleCancel">
+    <div class="title">Unwind CDP</div>
+    <a-steps :current="current">
+      <a-step
+        v-for="item in steps"
+        :key="item.title"
+        :title="item.title"
+        :description="item.description"
+      />
+    </a-steps>
+    <a-divider />
+    <Step1Unwind v-if="current == 0" @selected-cdp-id="onChildInit" />
+    <!-- loading modal -->
+    <Step2Unwind v-if="current == 1" />
+    <!-- loading modal -->
+    <Step3Unwind v-if="current == 2" />
+    <!-- loading modal -->
+    <template slot="footer">
+      <div style="text-align:right">
+        <a-button
+          key="cancel"
+          type="secondary"
+          @click="handleCancel"
+          style="border-radius: 25px;"
+        >Cancel</a-button>
+        <a-button
+          key="connect"
+          class="Button"
+          type="primary"
+          @click="submit"
+          :disabled="unwindOrder==null"
+          v-if="current == 0"
+        >Connect me Daddy</a-button>
+        <a-button
+          key="submit"
+          class="Button"
+          type="primary"
+          @click="submit"
+          v-if="current == 1"
+        >Submit to Daddy</a-button>
+        <a-button
+          key="unwind"
+          class="Button"
+          type="primary"
+          @click="submit"
+          v-if="current == 2"
+        >Unwind me Daddy</a-button>
+      </div>
+    </template>
+  </a-modal>
 </template>
 
 <script>
@@ -54,15 +56,13 @@ import { mapActions, mapState } from "vuex";
 import Step1UnwindVue from "./Step1Unwind.vue";
 export default {
   name: "UnwindModal",
+  props: {
+    isVisible: {
+      type: Boolean
+    }
+  },
   methods: {
     ...mapActions(["SELL_CDP"]),
-    showModal() {
-      this.visible = true;
-    },
-    handleCancel(e) {
-      this.visible = false;
-      this.current = 0;
-    },
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
@@ -92,14 +92,12 @@ export default {
       }
       // insert logic
     },
+    handleCancel() {
+      this.$router.replace({ query: { modalUnwind: undefined } });
+      this.current = 0;
+    },
     onChildInit(selectedCDP) {
-      console.log("selectedCDP", selectedCDP);
       this.unwindOrder = selectedCDP;
-    }
-  },
-  mounted() {
-    if (this.$route.query.open) {
-      this.showModal();
     }
   },
   data() {
@@ -120,14 +118,13 @@ export default {
       ],
       current: 0,
       unwindOrder: null,
-      visible: true,
       myListings: []
     };
   }
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   font-family: "Nunito" !important;
   -webkit-font-smoothing: antialiased;
@@ -142,6 +139,14 @@ export default {
 
 .modal {
   font-family: "Nunito" !important;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 34px;
+  color: #000;
+  margin-bottom: 24px;
 }
 
 .Button {

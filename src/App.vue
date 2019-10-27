@@ -3,6 +3,8 @@
     <router-view />
     <mining-transaction />
     <MadeBy />
+
+    <unwind-modal :isVisible="this.$route.query.modalUnwind == 'true'" />
   </div>
 </template> 
 
@@ -11,11 +13,15 @@
 import MiningTransaction from "@/components/widgets/MiningTransaction";
 
 import Web3 from "web3";
+import Vue from "vue";
 import * as actions from "@/store/actions";
 import * as mutations from "@/store/mutation-types";
 import ClickableAddress from "@/components/widgets/ClickableAddress";
+import UnwindModal from "@/components/UnwindModal";
 import { mapActions, mapState } from "vuex";
 import router from "@/router";
+
+Vue.component(UnwindModal.name, UnwindModal);
 
 export default {
   name: "app",
