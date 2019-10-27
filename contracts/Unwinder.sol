@@ -98,11 +98,10 @@ contract Unwinder {
     }
 
     // See how much Dai can be gained from trading against keyber for the freed Ether
-    function ethToDaiKyberPrice(uint256 _etherToSell) public view returns (uint) {
-        (uint price,) = kyberNetworkProxyContract.getExpectedRate(wethContract,
+    function ethToDaiKyberPrice(uint256 _etherToSell) public view returns (uint expectedRate, uint slippageRate) {
+        (uint expectedRate, uint slippageRate) = kyberNetworkProxyContract.getExpectedRate(wethContract,
         daiContract,
         _etherToSell);
-        return price;
     }
 
     // Exchange x amount of weth for dai at the best price.
@@ -159,9 +158,20 @@ contract Unwinder {
     function giveCDPBack() public {}
     
     function unwindCDP(bytes32 _cup) public {
-        (address lad,,,) = saiTubContract.cups(_cup);
+        (address lad,uint256 ink, uint256 art, uint256 ire) = saiTubContract.cups(_cup);
         require(lad == address(this), "Can only unwind CDPs that have been transfered to the Unwinder");
         require(cupOwners[msg.sender] == _cup, "Can only unwind CDPs that were owned by the seller");
+    
+        uint256 freedWeth = drawMaxWethFromCDP(_cup);
+        
+        (uint expectedRate, uint slippageRate) = ethToDaiKyberPrice(freedWeth);
+        
+        if(freedWeth * expectedRate / (10 ** 18) > art) { //the free collateral is more than enough to pay off debt in one go
+            uint etherNeededToSend = (art * 10 ** 18) / expectedRate;
+            uint256 daiReceived = swapWethToDai(etherNeededToSend);
+            require(daiReceived >= art, "Not enough dai received to wipe all debt");
+            saiTubContract.wipe(_cup, art);
+        }
     }
 
 }
