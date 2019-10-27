@@ -82,6 +82,13 @@ contract Unwinder {
     public view returns (uint256) {
         return (ink * wpRatio) / (10 ** 18) - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
     }
+    function freeableCollateralWeth(uint256 ink,
+        uint256 art,
+        uint256 etherPrice,
+        uint256)
+    public view returns (uint256) {
+        return ink - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
+    }
     
     // called at step 1 to show DaiDaddy that you own the CDP.
     function proveOwnershipOfCDP(bytes32 _cup) public {
@@ -128,7 +135,7 @@ contract Unwinder {
         (,uint256  ink, uint256  art,) = saiTubContract.cups(_cup);
         
         // calculate how much ether can be freed from the cup
-        uint256 freeableEther = freeableCollateral(ink, art, getEtherPrice(), getWpRatio());
+        uint256 freeableEther = freeableCollateralWeth(ink, art, getEtherPrice(), getWpRatio());
         
         // free peth from cdp
         saiTubContract.free(_cup, freeableEther);
