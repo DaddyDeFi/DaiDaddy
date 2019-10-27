@@ -45,6 +45,7 @@
           Sowee! OwO
           <br />I’m not ready yet...
         </h2>
+        <!-- TODO: fix emoji sizing -->
         <p class="emojis">
           <i class="em em-cry" />
           <i class="em em-sob" />
