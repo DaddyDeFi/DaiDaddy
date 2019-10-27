@@ -1,3 +1,5 @@
+<!-- TODO: Fix nav styling -->
+
 <template>
   <a-row class="nav" type="flex" align="center">
     <a-col :span="12">
@@ -13,16 +15,16 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='buy'?'border-bottom: 1px solid #ffffff':''"
-            to="/buy"
-          >Buy</router-link>
+            :style="$route.name=='buy'?'font-weight: bolder':''"
+            to="?modalUnwind=true"
+          >Unwind</router-link>
         </li>
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='listingz'?'border-bottom: 1px solid #ffffff':''"
-            to="/listing?open=true"
-          >Sell</router-link>
+            :style="$route.name=='market'?'font-weight: bolder':''"
+            to="/market"
+          >Market</router-link>
         </li>
       </ul>
     </a-col>
@@ -31,9 +33,9 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='listing'?'border-bottom: 1px solid #ffffff':''"
-            to="/listing"
-          >My Listings</router-link>
+            :style="$route.name=='list'?'font-weight: bolder':''"
+            to="/list"
+          >My CDPs</router-link>
         </li>
         <li class="nav-item" style="margin-right: 0;">
           <clickable-address :eth-address="account" />
@@ -66,9 +68,9 @@ export default {
   margin-right: 2.25rem;
 }
 .nav {
-  padding-top:20px;
-  padding-left:50px;
-  padding-right:50px;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -101,7 +103,7 @@ export default {
 
 .nav-link {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 18px;
   line-height: 25px;
 }

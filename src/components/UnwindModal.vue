@@ -53,13 +53,20 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import Step1UnwindVue from "./Step1Unwind.vue";
+import Step1Unwind from "@/components/Step1Unwind.vue";
+import Step2Unwind from "@/components/Step2Unwind.vue";
+import Step3Unwind from "@/components/Step3Unwind.vue";
 export default {
   name: "UnwindModal",
   props: {
     isVisible: {
       type: Boolean
     }
+  },
+  components: {
+    Step1Unwind,
+    Step2Unwind,
+    Step3Unwind
   },
   methods: {
     ...mapActions(["SELL_CDP"]),

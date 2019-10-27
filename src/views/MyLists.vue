@@ -1,18 +1,18 @@
 <template>
   <div>
     <Nav />
-    <BuyCDP />
+    <MyCDPs />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import BuyCDP from "@/components/BuyCDP.vue";
+import MyCDPs from "@/components/MyCDPs.vue";
 
 export default {
   name: "home",
   components: {
-    BuyCDP
+    MyCDPs
   }
 };
 </script>

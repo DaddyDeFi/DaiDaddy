@@ -4,7 +4,7 @@
       <div style="max-width: 420px">
         <img src="/img/buyCdp.png" class="img" />
         <router-link
-          to="/buy"
+          to="/market"
           class="ant-btn ant-btn-lg ant-btn-block pink-button"
         >Become a Dai Daddy</router-link>
       </div>

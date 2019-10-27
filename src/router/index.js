@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import SellDebt from '../views/SellDebt.vue'
-import BuyDebt from '../views/BuyDebt.vue'
-import Listings from '../views/Listings.vue'
+import MyLists from '../views/MyLists.vue'
 import Market from '../views/Market.vue'
-import ListCDPs from '../components/ListCDPs.vue'
 
 Vue.use(VueRouter)
 
@@ -16,30 +13,15 @@ const routes = [
     component: Home
   },
   {
-    path: '/listing',
-    name: 'listing',
-    component: SellDebt
-  },
-  {
-    path: '/buy',
-    name: 'buy',
-    component: BuyDebt
-  },
-  {
-    path: '/listings',
-    name: 'listings',
-    component: Listings
+    path: '/list',
+    name: 'list',
+    component: MyLists
   },
   {
     path: '/market',
     name: 'market',
     component: Market
-  },
-    {
-      path: '/list',
-      name: 'list',
-      component: ListCDPs
-    }
+  }
 ]
 
 const router = new VueRouter({

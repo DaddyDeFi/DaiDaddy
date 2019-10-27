@@ -25,19 +25,23 @@
       </div>
     </a-col>
     <a-modal class="modal" v-model="visible" :footer="null" :closable="false">
-      <h2 class="findomtitle">
-        Sowee! OwO
-        <br />I’m not ready yet...
-      </h2>
-      <p class="emojis">😢 😭 😵</p>
-      <div style="text-align:center">
-        <a-button
-          class="close-button"
-          key="close"
-          type="primary"
-          @click="handleClose"
-          style="border-radius: 25px;"
-        >Close</a-button>
+      <div
+        style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important;"
+      >
+        <h2 class="findomtitle">
+          Sowee! OwO
+          <br />I’m not ready yet...
+        </h2>
+        <p class="emojis">😢 😭 😵</p>
+        <div style="text-align:center">
+          <a-button
+            class="close-button"
+            key="close"
+            type="primary"
+            @click="handleClose"
+            style="border-radius: 25px;"
+          >Close</a-button>
+        </div>
       </div>
     </a-modal>
   </a-row>
