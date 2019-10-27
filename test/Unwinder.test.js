@@ -37,7 +37,7 @@ const wpRatio = "1046300000000000000"
 const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
 const ethContractAddress = "0x00eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 
-contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
+contract("DaiDaddy::Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
         this.saiTub = await SaiTub.new(
             cupId,
