@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="PinkText">Sold</h2>
+    <h2 class="PinkText" style="font-size:24px">Sold</h2>
     <div
       v-if="myListings.length==0"
       style="text-align:center;padding-top:100px; padding-bottom:100px"
@@ -10,6 +10,12 @@
         <i class="em em-princess" />
         <br />You've never sold a CDP
       </h2>
+      <a-button
+        type="primary"
+        class="SellButton"
+        style="font-weight: 900;"
+        @click="showModal"
+      >Sell a CDP</a-button>
     </div>
     <div v-if="myListings.length>0">
       <a-row>
@@ -86,13 +92,14 @@
         </a-row>
         <hr style="padding:0px; margin:0px" />
       </div>
+      <a-button
+        type="primary"
+        class="SellButton"
+        style="font-weight: 900;"
+        @click="showModal"
+      >Sell a CDP</a-button>
     </div>
-    <a-button
-      type="primary"
-      class="SellButton"
-      style="font-weight: 900;"
-      @click="showModal"
-    >Sell a CDP</a-button>
+
     <!-- TODO: Add Sell Modal -->
   </div>
 </template>

@@ -1,15 +1,22 @@
 <template>
   <div>
+    <div>
+      <h3 class="PinkText" style="font-size:24px">In My Wallet</h3>
+      <p class="addy">ETHER ADDY GOES HERE</p>
+    </div>
     <div
       v-if="myWallet.length==0"
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
-      <h2 style="font-weight: 900;">
+      <h2 class="nocdp">
         Oops
         <i class="em em-see_no_evil" />
         <br />Looks like you don't own any CDPs!
       </h2>
-      <!-- TODO: add button to browse marketplace -->
+      <router-link
+        to="/market"
+        class="ant-btn ant-btn-lg ant-btn-block pink-button"
+      >Browse CDPs for sale</router-link>
     </div>
     <div v-if="myWallet.length>0">
       <a-row>
@@ -113,5 +120,14 @@ export default {
 .PinkText {
   color: #ff1491;
   font-weight: 900;
+}
+.addy {
+  font-size: 12px;
+  color: #ff94ce;
+}
+.nocdp {
+  font-weight: 900;
+  font-size: 24;
+  color: #1b0e33;
 }
 </style>

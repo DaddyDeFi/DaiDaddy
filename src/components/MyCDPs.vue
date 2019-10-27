@@ -1,8 +1,8 @@
 <template>
   <div class="card">
     <a-row>
-      <a-col :span="12">
-        <h1 style="font-weight: 900; padding-bottom:25px; font-size:32px">My CDPs</h1>
+      <a-col :span="12" style="height:auto">
+        <h2 class="title">My CDPs</h2>
       </a-col>
       <a-col :span="12">
         <ul class="nav-list-right">
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+// TODO: Fix styling of buttons of children + linking of MyCDPMarket button
 import MyCDPWallet from "@/components/MyCDPWallet.vue";
 import MyCDPUnwind from "@/components/MyCDPUnwind.vue";
 import MyCDPMarket from "@/components/MyCDPMarket.vue";
@@ -42,15 +43,12 @@ export default {
   methods: {
     wallet: function() {
       this.current = 0;
-      console.log(this.current);
     },
     unwind: function() {
       this.current = 1;
-      console.log(this.current);
     },
     market: function() {
       this.current = 2;
-      console.log(this.current);
     }
   },
   data() {
@@ -73,6 +71,10 @@ export default {
   border-radius: 25px;
   padding: 25px;
 }
+.title {
+  font-weight: 600;
+  font-size: 32px;
+}
 .nav-list-right {
   list-style: none;
   margin: 0;
@@ -85,12 +87,12 @@ export default {
 .nav-item {
   display: inline-block;
   margin-right: 2.25rem;
+  font-size: 16px;
 }
 
 .active {
   font-weight: 900;
   color: #1b0e33;
-  font-size: 16px;
   text-decoration: underline;
 }
 .active:hover {
@@ -101,7 +103,6 @@ export default {
 .disabled {
   font-weight: 900;
   color: #ff008a;
-  font-size: 16px;
 }
 </style>
 
