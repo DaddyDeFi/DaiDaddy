@@ -83,14 +83,17 @@
             <h4 class="PinkText">{{cdp.finalPrice}} ETH</h4>
           </a-col>
           <a-col style=" padding-right:15px" :span="3">
-            <a-button class="BuyButton" @click="showModal(cdp.debtId)" type="primary">Buy CDP</a-button>
+            <!-- TODO: fix routing -->
+            <router-link
+              to="/market?modalBuyCDP=true"
+              class="ant-btn ant-btn-lg ant-btn-block pink-button"
+            >Buy CDP</router-link>
           </a-col>
         </a-row>
         <hr style="padding:0px; margin:0px" />
       </div>
       <div style="padding-bottom:25px" />
     </div>
-    <!-- TODO: Add BuyCDPModal -->
   </div>
 </template>
 
@@ -130,7 +133,6 @@ export default {
   data() {
     return {
       selectedCDP: 0,
-      visible: false,
       cdpInfo: [
         {
           debtId: 0,

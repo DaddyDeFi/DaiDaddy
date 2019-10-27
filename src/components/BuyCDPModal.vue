@@ -4,7 +4,7 @@
     :height="500"
     :width="900"
     style="width:900px"
-    v-model="visible"
+    v-model="isVisible"
     @ok="handleOk"
   >
     <template slot="footer">
@@ -98,10 +98,16 @@
 <script>
 import { mapActions, mapState } from "vuex";
 import BuyCDPModal from "@/components/BuyCDPModal.vue";
+console.log(this);
 export default {
-  name: "Marketplace",
+  name: "BuyCDPModal",
   components: {
     BuyCDPModal
+  },
+  props: {
+    isVisible: {
+      type: Boolean
+    }
   },
   methods: {
     ...mapActions(["BUY_CDP"]),
@@ -129,9 +135,9 @@ export default {
     }
   },
   data() {
+    console.log(this);
     return {
       selectedCDP: 0,
-      visible: false,
       cdpInfo: [
         {
           debtId: 0,

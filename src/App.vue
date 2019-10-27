@@ -5,6 +5,7 @@
     <MadeBy />
 
     <unwind-modal :isVisible="this.$route.query.modalUnwind == 'true'" />
+    <buy-cdp-modal :isVisible="this.$route.query.modalBuyCDP == 'true'" />
   </div>
 </template> 
 
@@ -18,10 +19,12 @@ import * as actions from "@/store/actions";
 import * as mutations from "@/store/mutation-types";
 import ClickableAddress from "@/components/widgets/ClickableAddress";
 import UnwindModal from "@/components/UnwindModal";
+import BuyCDPModal from "@/components/BuyCDPModal";
 import { mapActions, mapState } from "vuex";
 import router from "@/router";
 
 Vue.component(UnwindModal.name, UnwindModal);
+Vue.component(BuyCDPModal.name, BuyCDPModal);
 
 export default {
   name: "app",
