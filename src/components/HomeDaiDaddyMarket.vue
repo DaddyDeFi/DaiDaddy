@@ -3,7 +3,10 @@
     <a-col class="col-1" :md="14" :span="24">
       <div style="max-width: 420px">
         <img src="/img/buyCdp.png" class="img" />
-        <router-link to="/" class="ant-btn ant-btn-lg ant-btn-block pink-button">Become a Dai Daddy</router-link>
+        <router-link
+          to="/buy"
+          class="ant-btn ant-btn-lg ant-btn-block pink-button"
+        >Become a Dai Daddy</router-link>
       </div>
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
