@@ -3,7 +3,7 @@
     <a-col :md="14" :span="24" class="col-1">
       <div style="max-width: 463px">
         <h1>
-          Dai Daddy
+          DAI Daddy
           <span class="pink-title">Unwind</span>
         </h1>
         <p class="subtitle">Unwind and de-stress</p>
