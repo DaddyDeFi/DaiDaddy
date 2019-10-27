@@ -111,10 +111,32 @@ contract Unwinder {
         );
     }
 
+    // free the maximum amount of ether possible from the CDP without liquidating it
+    function drawMaxEtherFromCDP(uint256 _cup) public returns (uint) {
+        // (address lad,uint256  ink,uint256  art,uint256  ire) = saiTubContract.cups(_cup);
+        
+        // uint256 ethPrice = getEtherPrice();
+
+        
+        // uint256 freeableEther = freeableCollateral(ink, art, ethPrice, wpRatio);
+
+
+    }
+
     function unwindCDP(bytes32 _cup) public {
         (address lad,,,) = saiTubContract.cups(_cup);
         require(lad == address(this), "Can only unwind CDPs that have been transfered to the Unwinder");
         require(cupOwners[msg.sender] == _cup, "Can only unwind CDPs that were owned by the seller");
+    }
+
+    function getEtherPrice() public view returns(uint256){
+        return uint256(medianizerContract.read());
+    }
+
+    //the per value stores the weth to peth ratio in the maker contracts. 
+    //this is scaled by 10^27 so by devided by 10^9 get ouput wp ratio *10^18
+    function getWpRatio() public view returns(uint256){
+        return saiTubContract.per()/(10 ** 9);
     }
 }
 
