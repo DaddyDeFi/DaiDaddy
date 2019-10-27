@@ -84,15 +84,18 @@
           </a-col>
           <a-col style=" padding-right:15px" :span="3">
             <!-- TODO: fix routing -->
-            <router-link
-              to="/market?modalBuyCDP=true"
+            <button
+              @click="showModal(cdp.debtId)"
               class="ant-btn ant-btn-lg ant-btn-block pink-button"
-            >Buy CDP</router-link>
+            >Buy CDP</button>
           </a-col>
         </a-row>
         <hr style="padding:0px; margin:0px" />
       </div>
       <div style="padding-bottom:25px" />
+    </div>
+    <div v-if="modalVisable">
+      <BuyCDPModal :isVisible="modalVisable" :cdpInfo="modalCdpInfo" />
     </div>
   </div>
 </template>
@@ -113,7 +116,8 @@ export default {
     showModal(cdpId) {
       console.log(cdpId);
       this.selectedCDP = cdpId;
-      this.visible = true;
+      this.modalVisable = true;
+      this.modalCdpInfo = this.cdpInfo[cdpId];
     },
     handleOk(e) {
       console.log(e);
@@ -132,6 +136,8 @@ export default {
   },
   data() {
     return {
+      modalVisable: false,
+      modalCdpInfo: null,
       selectedCDP: 0,
       cdpInfo: [
         {

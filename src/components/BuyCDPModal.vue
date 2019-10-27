@@ -63,29 +63,29 @@
       <!-- TODO: populate table with correct shit -->
       <a-row style="padding-top:15px; padding-bottom:15px;">
         <a-col style="padding-top:5px" :span="3">
-          <a :href="'https://mkr.tools/cdp/'+ cdpInfo[selectedCDP].CDPNo" target="_blank">
+          <a :href="'https://mkr.tools/cdp/'+ cdpInfo.CDPNo" target="_blank">
             <h4
               style="padding-left:15px;   text-decoration: underline;"
-            >{{numberWithCommas(cdpInfo[selectedCDP].CDPNo)}}</h4>
+            >{{numberWithCommas(cdpInfo.CDPNo)}}</h4>
           </a>
         </a-col>
         <a-col style="padding-top:5px" :span="4">
-          <h4>{{numberWithCommas(cdpInfo[selectedCDP].daiDrawn)}} DAI</h4>
+          <h4>{{numberWithCommas(cdpInfo.daiDrawn)}} DAI</h4>
         </a-col>
         <a-col style="padding-top:5px" :span="3">
-          <h4>{{cdpInfo[selectedCDP].collateral}}</h4>
+          <h4>{{cdpInfo.collateral}}</h4>
         </a-col>
         <a-col style="padding-top:5px" :span="3">
-          <h4>{{cdpInfo[selectedCDP].ratio}}</h4>
+          <h4>{{cdpInfo.ratio}}</h4>
         </a-col>
         <a-col style="padding-top:5px" :span="4">
-          <h4>{{numberWithCommas(cdpInfo[selectedCDP].value)}} ETH</h4>
+          <h4>{{numberWithCommas(cdpInfo.value)}} ETH</h4>
         </a-col>
         <a-col style="padding-top:5px" :span="3">
-          <h4>{{cdpInfo[selectedCDP].discount}} %</h4>
+          <h4>{{cdpInfo.discount}} %</h4>
         </a-col>
         <a-col style="padding-top:5px" :span="4">
-          <h4 class="PinkText">{{cdpInfo[selectedCDP].finalPrice}} ETH</h4>
+          <h4 class="PinkText">{{cdpInfo.finalPrice}} ETH</h4>
         </a-col>
       </a-row>
       <hr style="padding:0px; margin:0px" />
@@ -107,6 +107,9 @@ export default {
   props: {
     isVisible: {
       type: Boolean
+    },
+    cdpInfo: {
+      type: Object
     }
   },
   methods: {
@@ -137,57 +140,7 @@ export default {
   data() {
     console.log(this);
     return {
-      selectedCDP: 0,
-      cdpInfo: [
-        {
-          debtId: 0,
-          CDPNo: 14960,
-          daiDrawn: 151151,
-          collateral: 1411.76,
-          ratio: 166.23,
-          fee: 901,
-          value: 522.632,
-          discount: 2,
-          finalPrice: 512.172,
-          selected: false
-        },
-        {
-          debtId: 1,
-          CDPNo: 132973,
-          daiDrawn: 1785,
-          collateral: 2103,
-          ratio: 209,
-          fee: 0.34,
-          value: 10.532,
-          discount: 6,
-          finalPrice: 9.799,
-          selected: false
-        },
-        {
-          debtId: 2,
-          CDPNo: 14908,
-          daiDrawn: 618.16,
-          collateral: 5.69,
-          ratio: 163.69,
-          fee: 2.83,
-          value: 2.052,
-          discount: 9,
-          finalPrice: 1.883,
-          selected: false
-        },
-        {
-          debtId: 3,
-          CDPNo: 1040,
-          daiDrawn: 1800.95,
-          collateral: 18.3,
-          ratio: 178.14,
-          fee: 6.7,
-          value: 7.712,
-          discount: 1,
-          finalPrice: 7.632,
-          selected: false
-        }
-      ]
+      selectedCDP: 0
     };
   }
 };
