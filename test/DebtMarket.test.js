@@ -41,7 +41,10 @@ contract("DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
             ire,
             tab,
             rap,
-            per, {
+            per,
+            random, //this is the address of dai. These tests dont need this so can be random
+            random, //this is the address of weth
+            {
                 from: contractOwner
             })
 

@@ -1,8 +1,13 @@
 pragma solidity ^0.5.7;
 
+import "../ERC20Interface.sol";
+
 contract SaiTubMock {
-    uint256                   public  cupi;
-    mapping (bytes32 => Cup)  public  cups;
+    uint256 public cupi; //number of cups
+    mapping (bytes32 => Cup)  public cups; //mapping of cups
+    
+    //keep an internal account of the peth people have. this prevents the need for creating a third token
+    mapping (address => uint256) public peth;
 
     struct Cup {
         address  lad;      // CDP owner
@@ -11,11 +16,16 @@ contract SaiTubMock {
         uint256  ire;      // Outstanding normalised debt
     }
     
-    // constants. stored to mimic the maker syste
+    // constants. stored to mimic the maker system
     uint public tabValue;
     uint rapValue;
     uint256 public chiValue;  // Accumulated Tax Rates
     uint256 public perValue; // weth to peth ratio
+    uint256 public wpRatio;
+    uint256 public etherPrice;
+
+    ERC20 public daiContract;
+    ERC20 public wethContract;
 
     constructor (bytes32 cupId,
         address _cupLad,
@@ -24,12 +34,21 @@ contract SaiTubMock {
         uint256 _cupIre,
         uint256 _cupTab,
         uint256 _uintRap,
-        uint256 _per)
+        uint256 _per,
+        address _daiTokenAddress,
+        address _wethTokenAddress)
     public {
+        //create a new cup
         cups[cupId] = Cup(_cupLad, _cupInk, _cupArt, _cupIre);
+        
+        //set cup state variables 
         tabValue = _cupTab;
         rapValue = _uintRap;
         perValue = _per;
+
+        //init instance of the dai contract for testing
+        daiContract = ERC20(_daiTokenAddress);
+        wethContract = ERC20(_wethTokenAddress);
     }
 
     function give(bytes32 cup, address guy) public {
@@ -64,5 +83,30 @@ contract SaiTubMock {
 
     function per() public returns (uint) {
         return perValue;
+    }
+
+    function free(bytes32 cup, uint wad) public {
+        require(msg.sender == cups[cup].lad);
+
+        cups[cup].ink = cups[cup].ink - wad;
+
+        uint256 cr = (cups[cup].ink * etherPrice * wpRatio) / (cups[cup].art * 10 ** 18);
+        //checks that the collateralization ratio is bigger than the 150% collateral requirement of a cdp
+        //this is validated using the safe function in maker's tub contract. is is easier to mock it like this.
+        require(cr > 150 * 10 ** 16, "Cant free that much collateral");
+
+        //allocate peth to the user
+        peth[msg.sender] = peth[msg.sender] + wad;
+    }
+    
+    //convert peth to weth tokens
+    function exit(uint wad) public {
+        require(peth[msg.sender] >= wad, "Not enough peth");
+        peth[msg.sender] = peth[msg.sender] - wad;
+    }
+
+    // function is not part of tub. used to test mock
+    function balancerOf(address _lad) public view returns(uint256) {
+        return peth[_lad];
     }
 }

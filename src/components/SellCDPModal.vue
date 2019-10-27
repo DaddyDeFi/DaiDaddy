@@ -1,100 +1,112 @@
 <template>
-  <div>
-    <div class="title">Select a CDP</div>
-    <div class="text">
-      Choose a CDP to unwind
-      <i class="em em-sweat_drops" /> and sign a transaction
-      <i class="em em-memo" /> to prove you own it.
-    </div>
-    <a-row>
-      <a-col :span="24">
-        <a-row style="margin-right: 17px">
-          <a-col :span="3">
-            <th style="font-weight: 900;"></th>
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900">CDP Number</th>
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900;">
-              Total Debt
-              <a-icon type="info-circle" />
-            </th>
-          </a-col>
-          <a-col :span="6">
-            <th style="font-weight: 900;">Collateral/Ratio</th>
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900;">CDP Value</th>
-          </a-col>
-        </a-row>
-        <div class="rows-container">
+    <a-modal
+      class="model"
+      :height="400"
+      :width="900"
+      style="width:900px"
+      v-model="visible"
+      @ok="handleOk"
+    >
+      <template slot="footer">
+        <div style="text-align:right">
+          <a-button
+            key="submit"
+            type="secondary"
+            @click="handleOk"
+            style="border-radius: 25px;"
+          >Cancel</a-button>
+          <a-button
+            key="submit"
+            class="BuyButton"
+            type="primary"
+            @click="sellCDP"
+            :disabled="debtOrder.cdpId==null"
+          >Sell CDP</a-button>
+        </div>
+      </template>
+      <h2 style="padding-bottom:25px; font-weight:900;">Sell CDP</h2>
+      <a-row>
+        <a-col :span="16">
+          <h4 style="font-weight: 900;">Select</h4>
+          <a-row>
+            <a-col :span="4">
+              <h4 style="font-weight: 900;"></h4>
+            </a-col>
+            <a-col :span="5">
+              <h4 style="font-weight: 900">CDP #</h4>
+            </a-col>
+            <a-col :span="5">
+              <h4 style="font-weight: 900;">Total Debt</h4>
+            </a-col>
+            <a-col :span="5">
+              <h4 style="font-weight: 900;">Collateral/Ratio</h4>
+            </a-col>
+            <a-col :span="4">
+              <h4 class="PinkText" style="font-weight: 900;">CDP Value</h4>
+            </a-col>
+          </a-row>
+          <hr style="padding:0px; margin:0px" />
           <div
             v-for="(cdp, index) in myCdps"
             :key="index"
             :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
           >
-            <hr style="padding:0px; margin:0px" />
             <div @click="selectCDP(index)" style="cursor: pointer">
               <a-row style="padding-top:15px; padding-bottom:15px;">
-                <a-col style="padding-left:25px" :span="3">
+                <a-col style="padding-left:25px" :span="4">
                   <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
                 </a-col>
                 <a-col style="padding-top:5px" :span="5">
-                  <span>{{numberWithCommas(cdp.CDPNo)}}</span>
+                  <p>{{numberWithCommas(cdp.CDPNo)}}</p>
                 </a-col>
                 <a-col style="padding-top:5px" :span="5">
-                  <span>{{numberWithCommas(cdp.daiDrawn)}} DAI</span>
-                </a-col>
-                <a-col style="padding-top:5px" :span="6">
-                  <span>{{cdp.collateralRatio}}</span>
+                  <p>{{numberWithCommas(cdp.daiDrawn)}} DAI</p>
                 </a-col>
                 <a-col style="padding-top:5px" :span="5">
-                  <span>{{cdp.value}} ETH</span>
+                  <p>{{cdp.collateralRatio}}</p>
+                </a-col>
+                <a-col style="padding-top:5px" :span="4">
+                  <p class="PinkText">{{cdp.value}} ETH</p>
                 </a-col>
               </a-row>
             </div>
             <hr style="padding:0px; margin:0px" />
           </div>
-        </div>
-        <a-divider />
-        <a-row style="padding-left:5px" :span="5">
-          <div class="title">Summary</div>
-
-          <a-row>
-            <a-col :span="12" :md="5">
-              <span style="font-size: 16px" class="title">Fees:</span>
-              <div v-if="debtOrder.cdpId==null" class="values">-</div>
-              <div v-if="debtOrder.cdpId!=null" class="values">
-                <!-- TODO:  calculate fees -->
-                ETH
-              </div>
-            </a-col>
-
-            <a-col :span="12" :md="5">
-              <span style="font-size: 16px" class="title">You'll get:</span>
-              <div v-if="debtOrder.cdpId==null" class="values PinkText">-</div>
-              <div v-if="debtOrder.cdpId!=null" class="values PinkText">
-                <!-- calculate final -->
-                ETH
-              </div>
-            </a-col>
-          </a-row>
-        </a-row>
-      </a-col>
-    </a-row>
-  </div>
+        </a-col>
+        <a-col class="verticalLine" :span="1" />
+        <a-col style="padding-left:25px" :span="7">
+          <h3 style="padding:5px; font-weight: 900;">Apply a discount</h3>
+          <p style="padding:5px; font-weight: 900;">Discount</p>
+          <a-input-number
+            class="placeholder"
+            :min="1"
+            :max="100"
+            v-model="debtOrder.discount"
+            data-placeholder="%"
+          />
+          <p
+            v-if="debtOrder.discount>13"
+            style="padding:5px; font-weight: 900; color:#FF2898"
+          >Caution: This discount is above the 13% liquidation penalty!</p>
+          <h4 style="padding:5px; font-weight: 900;">You'll get:</h4>
+          <p v-if="debtOrder.cdpId==null" style="padding:5px; font-weight: 900; color:#FF2898">-</p>
+          <p
+            v-if="debtOrder.cdpId!=null"
+            style="padding:5px; font-weight: 900; color:#FF2898"
+          >{{myCdps[debtOrder.debtIndex].value * (100-debtOrder.discount)/100}} ETH</p>
+        </a-col>
+      </a-row>
+      <p
+        style="padding-top:20px"
+      >Once you've listed your CDP for sale it will be transfered to the DaiDaddy contract where it will be held in escrow until someone buys it. At any point in time up to when it is bought you can cancel the sale. As soon as someone buys it the funds will automatically get transferred to your wallet.</p>
+    </a-modal>
 </template>
 
 <script>
-import Vue from "vue";
 import { mapActions, mapState } from "vuex";
-import { Icon } from "ant-design-vue";
-
-Vue.component(Icon.name, Icon);
 
 export default {
-  name: "Step1Unwind",
+  name: "SellCDPModal",
   methods: {
     ...mapActions(["SELL_CDP"]),
     sellCDP() {
@@ -128,7 +140,6 @@ export default {
       this.myCdps[cdpId].selected = true;
       this.debtOrder.debtIndex = cdpId;
       this.debtOrder.cdpId = this.myCdps[cdpId].cdpId;
-      this.$emit("selected-cdp-id", this.debtOrder.cdpId);
     },
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -146,8 +157,9 @@ export default {
         debtIndex: null,
         cdpId: null
       },
-      visible: true,
+      visible: false,
       myListings: [],
+      current: 0,
       myCdps: [
         {
           cdpId:
@@ -172,30 +184,6 @@ export default {
           discount: 5,
           finalPrice: 0.95,
           selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
-          selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
-          selected: false
         }
       ]
     };
@@ -203,7 +191,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .card {
   font-family: "Nunito" !important;
   -webkit-font-smoothing: antialiased;
@@ -220,7 +208,7 @@ export default {
   font-family: "Nunito" !important;
 }
 
-.BuyButton {
+.SellButton {
   background: #ff95cd;
   border: green;
   border-radius: 25px;
@@ -268,41 +256,5 @@ export default {
   width: 25px;
   border-radius: 20px;
   font-weight: 900;
-}
-
-.title {
-  font-size: 18px;
-  line-height: 25px;
-  color: #000;
-  margin-bottom: 24px;
-  font-weight: bold;
-}
-
-.text {
-  font-size: 16px;
-  line-height: 22px;
-  color: #000000;
-  margin-bottom: 24px;
-}
-
-.rows-container {
-  overflow: auto;
-  max-height: 115px;
-}
-
-th {
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 22px;
-  color: #000;
-  padding: 8px 0;
-}
-
-.values {
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 33px;
-  color: #1b0e33;
-  margin-top: 16px;
 }
 </style>

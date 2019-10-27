@@ -11,11 +11,11 @@
     </a-steps>
     <a-divider />
     <Step1Unwind v-if="current == 0" @selected-cdp-id="onChildInit" />
-    <!-- loading modal -->
+    <!-- TODO: loading modal -->
     <Step2Unwind v-if="current == 1" />
-    <!-- loading modal -->
+    <!-- TODO: loading modal -->
     <Step3Unwind v-if="current == 2" />
-    <!-- loading modal -->
+    <!-- TODO: loading modal -->
     <template slot="footer">
       <div style="text-align:right">
         <a-button
@@ -94,22 +94,22 @@ export default {
         return;
       }
       if (this.current == 1) {
-        //insert logic
-        //fire metamask and loading modal
+        // TODO: insert logic
+        // TODO: fire metamask and loading modal
         this.current++;
         return;
       }
       if (this.current == 2) {
         this.visible = false;
 
-        //insert logic
-        //fire metamask and loading modal
+        // TODO: insert logic
+        // TODO: fire metamask and loading modal
         setTimeout(function() {
           this.current = 0;
         }, 2000);
         return;
       }
-      // insert logic
+      // TODO: insert logic
     },
     handleCancel() {
       this.$router.replace({ query: { modalUnwind: undefined } });

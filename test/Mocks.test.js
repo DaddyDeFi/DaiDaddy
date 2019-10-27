@@ -11,7 +11,7 @@ const {
 } = require("chai");
 
 // Contracts
-const saiTub = artifacts.require("SaiTubMock");
+const SaiTub = artifacts.require("SaiTubMock");
 const medianizerMock = artifacts.require("MedianizerMock");
 const kyberNetworkProxyMock = artifacts.require("kyberNetworkProxyMock")
 const ERC20Mock = artifacts.require("ERC20Mock")
@@ -33,13 +33,34 @@ const etherPrice = "166770000000000000000"
 const etherPriceSlippage = "161770000000000000000"
 const wpRatio = "1046300000000000000"
 
-// contract constants (mimic the main net)
-const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
-const ethAddress = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
-
 contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
     beforeEach(async function () {
-        this.saiTub = await saiTub.new(
+
+        this.medianizer = await medianizerMock.new(etherPrice, {
+            from: contractOwner
+        })
+
+        //dai mock token
+        // tokens are sent to the owner. later sent to the kyber exchange to simulate trading
+        this.dai = await ERC20Mock.new(contractOwner, ether('10000000'), {
+            from: contractOwner
+        })
+
+        // weth mock token
+        this.weth = await ERC20Mock.new(contractOwner, ether('20000000'), {
+            from: contractOwner
+        })
+
+        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
+        // without implementing this logic.
+        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice,
+            etherPriceSlippage,
+            this.dai.address,
+            this.weth.address, {
+                from: contractOwner
+            })
+
+        this.saiTub = await SaiTub.new(
             cupId,
             // lad,
             seller,
@@ -48,44 +69,44 @@ contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
             ire,
             tab,
             rap,
-            per, {
+            per,
+            this.dai.address,
+            this.weth.address, {
                 from: contractOwner
             })
 
-        this.medianizer = await medianizerMock.new(etherPrice, {
-            from: contractOwner
-        })
-
-        // tokens are sent to the owner. later sent to the kyber exchange to simulate trading
-        this.dai = await ERC20Mock.new(contractOwner, ether('10000000'), {
-            from: contractOwner
-        })
-
-        // these value (etherPrice, etherPriceSlippage) mock what is actually returned from the contract
-        // without implementing this logic.
-        this.kyberNetworkProxy = await kyberNetworkProxyMock.new(etherPrice, etherPriceSlippage, this.dai.address, {
-            from: contractOwner
-        })
-
         //Fund the kyber exchange
         this.dai.transfer(this.kyberNetworkProxy.address, ether('10000000'), {
+            from: contractOwner
+        })
+
+        //Fund the tub exchange
+        this.weth.transfer(this.saiTub.address, ether('10000000'), {
             from: contractOwner
         })
     });
     context("Kyber Calculations", function () {
         it("Correctly gets the conversion rate from Kyber", async function () {
             //test mock value
-            let rates = await this.kyberNetworkProxy.getExpectedRate(ethAddress, this.dai.address, ether("1"))
+            let rates = await this.kyberNetworkProxy.getExpectedRate(this.weth.address, this.dai.address, ether("1"))
             assert.equal(rates[0], etherPrice, "Mock not returning the correct values")
             assert.equal(rates[1], etherPriceSlippage, "Mock not returning the correct values")
         })
         it("Correctly trades tokens with Kyber exchange", async function () {
             //test mock value
             let kyberDaiBalanceBefore = await this.dai.balanceOf(this.kyberNetworkProxy.address)
-            let kyberEtherBalanceBefore = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceBefore = await this.weth.balanceOf(this.kyberNetworkProxy.address)
             let sellerDaiBalanceBefore = await this.dai.balanceOf(seller)
 
-            await this.kyberNetworkProxy.trade(ethAddress,
+            await this.weth.transfer(seller, ether("10"), {
+                from: contractOwner
+            })
+            
+            await this.weth.approve(this.kyberNetworkProxy.address, ether("1"), {
+                from: seller
+            })
+
+            await this.kyberNetworkProxy.trade(this.weth.address,
                 ether("1"),
                 this.dai.address,
                 this.kyberNetworkProxy.address,
@@ -93,11 +114,10 @@ contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
                 etherPriceSlippage,
                 daiDaddy, {
                     from: seller,
-                    value: ether("1")
                 })
 
             let kyberDaiBalanceAfter = await this.dai.balanceOf(this.kyberNetworkProxy.address)
-            let kyberEtherBalanceAfter = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceAfter = await this.weth.balanceOf(this.kyberNetworkProxy.address)
             let sellerDaiBalanceAfter = await this.dai.balanceOf(seller)
 
             let exchangeDaiDelta = kyberDaiBalanceBefore - kyberDaiBalanceAfter
