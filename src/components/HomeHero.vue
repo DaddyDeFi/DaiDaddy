@@ -4,10 +4,14 @@
       <img src="/img/bigMichaelLogo.png" class="logo" />
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
-      <img src="/img/michaelBoxes.png" class="hero-michael" />
+      <!-- <img src="/img/michaelBoxes.png" class="hero-michael" /> -->
       <!-- <video class="MichaelVid" autoplay muted>
         <source src="anim/HeroMichaels.webm" type="video/webm" />
       </video>-->
+
+      <video class="MichaelVid" alt="step logo" style="height:600px;" autoplay="true">
+        <source src="anim/HeroMichaels.webm" type="video/webm" />
+      </video>
 
       <router-link to="/listing?open=true" class="cta" />
     </a-col>
