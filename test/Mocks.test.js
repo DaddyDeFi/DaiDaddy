@@ -36,7 +36,7 @@ const wpRatio = "1046300000000000000"
 const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
 const ethAddress = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
 
-contract("Kyber Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
+contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
     beforeEach(async function () {
         this.saiTub = await saiTub.new(
             cupId,
@@ -106,6 +106,26 @@ contract("Kyber Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
 
             let exchangeEthDelta = kyberEtherBalanceAfter - kyberEtherBalanceBefore
             assert.equal(Math.round(exchangeEthDelta / 10 ** 10).toString(10), Math.round(ether("1") / 10 ** 10).toString(), "Ether balance did increase decrease correctly")
+        })
+        context("Medianizer Calculations", function () {
+            it("Correctly returns the price of ether", async function () {
+                let contractPrice = await this.medianizer.read()
+
+                function numStringToBytes32(num) {
+                    var bn = new BN(num).toTwos(256);
+                    return padToBytes32(bn.toString(16));
+                }
+
+                function padToBytes32(n) {
+                    while (n.length < 64) {
+                        n = "0" + n;
+                    }
+                    return "0x" + n;
+                }
+
+                let convertedPriceBytes32 = numStringToBytes32(etherPrice)
+                assert.equal(convertedPriceBytes32, contractPrice, "Mock invalid price returned")
+            })
         })
     })
 })
