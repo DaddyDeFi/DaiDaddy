@@ -8,8 +8,8 @@
     </div>
     <a-row>
       <a-col :span="24">
-        <a-row>
-          <a-col :span="4">
+        <a-row style="margin-right: 17px">
+          <a-col :span="3">
             <th style="font-weight: 900;"></th>
           </a-col>
           <a-col :span="5">
@@ -21,11 +21,11 @@
               <a-icon type="info-circle" />
             </th>
           </a-col>
-          <a-col :span="5">
+          <a-col :span="6">
             <th style="font-weight: 900;">Collateral/Ratio</th>
           </a-col>
-          <a-col :span="4">
-            <th class="PinkText" style="font-weight: 900;">CDP Value</th>
+          <a-col :span="5">
+            <th style="font-weight: 900;">CDP Value</th>
           </a-col>
         </a-row>
         <div class="rows-container">
@@ -37,7 +37,7 @@
             <hr style="padding:0px; margin:0px" />
             <div @click="selectCDP(index)" style="cursor: pointer">
               <a-row style="padding-top:15px; padding-bottom:15px;">
-                <a-col style="padding-left:25px" :span="4">
+                <a-col style="padding-left:25px" :span="3">
                   <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
                 </a-col>
                 <a-col style="padding-top:5px" :span="5">
@@ -46,11 +46,11 @@
                 <a-col style="padding-top:5px" :span="5">
                   <span>{{numberWithCommas(cdp.daiDrawn)}} DAI</span>
                 </a-col>
-                <a-col style="padding-top:5px" :span="5">
+                <a-col style="padding-top:5px" :span="6">
                   <span>{{cdp.collateralRatio}}</span>
                 </a-col>
-                <a-col style="padding-top:5px" :span="4">
-                  <span class="PinkText">{{cdp.value}} ETH</span>
+                <a-col style="padding-top:5px" :span="5">
+                  <span>{{cdp.value}} ETH</span>
                 </a-col>
               </a-row>
             </div>
@@ -73,8 +73,8 @@
 
             <a-col :span="12" :md="5">
               <span style="font-size: 16px" class="title">You'll get:</span>
-              <div v-if="debtOrder.cdpId==null" class="values">-</div>
-              <div v-if="debtOrder.cdpId!=null" class="values">
+              <div v-if="debtOrder.cdpId==null" class="values PinkText">-</div>
+              <div v-if="debtOrder.cdpId!=null" class="values PinkText">
                 <!-- calculate final -->
                 ETH
               </div>
@@ -83,9 +83,6 @@
         </a-row>
       </a-col>
     </a-row>
-
-    <!-- TODO: Make it work -->
-    <loading-modal :isVisible="true" status="approve" />
   </div>
 </template>
 
@@ -94,10 +91,7 @@ import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import { Icon } from "ant-design-vue";
 
-import LoadingModal from "@/components/widgets/LoadingModal";
-
 Vue.component(Icon.name, Icon);
-Vue.component(LoadingModal.name, LoadingModal);
 
 export default {
   name: "Step1Unwind",
@@ -293,7 +287,7 @@ export default {
 
 .rows-container {
   overflow: auto;
-  max-height: 150px;
+  max-height: 115px;
 }
 
 th {

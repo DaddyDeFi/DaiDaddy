@@ -285,7 +285,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   font-family: "Nunito" !important;
   -webkit-font-smoothing: antialiased;
@@ -309,10 +309,6 @@ export default {
 .nav-item {
   display: inline-block;
   margin-right: 2.25rem;
-}
-
-.modal {
-  font-family: "Nunito" !important;
 }
 
 .BuyButton {
