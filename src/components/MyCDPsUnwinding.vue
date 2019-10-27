@@ -57,7 +57,7 @@
       </a-row>
       <hr />
       <a-row>
-        <!-- TODO: populate list with CDPs in wallet -->
+        <!-- TODO: populate table with correct shit -->
       </a-row>
     </div>
   </div>

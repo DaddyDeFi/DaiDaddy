@@ -51,6 +51,7 @@
         </a-col>
       </a-row>
       <hr />
+      <!-- TODO: Fill table with correct shit -->
       <div v-for="(cdp, index) in cdpInfo" :key="index">
         <a-row
           style="padding-top:15px; padding-bottom:15px;"
@@ -89,106 +90,18 @@
       </div>
       <div style="padding-bottom:25px" />
     </div>
-    <a-modal
-      class="model"
-      :height="500"
-      :width="900"
-      style="width:900px"
-      v-model="visible"
-      @ok="handleOk"
-    >
-      <template slot="footer">
-        <div style="text-align:right">
-          <a-button
-            key="submit"
-            type="secondary"
-            @click="handleOk"
-            style="border-radius: 25px;"
-          >Cancel</a-button>
-          <a-button key="submit" class="BuyButton" type="primary" @click="buyCDP">Confirm</a-button>
-        </div>
-      </template>
-      <h2 style="padding-bottom:25px; font-weight:900">Buy CDP</h2>
-      <a-row>
-        <a-col :span="3">
-          <h4 style="font-weight: 900; padding-left:15px">CDP #</h4>
-        </a-col>
-        <a-col :span="4">
-          <h4 style="font-weight: 900;">
-            Total Debt
-            <a-popover title="Total Debt">
-              <template
-                slot="content"
-              >The total debt on the CDP. This is the total DAI drawn + all fees incurred over the duration of the CDP's lifespan.</template>
-              <a-button size="small" style="font-weight:900;" class="infoButton" type="primary">i</a-button>
-            </a-popover>
-          </h4>
-        </a-col>
-        <a-col :span="3">
-          <h4 style="font-weight: 900;">Collateral</h4>
-        </a-col>
-        <a-col :span="3">
-          <h4 style="font-weight: 900;">Ratio</h4>
-        </a-col>
-        <a-col :span="4">
-          <h4 style="font-weight: 900;">CDP Value</h4>
-        </a-col>
-        <a-col :span="3">
-          <h4 style="font-weight: 900;">Discount</h4>
-        </a-col>
-        <a-col :span="4">
-          <h4 class="PinkText" style="font-weight: 900;">
-            Final Price
-            <a-popover title="Final Value">
-              <template
-                slot="content"
-              >The final calculated value of the CDP considering the underlying collateral, debt drawn, stability fee outstanding and discount.</template>
-              <a-button size="small" style="font-weight:900;" class="infoButton" type="primary">i</a-button>
-            </a-popover>
-          </h4>
-        </a-col>
-      </a-row>
-      <hr />
-      <div>
-        <a-row style="padding-top:15px; padding-bottom:15px;">
-          <a-col style="padding-top:5px" :span="3">
-            <a :href="'https://mkr.tools/cdp/'+ cdpInfo[selectedCDP].CDPNo" target="_blank">
-              <h4
-                style="padding-left:15px;   text-decoration: underline;"
-              >{{numberWithCommas(cdpInfo[selectedCDP].CDPNo)}}</h4>
-            </a>
-          </a-col>
-          <a-col style="padding-top:5px" :span="4">
-            <h4>{{numberWithCommas(cdpInfo[selectedCDP].daiDrawn)}} DAI</h4>
-          </a-col>
-          <a-col style="padding-top:5px" :span="3">
-            <h4>{{cdpInfo[selectedCDP].collateral}}</h4>
-          </a-col>
-          <a-col style="padding-top:5px" :span="3">
-            <h4>{{cdpInfo[selectedCDP].ratio}}</h4>
-          </a-col>
-          <a-col style="padding-top:5px" :span="4">
-            <h4>{{numberWithCommas(cdpInfo[selectedCDP].value)}} ETH</h4>
-          </a-col>
-          <a-col style="padding-top:5px" :span="3">
-            <h4>{{cdpInfo[selectedCDP].discount}} %</h4>
-          </a-col>
-          <a-col style="padding-top:5px" :span="4">
-            <h4 class="PinkText">{{cdpInfo[selectedCDP].finalPrice}} ETH</h4>
-          </a-col>
-        </a-row>
-        <hr style="padding:0px; margin:0px" />
-      </div>
-      <div style="padding-bottom:25px" />
-      <p>This will transfer the CDP into your ownership in exchange for the total value of the CDP listed above. You will be able to manage the CDP through the standard MakerDao dashboard after the transfer.</p>
-    </a-modal>
+    <!-- TODO: Add BuyCDPModal -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+import BuyCDPModal from "@/components/BuyCDPModal.vue";
 export default {
-  name: "BuyCDP",
+  name: "Marketplace",
+  components: {
+    BuyCDPModal
+  },
   methods: {
     ...mapActions(["BUY_CDP"]),
     buyCDP() {
@@ -278,8 +191,8 @@ export default {
   font-family: "Nunito" !important;
   background: white;
   margin: 50px;
-  minheight: 700px;
-  minwidth: 900px;
+  min-height: 700px;
+  min-width: 900px;
   border-radius: 25px;
   padding: 25px;
 }
