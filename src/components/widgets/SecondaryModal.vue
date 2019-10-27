@@ -3,6 +3,7 @@
     <a-modal v-model="isVisible" :width="310" :height="235">
       <p class="text" v-for="(text, index) in texts" :key="index">{{text}}</p>
 
+      <!-- TODO: animate emoji bouncing -->
       <div class="emoji-container">
         <i v-for="(emoji, index) in emojis" :key="index" :class="'emoji em '+emoji" />
       </div>

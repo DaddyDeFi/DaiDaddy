@@ -11,11 +11,8 @@
     </a-steps>
     <a-divider />
     <Step1Unwind v-if="current == 0" @selected-cdp-id="onChildInit" />
-    <!-- TODO: loading modal -->
     <Step2Unwind v-if="current == 1" />
-    <!-- TODO: loading modal -->
     <Step3Unwind v-if="current == 2" />
-    <!-- TODO: loading modal -->
     <template slot="footer">
       <div style="text-align:right">
         <a-button
