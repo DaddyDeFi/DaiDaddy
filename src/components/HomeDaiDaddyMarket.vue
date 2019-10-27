@@ -16,10 +16,28 @@
           <span class="pink-title">Market</span>
         </h1>
         <p class="subtitle">Buy CDPs and make HUGE profits!</p>
-        <p class="text">Do you want to make fast ⏩ easy 😅 🍑HUGE🍑 profits with your spare DAI 💸?</p>
-        <p
-          class="text"
-        >Want to 💪flex💪 your biiiiig👅 DeFi ⚡️energy⚡️ and save someone from 🚨forcible🚨 😫💦liquidation💦😫??</p>
+        <p class="text">
+          Do you want to make fast
+          <i class="em em-arrow_right" /> easy
+          <i class="em em-sweat_smile" />
+          <i class="em em-peach" /> HUGE
+          <i class="em em-peach" /> profits with your spare DAI
+          <i class="em em-money_with_wings" />?
+        </p>
+        <p class="text">
+          Want to
+          <i class="em em-muscle" /> flex
+          <i class="em em-muscle" /> your biiiiig
+          <i class="em em-tongue" /> DeFi
+          <i class="em em-zap" />energy
+          <i class="em em-zap" /> and save someone from
+          <i class="em em-rotating_light" />forcible
+          <i class="em em-rotating_light" />
+          <i class="em em-tired_face" />
+          <i class="em em-sweat_drops" />liquidation
+          <i class="em em-sweat_drops" />
+          <i class="em em-tired_face" />??
+        </p>
         <p class="text">Become a DAI daddy and buy CDPs!</p>
       </div>
     </a-col>

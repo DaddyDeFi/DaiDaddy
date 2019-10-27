@@ -11,6 +11,7 @@ import {
   Steps
 } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
+import "emoji-awesome/dist/css/apple.min.css";
 
 import Jazzicon from "vue-jazzicon";
 
@@ -21,6 +22,7 @@ import "./registerServiceWorker";
 import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import MadeBy from "./components/MadeBy";
+import SellCDPModal from "./components/SellCDPModal";
 
 // import VModal from 'vue-js-modal'
 
@@ -38,6 +40,7 @@ Vue.component(Popover.name, Popover);
 Vue.component(Divider.name, Divider);
 Vue.component(Steps.name, Steps);
 Vue.component(Steps.Step.name, Steps.Step);
+Vue.component(SellCDPModal.name, SellCDPModal);
 
 // Vue.use(VModal);
 Vue.component("jazzicon", Jazzicon);

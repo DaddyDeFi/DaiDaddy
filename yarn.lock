@@ -2562,6 +2562,11 @@ elliptic@^6.0.0, elliptic@^6.4.0:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
+emoji-awesome@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/emoji-awesome/-/emoji-awesome-0.0.2.tgz#f3a778ce7178bae9caff4a7fa151ea3fbfbc3a8e"
+  integrity sha512-ggortYTr4+f4Jqp/R3vV9FAec+wRkIyRM458LUrv81mKQSKIJW9+xDlbqHsUpMeNKCLG45RsbbCyprrOoGZ6UQ==
+
 emoji-regex@^7.0.1:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"

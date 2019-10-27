@@ -9,8 +9,18 @@
         <p class="subtitle">Pay off CDPs; collect exclusive NFTs</p>
         <p class="text">
           Have you been storing up your Wei for too long? Need to release all that tension?
-          💦 Want to earn 📷exclusive NFT📸 rewards😉 from 🔥hot🔥 single CDP holders on your block⛓?
-          Become a 👑DAIminatrix’s👸 wallet slave
+          <i
+            class="em em-sweat_drops"
+          /> Want to earn
+          <i class="em em-camera" />exclusive NFT
+          <i class="em em-camera" /> rewards
+          <i class="em em-wink" /> from
+          <i class="em em-fire" />hot
+          <i class="em em-fire" /> single CDP holders on your block
+          <i class="em em-link" />?
+          Become a
+          <i class="em em-crown" />DAIminatrix’s
+          <i class="em em-princess" /> wallet slave
         </p>
       </div>
     </a-col>
@@ -21,7 +31,10 @@
           type="primary"
           class="ant-btn ant-btn-lg ant-btn-block pink-button"
           @click="showModal"
-        >💦 CUMMING SOON 💦</a-button>
+        >
+          <i class="em em-sweat_drops" /> CUMMING SOON
+          <i class="em em-sweat_drops" />
+        </a-button>
       </div>
     </a-col>
     <a-modal class="modal" v-model="visible" :footer="null" :closable="false">
@@ -32,7 +45,11 @@
           Sowee! OwO
           <br />I’m not ready yet...
         </h2>
-        <p class="emojis">😢 😭 😵</p>
+        <p class="emojis">
+          <i class="em em-cry" />
+          <i class="em em-sob" />
+          <i class="em em-astonished" />
+        </p>
         <div style="text-align:center">
           <a-button
             class="close-button"

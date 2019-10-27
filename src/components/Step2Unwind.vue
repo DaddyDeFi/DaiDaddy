@@ -1,9 +1,11 @@
 <template>
   <div>
     <h2 style="padding-bottom:25px; font-weight:900;">Select your CDP</h2>
-    <p
-      style="padding-bottom:25px; font-weight:400;"
-    >Let me take control baby. But first, I need your enthusiastic consent 👅 😍 Don’t worry, I always use protection!</p>
+    <p style="padding-bottom:25px; font-weight:400;">
+      Let me take control baby. But first, I need your enthusiastic consent
+      <i class="em em-tongue" />
+      <i class="em heart_eyes" /> Don’t worry, I always use protection!
+    </p>
     <!-- View smart contract link -->
     <a-row>
       <a-col :span="16">

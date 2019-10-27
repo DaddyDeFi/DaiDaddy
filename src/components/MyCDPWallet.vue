@@ -5,9 +5,11 @@
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
       <h2 style="font-weight: 900;">
-        Currently
-        <span style="color:#FFA1D3">#debtfree 🤑</span>
+        Oops
+        <i class="em em-see_no_evil" />
+        <br />Looks like you don't own any CDPs!
       </h2>
+      <!-- TODO: add button to browse marketplace -->
     </div>
     <div v-if="myWallet.length>0">
       <a-row>
