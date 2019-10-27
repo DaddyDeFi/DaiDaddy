@@ -2,7 +2,7 @@
 DAI Daddy is an autonomous, open-source platform for unwinding Maker CDPs.
 <br/>
 
-![Logo](https://github.com/sbcodes/daidaddy/blob/master/dai%20daddy%20logo.png)
+![Logo](https://github.com/DaddyDeFi/DaiDaddy/blob/master/dai_daddy_ii_uncensored.png)
 <br/>
 
 ## Links
