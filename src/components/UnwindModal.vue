@@ -1,5 +1,5 @@
 <template>
-  <a-modal class="model" :height="400" :width="680" v-model="isVisible" @cancel="handleCancel">
+  <a-modal :height="400" :width="620" v-model="isVisible" @cancel="handleCancel">
     <div class="title">Unwind CDP</div>
     <a-steps :current="current">
       <a-step
@@ -26,7 +26,7 @@
         >Cancel</a-button>
         <a-button
           key="connect"
-          class="Button"
+          class="pink-button button"
           type="primary"
           @click="submit"
           :disabled="unwindOrder==null"
@@ -34,28 +34,40 @@
         >Connect me Daddy</a-button>
         <a-button
           key="submit"
-          class="Button"
+          class="pink-button button"
           type="primary"
           @click="submit"
           v-if="current == 1"
         >Submit to Daddy</a-button>
         <a-button
           key="unwind"
-          class="Button"
+          class="pink-button button"
           type="primary"
           @click="submit"
           v-if="current == 2"
         >Unwind me Daddy</a-button>
       </div>
     </template>
+
+    <!-- Secondary Modal -->
+    <secondary-modal
+      :isVisible="this.secondaryModalVisible"
+      :emojis="this.secondaryModalData[this.current].approve.emojis"
+      :texts="this.secondaryModalData[this.current].approve.texts"
+    />
   </a-modal>
 </template>
 
 <script>
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
 import Step1Unwind from "@/components/Step1Unwind.vue";
 import Step2Unwind from "@/components/Step2Unwind.vue";
 import Step3Unwind from "@/components/Step3Unwind.vue";
+import SecondaryModal from "@/components/widgets/SecondaryModal";
+
+Vue.component(SecondaryModal.name, SecondaryModal);
+
 export default {
   name: "UnwindModal",
   props: {
@@ -75,10 +87,10 @@ export default {
     },
     submit() {
       if (this.current == 0) {
-        // TODO: insert logic
-        // TODO: fire metamask and loading modal
-        console.log(this.current);
+        //insert logic
+        //fire metamask and loading modal
         this.current++;
+        this.secondaryModalVisible = true;
         return;
       }
       if (this.current == 1) {
@@ -123,6 +135,44 @@ export default {
           description: "Let us help you unwind"
         }
       ],
+      secondaryModalVisible: false,
+      secondaryModalState: "approve", // should dynamically update. Value is either approve or pending.
+      secondaryModalData: [
+        {
+          approve: {
+            texts: ["Consent is sexy!", "Approve connection..."],
+            emojis: ["em-raised_hands", "em-sparkling_heart", "em-heart_eyes"]
+          },
+          pending: {
+            texts: ["Transaction pending", "I'm almost ready baby!"],
+            emojis: ["em-see_no_evil", "em-tongue", "em-alarm_clock"]
+          }
+        },
+        {
+          approve: {
+            texts: ["Submit to Daddy!", "Approve connection..."],
+            emojis: [
+              "em-revolving_hearts",
+              "em-eggplant",
+              "em-revolving_hearts"
+            ]
+          },
+          pending: {
+            texts: ["Transaction pending", "Don't stop now baby."],
+            emojis: ["em-eyes", "em-peach", "em-raised_hands"]
+          }
+        },
+        {
+          approve: {
+            texts: ["Approve connection...", "Let me help you unwind"],
+            emojis: ["em-moneybag", "em-crown", "em-revolving_hearts "]
+          },
+          pending: {
+            texts: ["Transaction pending", "I'm so close baby"],
+            emojis: ["em-tongue", "em-peach", "em-weary"]
+          }
+        }
+      ],
       current: 0,
       unwindOrder: null,
       myListings: []
@@ -144,10 +194,6 @@ export default {
   padding: 25px;
 }
 
-.modal {
-  font-family: "Nunito" !important;
-}
-
 .title {
   font-weight: bold;
   font-size: 25px;
@@ -156,14 +202,9 @@ export default {
   margin-bottom: 24px;
 }
 
-.Button {
-  background: #ff95cd;
-  border: green;
-  border-radius: 25px;
+.button {
   font-weight: 900;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
 }
 
 .PinkText {

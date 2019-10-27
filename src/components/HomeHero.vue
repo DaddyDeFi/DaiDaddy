@@ -16,7 +16,7 @@
         muted="true"
       />
 
-      <router-link to="/listing?open=true" class="cta" />
+      <router-link to="/?modalUnwind=true" class="cta" />
     </a-col>
   </a-row>
 </template>
@@ -62,6 +62,14 @@ export default {
   justify-content: center;
 }
 
+.cta {
+  position: absolute;
+  left: 40px;
+  bottom: 0;
+  width: 45%;
+  height: 45px;
+}
+
 @media (min-width: 768px) {
   .logo {
     width: 90%;
@@ -71,13 +79,11 @@ export default {
   .col-2 {
     justify-content: left;
   }
-}
 
-.cta {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 50%;
-  height: 60px;
+  .cta {
+    left: 0;
+    width: 50%;
+    height: 60px;
+  }
 }
 </style>

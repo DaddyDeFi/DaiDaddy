@@ -113,7 +113,7 @@ export default {
 
 // Buttons
 .pink-button {
-  background: #ffc1cc !important;
+  background: #ffc1cc;
   color: #ffffff !important;
   border: green;
   border-radius: 25px;
@@ -123,6 +123,20 @@ export default {
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.pink-button:hover {
+  background: #ffc1cc;
+}
+
+.pink-button[disabled] {
+  color: rgba(27, 14, 51, 0.3);
+  background: rgba(27, 14, 51, 0.15);
+}
+
+.pink-button[disabled]:hover {
+  color: rgba(27, 14, 51, 0.3);
+  background: rgba(27, 14, 51, 0.15);
 }
 
 // Containers
@@ -159,6 +173,16 @@ h1 {
   font-size: 20px;
   line-height: 32px;
   color: #1b0e33;
+}
+
+// Ant style overrides
+.ant-modal {
+  font-family: "Nunito" !important;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background: #ff94ce;
+  border-color: #ff94ce;
 }
 
 @media (min-width: 768px) {

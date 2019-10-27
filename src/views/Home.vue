@@ -33,6 +33,6 @@ export default {
 .divider {
   background-color: #ff94ce;
   opacity: 0.3;
-  margin: 35px;
+  margin: 35px 0;
 }
 </style>

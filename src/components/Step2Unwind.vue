@@ -146,7 +146,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   font-family: "Nunito" !important;
   -webkit-font-smoothing: antialiased;
@@ -157,10 +157,6 @@ export default {
   min-width: 900px;
   border-radius: 25px;
   padding: 25px;
-}
-
-.modal {
-  font-family: "Nunito" !important;
 }
 
 .BuyButton {
