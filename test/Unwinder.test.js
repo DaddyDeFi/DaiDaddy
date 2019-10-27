@@ -75,7 +75,8 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
         this.unwinder = await Unwinder.new(this.saiTub.address,
             this.medianizer.address,
             this.kyberNetworkProxy.address,
-            this.dai.address, {
+            this.dai.address,
+            contractOwner, {
                 from: contractOwner
             });
     });
@@ -141,18 +142,55 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
         })
     })
-    context("CDP Unwinder functionality 🎐", function () {
-        it("Reverts if not CDP owner", async function () {
-            assert.equal(true,false)
+    context("CDP Unwinder kyber intergration 💱", function () {
+        it("Correctly gets the current ether to dai exchange rate", async function () {
+            let contractRate = await this.unwinder.ethToDaiKyberPrice(ether("1"))
+            assert.equal(contractRate.toString(10), etherPrice, "Kyber price intergration returned wrong value")
         })
-        it("Reverts if unwind called by non previous owner", async function () {
-            assert.equal(true, false)
+
+        it("Correctly exchanges eth send to swap for dai function", async function () {
+            let kyberDaiBalanceBefore = await this.dai.balanceOf(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceBefore = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let UnwinderDaiBalanceBefore = await this.dai.balanceOf(this.unwinder.address)
+
+            let tokensSent = await this.unwinder.swapEthToDai({
+                from: seller,
+                value: ether("1")
+            })
+
+            let kyberDaiBalanceAfter = await this.dai.balanceOf(this.kyberNetworkProxy.address)
+            let kyberEtherBalanceAfter = await web3.eth.getBalance(this.kyberNetworkProxy.address)
+            let UnwinderDaiBalanceAfter = await this.dai.balanceOf(this.unwinder.address)
+
+            let exchangeDaiDelta = kyberDaiBalanceBefore - kyberDaiBalanceAfter
+            assert.equal(Math.round(exchangeDaiDelta / 10 ** 10).toString(10), Math.round(etherPrice / 10 ** 10).toString(10), "Dai balance did not decrease correctly from exchange")
+
+            let exchangeEthDelta = kyberEtherBalanceAfter - kyberEtherBalanceBefore
+            assert.equal(Math.round(exchangeEthDelta / 10 ** 10).toString(10), Math.round(ether("1") / 10 ** 10).toString(), "Ether balance did increase decrease correctly")
+
+            let UnwinderDaiDelta = UnwinderDaiBalanceAfter - UnwinderDaiBalanceBefore
+            assert.equal(Math.round(UnwinderDaiDelta / 10 ** 10).toString(10), Math.round(etherPrice / 10 ** 10).toString(), "seller dai balance did increase decrease correctly")
         })
-        it("Correctly Unwinds a CDP", async function () {
-            let cupObject = await this.saiTub.cups(cupId)
-            console.log("cup")
-            console.log(cupObject)
-            assert.equal(true,false)
+        it("Reverts on empty exchange", async function () {
+            await expectRevert.unspecified(this.unwinder.swapEthToDai({
+                from: seller,
+                value: ether("0")
+            }))
         })
     })
+
+    // context("CDP Unwinder functionality 🎐", function () {
+    //     it("Reverts if not CDP owner", async function () {
+    //         assert.equal(true, false)
+    //     })
+    //     it("Reverts if unwind called by non previous owner", async function () {
+    //         assert.equal(true, false)
+    //     })
+    //     it("Correctly Unwinds a CDP", async function () {
+    //         let cupObject = await this.saiTub.cups(cupId)
+    //         console.log("cup")
+    //         console.log(cupObject)
+    //         assert.equal(true, false)
+    //     })
+    // })
 })
