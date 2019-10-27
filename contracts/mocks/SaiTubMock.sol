@@ -10,11 +10,12 @@ contract SaiTubMock {
         uint256  art;      // Outstanding normalised debt (tax only) also called tab in function
         uint256  ire;      // Outstanding normalised debt
     }
-
+    
+    // constants. stored to mimic the maker syste
     uint public tabValue;
     uint rapValue;
-
-    uint256 _chi;  // Accumulated Tax Rates
+    uint256 public chiValue;  // Accumulated Tax Rates
+    uint256 public perValue; // weth to peth ratio
 
     constructor (bytes32 cupId,
         address _cupLad,
@@ -22,11 +23,13 @@ contract SaiTubMock {
         uint256 _cupArt,
         uint256 _cupIre,
         uint256 _cupTab,
-        uint256 _uintRap)
+        uint256 _uintRap,
+        uint256 _per)
     public {
         cups[cupId] = Cup(_cupLad, _cupInk, _cupArt, _cupIre);
         tabValue = _cupTab;
         rapValue = _uintRap;
+        perValue = _per;
     }
 
     function give(bytes32 cup, address guy) public {
@@ -56,6 +59,10 @@ contract SaiTubMock {
     }
 
     function chi() public returns (uint) {
-        // return _chi;
+        return chiValue;
+    }
+
+    function per() public returns (uint) {
+        return perValue;
     }
 }
