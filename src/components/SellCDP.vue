@@ -205,13 +205,16 @@
           >{{myCdps[debtOrder.debtIndex].value * (100-debtOrder.discount)/100}} ETH</h3>
         </a-col>
       </a-row>
-      <p style="padding-top:20px">Once you've listed your CDP for sale it will be transfered to the DaiDaddy contract where it will be held in escrow until someone buys it. At any point in time up to when it is bought you can cancel the sale. As soon as someone buys it the funds will automatically get transferred to your wallet.</p>
+      <p
+        style="padding-top:20px"
+      >Once you've listed your CDP for sale it will be transfered to the DaiDaddy contract where it will be held in escrow until someone buys it. At any point in time up to when it is bought you can cancel the sale. As soon as someone buys it the funds will automatically get transferred to your wallet.</p>
     </a-modal>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from "vuex";
+
 export default {
   name: "BuyCDP",
   methods: {

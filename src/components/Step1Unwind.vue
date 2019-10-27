@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h2 style="padding-bottom:25px; font-weight:900;">Select a CDP</h2>
-    <p
-      style="padding-bottom:25px; font-weight:400;"
-    >Choose a CDP to unwind 💦 and sign a transaction ✍️ to prove you own it.</p>
+    <div class="title">Select a CDP</div>
+    <div class="text">Choose a CDP to unwind 💦 and sign a transaction ✍️ to prove you own it.</div>
     <a-row>
-      <a-col :span="16">
+      <a-col :span="24">
         <a-row>
           <a-col :span="4">
             <th style="font-weight: 900;"></th>
@@ -14,7 +12,10 @@
             <th style="font-weight: 900">CDP Number</th>
           </a-col>
           <a-col :span="5">
-            <th style="font-weight: 900;">Total Debt</th>
+            <th style="font-weight: 900;">
+              Total Debt
+              <a-icon type="info-circle" />
+            </th>
           </a-col>
           <a-col :span="5">
             <th style="font-weight: 900;">Collateral/Ratio</th>
@@ -23,76 +24,76 @@
             <th class="PinkText" style="font-weight: 900;">CDP Value</th>
           </a-col>
         </a-row>
-        <hr style="padding:0px; margin:0px" />
-        <div
-          v-for="(cdp, index) in myCdps"
-          :key="index"
-          :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
-        >
-          <div @click="selectCDP(index)" style="cursor: pointer">
-            <a-row style="padding-top:15px; padding-bottom:15px;">
-              <a-col style="padding-left:25px" :span="4">
-                <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.CDPNo)}}</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.daiDrawn)}} DAI</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{cdp.collateralRatio}}</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="4">
-                <span class="PinkText">{{cdp.value}} ETH</span>
-              </a-col>
-            </a-row>
+        <div class="rows-container">
+          <div
+            v-for="(cdp, index) in myCdps"
+            :key="index"
+            :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
+          >
+            <hr style="padding:0px; margin:0px" />
+            <div @click="selectCDP(index)" style="cursor: pointer">
+              <a-row style="padding-top:15px; padding-bottom:15px;">
+                <a-col style="padding-left:25px" :span="4">
+                  <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
+                </a-col>
+                <a-col style="padding-top:5px" :span="5">
+                  <span>{{numberWithCommas(cdp.CDPNo)}}</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="5">
+                  <span>{{numberWithCommas(cdp.daiDrawn)}} DAI</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="5">
+                  <span>{{cdp.collateralRatio}}</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="4">
+                  <span class="PinkText">{{cdp.value}} ETH</span>
+                </a-col>
+              </a-row>
+            </div>
+            <hr style="padding:0px; margin:0px" />
           </div>
-          <hr style="padding:0px; margin:0px" />
         </div>
         <a-divider />
         <a-row style="padding-left:5px" :span="5">
-          <span style="padding:5px; font-weight: 900;">Summary</span>
+          <div class="title">Summary</div>
 
           <a-row>
-            <span style="padding:5px; font-weight: 900;">Fees:</span>
-            <span
-              v-if="debtOrder.cdpId==null"
-              style="padding:5px; font-weight: 900; color:#FF2898"
-            >-</span>
-            <span v-if="debtOrder.cdpId!=null" style="padding:5px; font-weight: 900; color:#FF2898">
-              <!-- calculate fees -->
-              ETH
-            </span>
-            <span style="padding:5px; font-weight: 900;">You'll get:</span>
-            <span
-              v-if="debtOrder.cdpId==null"
-              style="padding:5px; font-weight: 900; color:#FF2898"
-            >-</span>
+            <a-col :span="12" :md="5">
+              <span style="font-size: 16px" class="title">Fees:</span>
+              <div v-if="debtOrder.cdpId==null" class="values">-</div>
+              <div v-if="debtOrder.cdpId!=null" class="values">
+                <!-- calculate fees -->
+                ETH
+              </div>
+            </a-col>
 
-            <span v-if="debtOrder.cdpId!=null" style="padding:5px; font-weight: 900; color:#FF2898">
-              <!-- calculate final -->
-              ETH
-            </span>
-            <a-divider class="gasdivider" />
-            <span style="padding:5px; font-weight: 900;">Estimated Gas Cost:</span>
-            <span
-              v-if="debtOrder.cdpId==null"
-              style="padding:5px; font-weight: 900; color:#FF2898"
-            >-</span>
-            <span v-if="debtOrder.cdpId!=null" style="padding:5px; font-weight: 900; color:#FF2898">
-              <!-- Calc estimated gas cost -->
-              ETH
-            </span>
+            <a-col :span="12" :md="5">
+              <span style="font-size: 16px" class="title">You'll get:</span>
+              <div v-if="debtOrder.cdpId==null" class="values">-</div>
+              <div v-if="debtOrder.cdpId!=null" class="values">
+                <!-- calculate final -->
+                ETH
+              </div>
+            </a-col>
           </a-row>
         </a-row>
       </a-col>
     </a-row>
+
+    <loading-modal :isVisible="true" status="approve" />
   </div>
 </template>
 
 <script>
+import Vue from "vue";
 import { mapActions, mapState } from "vuex";
+import { Icon } from "ant-design-vue";
+
+import LoadingModal from "@/components/widgets/LoadingModal";
+
+Vue.component(Icon.name, Icon);
+Vue.component(LoadingModal.name, LoadingModal);
+
 export default {
   name: "Step1Unwind",
   methods: {
@@ -172,6 +173,30 @@ export default {
           discount: 5,
           finalPrice: 0.95,
           selected: false
+        },
+        {
+          cdpId:
+            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
+          CDPNo: 69421,
+          daiDrawn: 666,
+          collateralRatio: "2 ETH | 200%",
+          fee: 0.042069,
+          value: 1,
+          discount: 5,
+          finalPrice: 0.95,
+          selected: false
+        },
+        {
+          cdpId:
+            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
+          CDPNo: 69421,
+          daiDrawn: 666,
+          collateralRatio: "2 ETH | 200%",
+          fee: 0.042069,
+          value: 1,
+          discount: 5,
+          finalPrice: 0.95,
+          selected: false
         }
       ]
     };
@@ -179,7 +204,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   font-family: "Nunito" !important;
   -webkit-font-smoothing: antialiased;
@@ -244,5 +269,41 @@ export default {
   width: 25px;
   border-radius: 20px;
   font-weight: 900;
+}
+
+.title {
+  font-size: 18px;
+  line-height: 25px;
+  color: #000;
+  margin-bottom: 24px;
+  font-weight: bold;
+}
+
+.text {
+  font-size: 16px;
+  line-height: 22px;
+  color: #000000;
+  margin-bottom: 24px;
+}
+
+.rows-container {
+  overflow: auto;
+  max-height: 150px;
+}
+
+th {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 22px;
+  color: #000;
+  padding: 8px 0;
+}
+
+.values {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 33px;
+  color: #1b0e33;
+  margin-top: 16px;
 }
 </style>
