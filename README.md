@@ -25,7 +25,7 @@ The new version maintains this buy/sell functionality, but adds a new primary fe
 The number of withdraw/repay iterations required depends on the collateralisation ratio of the given CDP. The lower the ratio, the more iterations are required. Because this process follows an exponential curve, v1.0 of DAI Daddy is used as a backup option for CDPs whose collateralisation ratio is too low to leverage the unwinding process.
 
 ## Our Team
-- 🇿🇦 Chris Maree - Smart Contracts + Integrations
+- 🇿🇦 Chris Maree - Financial Maths, Smart Contracts & Integrations
 - 🇳🇿 Hamed Ali - Front-End
 - 🇳🇿 Stefan Bachmann - Front-End
 - 🇳🇿 Matthias Bachmann - UX/UI, Design
