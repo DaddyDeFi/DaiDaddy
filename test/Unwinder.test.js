@@ -22,17 +22,18 @@ const ERC20Mock = artifacts.require("ERC20Mock")
 // The collateralization ratio for this given CDP is 301.91%
 const cupId = "0x0000000000000000000000000000000000000000000000000000000000000f41"
 const otherCupId = "0x0000000000000000000000000000000000000000000000000000000000000f40"
-const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8"
-const ink = "166188150160920386823"
-const art = "9605000000000000000000"
-const ire = "9510786783831334714721"
-const tab = "50000000000000000000"
-const rap = "1937914497665704"
+const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8" // an example lad of a cup
+const ink = "166188150160920386823" //166.19 ether collateral
+const art = "9605000000000000000000" //9605 dai debt
+const ire = "9510786783831334714721" //debt before fee
+const tab = "50000000000000000000" //get the amount of debt in a cup
+const rap = "1937914497665704" //get the amount of governance debt in a cup
+const per = "1046338576393856513396626889" // weth to peth ratio
 
 // other constants
 const etherPrice = "166770000000000000000"
 const etherPriceSlippage = "161770000000000000000"
-const wpRatio = "1046300000000000000"
+const wpRatio = "1046338576393856513"
 
 // contract constants (mimic the main net)
 const daiContractAddress = "0x89d24a6b4ccb1b6faa2625fe562bdd9a23260359"
@@ -48,7 +49,8 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             art,
             ire,
             tab,
-            rap, {
+            rap,
+            per, {
                 from: contractOwner
             })
 
@@ -95,7 +97,7 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             //calculate the expected collateralization ratio given the amount of debt in the CDP, the dai drawn and the weth to peth ratio
             let expected = art * etherPrice * wpRatio / (ire * 10 ** 18)
             let contractCalculation = await this.unwinder.collateralizationRatio(art, ire, etherPrice, wpRatio)
-            assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+            assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Collateralization ratio incorrectly calculated")
         })
 
         it("Correctly calculate the number of unwinds needed to close the position", async function () {
@@ -137,9 +139,22 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
         })
 
         it("Correctly calculates freeable ether", async function () {
-            let expected = "86915281289110042527" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
+            let expected = "86921692228644935517" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
             let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
-            assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Ceil function did not round correctly")
+            assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Wrong freeable ether calculated")
+        })
+    })
+    context("CDP Unwinder medianizer intergration ⚖️", function () {
+        it("Correctly gets the current ether to dai price", async function () {
+            let contractEtherPrice = await this.unwinder.getEtherPrice()
+            assert.equal(contractEtherPrice.toString(10), etherPrice, "Medianizer price is wrong")
+        })
+    })
+
+    context("CDP Unwinder tub intergration 🛁", function () {
+        it("Correctly gets the current weth to peth ratio", async function () {
+            let contractWethToPethRatio = await this.unwinder.getWpRatio()
+            assert.equal(contractWethToPethRatio.toString(10), wpRatio)
         })
     })
     context("CDP Unwinder kyber intergration 💱", function () {
@@ -179,18 +194,34 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
         })
     })
 
-    // context("CDP Unwinder functionality 🎐", function () {
-    //     it("Reverts if not CDP owner", async function () {
-    //         assert.equal(true, false)
-    //     })
-    //     it("Reverts if unwind called by non previous owner", async function () {
-    //         assert.equal(true, false)
-    //     })
-    //     it("Correctly Unwinds a CDP", async function () {
-    //         let cupObject = await this.saiTub.cups(cupId)
-    //         console.log("cup")
-    //         console.log(cupObject)
-    //         assert.equal(true, false)
-    //     })
-    // })
+    context("CDP Unwinder functionality 🎐", function () {
+        it("Reverts if daidaddy not CDP owner", async function () {
+            // the cup has not been transfered so should not let it be unwound
+            await expectRevert.unspecified(this.unwinder.unwindCDP(cupId, {
+                from: seller
+            }))
+        })
+        it("Reverts if unwind called by non previous owner", async function () {
+            // first we give the cup to the Unwinder from the seller
+            await this.saiTub.give(cupId, this.unwinder.address, {
+                from: seller
+            })
+
+            // then try to unwind from a diffrent address
+            await expectRevert.unspecified(this.unwinder.unwindCDP(cupId, {
+                from: random
+            }))
+        })
+        it("Correctly Unwinds a CDP", async function () {
+            // first we give the cup to the Unwinder from the seller
+            await this.saiTub.give(cupId, this.unwinder.address, {
+                from: seller
+            })
+
+            // then try to unwind from a diffrent address
+            this.unwinder.unwindCDP(cupId, {
+                from: seller
+            })
+        })
+    })
 })

@@ -17,11 +17,12 @@ const medianizerMock = artifacts.require("MedianizerMock");
 // Cup constants(taken to mimic a deployed CDP from Etherscan)
 const cupId = "0x0000000000000000000000000000000000000000000000000000000000001b4e";
 const lad = "0xa8b462dab3eaaa7079c1b9031608f42188cef2f8"
-const ink = "999843601236543264"
-const art = "50000000000000000000"
-const ire = "46444817854684944253"
-const tab = "50000000000000000000"
-const rap = "1937914497665704"
+const ink = "999843601236543264" //collateral in cdp
+const art = "50000000000000000000" //dai drawn
+const ire = "46444817854684944253" //debt before fee
+const tab = "50000000000000000000" // debt in a cup
+const rap = "1937914497665704" // governace debt in a cup
+const per = "1046338576393856513396626889" // weth to peth ratio
 
 // Sale settings
 const discount = "5"
@@ -39,7 +40,8 @@ contract("DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
             art,
             ire,
             tab,
-            rap, {
+            rap,
+            per, {
                 from: contractOwner
             })
 
