@@ -93,6 +93,6 @@ truffle migrate --network kovan --reset
 ```
 
 ## Additional Resources
-- [Pitch Deck](XXX)
-- [Figma Mockups](XXX)
+- [Pitch Deck](https://docs.google.com/presentation/d/1sbFyWNFegvZEwloTaPRPvk2K4rM0HGzKscSY2kY62vo/edit?usp=sharing)
+- [Figma Mockups](https://www.figma.com/file/Uxyp63OzXWIDANogDZaRgj/DAI-Daddy-Kyber-DeFi-Hackathon?node-id=0%3A1)
 - [DAI Daddy v1.0](https://github.com/diffusioncon/DAI-Daddy-MakerDAO)
