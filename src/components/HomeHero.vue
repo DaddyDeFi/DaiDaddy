@@ -1,12 +1,13 @@
 <template>
-  <a-row class="container" justify="center" align="middle" type="flex">
-    <a-col class="col-1" :md="14" :span="24">
-      <img src="/img/bigMichaelLogo.png" class="logo" />
-    </a-col>
-    <a-col class="col-2" :md="10" :span="24">
-      <img src="/img/michaelBoxes.png" class="hero-michael" />
-      <!-- TODO: implement video properly and add conditional rendering -->
-      <!-- <video
+  <div>
+    <a-row class="container1" justify="center" align="middle" type="flex">
+      <a-col class="col-1" :md="14" :span="24">
+        <img src="/img/bigMichaelLogo.png" class="logo" />
+      </a-col>
+      <a-col class="col-2" :md="10" :span="24">
+        <img src="/img/michaelBoxes.png" class="hero-michael" />
+        <!-- TODO: implement video properly and add conditional rendering -->
+        <!-- <video
         class="MichaelVid"
         src="anim/HeroMichaels.webm"
         type="video/webm"
@@ -14,16 +15,57 @@
         style="height:600px; padding-right:180px "
         autoplay="true"
         muted="true"
-      /> -->
+        />-->
 
-      <router-link to="/?modalUnwind=true" class="cta" />
-    </a-col>
-  </a-row>
+        <router-link to="/?modalUnwind=true" class="cta" />
+      </a-col>
+    </a-row>
+    <a-row class="container2" justify="center" align="middle" type="flex">
+      <a-col class="col-1" :md="14" :span="24"></a-col>
+      <a-col class="col-2" :md="10" :span="24">
+        <a-button
+          type="primary"
+          class="ant-btn ant-btn-lg ant-btn-block pink-button"
+          @click="showModal"
+          style="padding-right: 100px"
+        >How it Works</a-button>
+      </a-col>
+    </a-row>
+    <a-modal class="modal" v-model="visible" :footer="null" :closable="false">
+      <div
+        style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important;"
+      >
+        <iframe width="1280" height="720" src="https://www.youtube.com/watch?v=JEcj2xi9Ctc"></iframe>
+        <div style="text-align:center">
+          <a-button
+            class="close-button"
+            key="close"
+            type="primary"
+            @click="handleClose"
+            style="border-radius: 25px;"
+          >Close</a-button>
+        </div>
+      </div>
+    </a-modal>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "HomeHero"
+  name: "HomeHero",
+  methods: {
+    showModal() {
+      this.visible = true;
+    },
+    handleClose(e) {
+      this.visible = false;
+    }
+  },
+  data() {
+    return {
+      visible: false
+    };
+  }
 };
 </script>
 
@@ -36,11 +78,37 @@ export default {
   padding: 0px 50px;
 }
 
-.container {
-  height: 100vh;
+.close-button {
+  background: #ffc1cc !important;
+  color: #ffffff !important;
+  border: green;
+  border-radius: 25px;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 16px;
+  width: 40%;
+  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.modal {
+  height: auto;
+  width: 30%;
+  border-radius: 40px;
+}
+
+.container1 {
+  height: 80vh;
   width: 100%;
   margin: 0;
   padding: 0;
+}
+.container2 {
+  height: 20vh;
+  width: 100%;
+  margin: 0;
+  padding: 30px;
 }
 
 .hero-michael {
