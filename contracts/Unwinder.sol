@@ -33,7 +33,7 @@ contract Unwinder {
     constructor(
         address _saiTubAddress,
         address _medianizerAddress,
-        address _KyberNetworkProxyAddress,
+        address _kyberNetworkProxyAddress,
         address _daiTokenAddress,
         address _wethTokenAddress,
         address _daiDaddyFeeCollector
@@ -41,7 +41,7 @@ contract Unwinder {
         saiTubContract = SaiTub(_saiTubAddress);
         medianizerContract = Medianizer(_medianizerAddress);
         kyberNetworkProxyContract = KyberNetworkProxy(
-            _KyberNetworkProxyAddress
+            _kyberNetworkProxyAddress
         );
         daiContract = ERC20(_daiTokenAddress);
         wethContract = ERC20(_wethTokenAddress);
