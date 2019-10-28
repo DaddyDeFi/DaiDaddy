@@ -1,27 +1,60 @@
-var unwinder = artifacts.require("Unwinder");
-var tub = artifacts.require("SaiTub");
-var medianizer = artifacts.require("Medianizer");
+const Unwinder = artifacts.require("Unwinder");
 
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const infuraApikey = '9542ce9f96be4ae08225dcde36ff1638';
 
-const cupId = "0x0000000000000000000000000000000000000000000000000000000000000f41"
-const lad = "0xfffbe00ed265804e6598ac6b804a6356508591c8"
-const ink = "166188150160920386823"
-const art = "9605000000000000000000"
-const ire = "9510786783831334714721"
-const tab = "50000000000000000000"
-const rap = "1937914497665704"
+module.exports = async (deployer, network, accounts) => {
+    let account = accounts[0];
 
-const etherPrice = "166770000000000000000"
+    // Load in other accounts for different networks
+    if (network === 'kovan' || network === 'kovan-fork') {
+        account = new HDWalletProvider(require('../mnemonic.js'), `https://${network}.infura.io/v3/${infuraApikey}`, 0).getAddress();
+    }
 
-module.exports = function (deployer) {
-    // deployer.deploy(tub, cupId, lad, ink, art, ire, tab, rap)
-    //     .then(async tubObject => {
-    //         await deployer.deploy(medianizer, etherPrice).then(async medianizerObject => {
-    //             await deployer.deploy(unwinder, tubObject.address, medianizerObject.address).then(async unwinderObject => {
-    //                 await unwinderObject.sellCDP(cupId,5).then(c => {
-    //                     console.log("deployment done! 🚀")
-    //                 })
-    //             })
-    //         })
-    //     });
+    if (network === 'live' || network === 'live-fork') {
+        account = new HDWalletProvider(require('../mnemonic_live.js'), `https://mainnet.infura.io/v3/${infuraApikey}`, 0).getAddress();
+    }
+
+    if (network != 'kovan' && network != 'live') {
+        console.log("Invalid network selected")
+    }
+
+    console.log(`Running within network = ${network}`);
+    console.log(`Account = ${account}`);
+
+    // variables needed to deploy the unwinder
+    let saiTubAddress
+    let medianizerAddress
+    let kyberNetworkProxyAddress
+    let daiTokenAddress
+    let wethTokenAddress
+    let daiDaddyFeeCollector
+
+    if (network === 'kovan' || network === 'kovan-fork') {
+        saiTubAddress = "0xa71937147b55deb8a530c7229c442fd3f31b7db2"
+        medianizerAddress = "0x9FfFE440258B79c5d6604001674A4722FfC0f7Bc"
+        kyberNetworkProxyAddress = "0x692f391bCc85cefCe8C237C01e1f636BbD70EA4D"
+        daiTokenAddress = "0xc4375b7de8af5a38a93548eb8453a498222c4ff2"
+        wethTokenAddress = "0xd0a1e359811322d97991e03f863a0c30c2cf029c"
+        daiDaddyFeeCollector = "0xB3c5485526F7Dbe5b8067DE2C59c819937782066"
+    }
+
+    if (network === 'live' || network === 'live-fork') {
+        saiTubAddress = "0x448a5065aeBB8E423F0896E6c5D525C040f59af3"
+        medianizerAddress = "0x729D19f657BD0614b4985Cf1D82531c67569197B"
+        kyberNetworkProxyAddress = "0x818E6FECD516Ecc3849DAf6845e3EC868087B755"
+        daiTokenAddress = "0x89d24A6b4CcB1B6fAA2625fE562bDD9a23260359"
+        wethTokenAddress = "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+        daiDaddyFeeCollector = ""
+    }
+
+    await deployer.deploy(Unwinder,
+        saiTubAddress,
+        medianizerAddress,
+        kyberNetworkProxyAddress,
+        daiTokenAddress,
+        wethTokenAddress,
+        daiDaddyFeeCollector, {
+            from: account
+        });
 };
