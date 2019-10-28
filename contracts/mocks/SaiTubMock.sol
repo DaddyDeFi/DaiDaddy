@@ -99,13 +99,14 @@ contract SaiTubMock {
         cups[cup].ink = cups[cup].ink - wad;
 
         uint256 _wpRatio = per() / (10**9);
-        uint256 cr = (cups[cup].ink * etherPrice * _wpRatio) /
-            (cups[cup].art * 10**18);
-        //checks that the collateralization ratio is bigger than the 150% collateral requirement of a cdp
-        //this is validated using the safe function in maker's tub contract. is is easier to mock it like this.
-        emit log(cr);
-        require(cr > 150 * 10**16, "Cant free that much collateral");
 
+        if (cups[cup].art > 0) {
+            uint256 cr = (cups[cup].ink * etherPrice * _wpRatio) / (cups[cup].art * 10**18);
+            //checks that the collateralization ratio is bigger than the 150% collateral requirement of a cdp
+            //this is validated using the safe function in maker's tub contract. is is easier to mock it like this.
+            emit log(cr);
+            require(cr > 150 * 10 ** 16, "Cant free that much collateral");
+        }
         //allocate peth to the user
         peth[msg.sender] = peth[msg.sender] + wad;
     }

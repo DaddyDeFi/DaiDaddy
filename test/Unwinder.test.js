@@ -275,9 +275,12 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             })
 
             let cupBefore = await this.saiTub.cups(cupId)
-            console.log("ink before", cupBefore.ink.toString(10))
-            console.log("art before", cupBefore.art.toString(10))
-            console.log("unwinder dai before", (await this.dai.balanceOf(this.unwinder.address)).toString(10))
+            assert.equal(cupBefore.ink.toString(10), ink, "Ink before not set correctly")
+            assert.equal(cupBefore.art.toString(10), art, "art before not set correctly")
+            assert.equal((await this.dai.balanceOf(this.unwinder.address)).toString(10), (0).toString(10), "Unwinder should not have any dai before tx")
+            assert.equal((await this.weth.balanceOf(this.unwinder.address)).toString(10), (0).toString(10), "Unwinder should not have any weth before tx")
+            assert.equal((await this.dai.balanceOf(seller)).toString(10).toString(10), (0).toString(10), "seller should not have any dai before tx")
+            assert.equal((await this.weth.balanceOf(seller)).toString(10).toString(10), (0).toString(10), "seller should not have any weth before tx")
 
             // finally unwind the cdp
             let valueReturned = await this.unwinder.unwindCDP(cupId, {
@@ -285,10 +288,12 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             })
 
             let cupAfter = await this.saiTub.cups(cupId)
-            console.log("ink before", cupAfter.ink.toString(10))
-            console.log("art before", cupAfter.art.toString(10))
-            console.log("unwinder dai after", (await this.dai.balanceOf(this.unwinder.address)).toString(10))
-            // console.log("valueReturned", valueReturned)
+            assert.equal(cupAfter.ink.toString(10), (0).toString(10), "Ink after not drained")
+            assert.equal(cupAfter.art.toString(10), (0).toString(10), "art after not drained")
+            assert.equal((await this.dai.balanceOf(this.unwinder.address)).toString(10), (0).toString(10), "Unwinder should not have any dai after tx")
+            assert.equal((await this.weth.balanceOf(this.unwinder.address)).toString(10), (0).toString(10), "Unwinder should not have any weth after tx")
+            assert.equal((await this.dai.balanceOf(seller)).toString(10).toString(10), "296872102367558879851", "seller should have exact left over dai after tx")
+            assert.equal((await this.weth.balanceOf(seller)).toString(10).toString(10), "106813729687408610845", "seller should have exact left over weth after tx")
         })
     })
 })

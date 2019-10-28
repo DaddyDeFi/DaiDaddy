@@ -107,6 +107,7 @@ contract Unwinder {
         uint256 etherPrice,
         uint256
     ) public view returns (uint256) {
+        if (art == 0) return ink; //if there is no debt then all ink is freeable
         return ink - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
     }
 
@@ -168,7 +169,7 @@ contract Unwinder {
         (, uint256 ink, uint256 art, ) = saiTubContract.cups(_cup);
 
         // calculate how much ether can be freed from the cup
-        uint256 freeableEther = freeableCollateralWeth(
+        uint256 freeableWeth = freeableCollateralWeth(
             ink,
             art,
             getEtherPrice(),
@@ -176,12 +177,12 @@ contract Unwinder {
         );
 
         // free peth from cdp
-        saiTubContract.free(_cup, freeableEther);
+        saiTubContract.free(_cup, freeableWeth);
 
         //convert peth to Weth //this should include the wpratio...
-        saiTubContract.exit(freeableEther);
+        saiTubContract.exit(freeableWeth);
 
-        return freeableEther;
+        return freeableWeth;
     }
 
     function getEtherPrice() public view returns (uint256) {
@@ -226,9 +227,32 @@ contract Unwinder {
             );
             saiTubContract.wipe(_cup, art);
 
-            (address lad, uint256 ink, uint256 art, uint256 ire) = saiTubContract
-                .cups(_cup);
-            // require();
+            //get the debt and check it is all been wiped
+            (, uint256 inkEnd, uint256 artEnd, ) = saiTubContract.cups(_cup);
+            require(artEnd == 0, "Not all debt has been wiped");
+
+            // draw out the remaining ether
+            saiTubContract.free(_cup, inkEnd);
+
+            //convert peth to Weth //this should include the wpratio...
+            saiTubContract.exit(inkEnd);
+
+            // send all remaining eth and weth to sender.
+            require(
+                daiContract.transfer(
+                    msg.sender,
+                    daiContract.balanceOf(address(this))
+                ),
+                "Dai transfer tailed"
+            );
+            require(
+                wethContract.transfer(
+                    msg.sender,
+                    wethContract.balanceOf(address(this))
+                ),
+                "Weth transfer failed"
+            );
+
         }
     }
 
