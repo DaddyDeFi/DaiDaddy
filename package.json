@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prettier": "prettier --write **/*.sol"
+
   },
   "dependencies": {
     "ant-design-vue": "^1.4.1",
@@ -28,6 +30,8 @@
     "@vue/cli-plugin-pwa": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "openzeppelin-test-helpers": "^0.5.1",
+    "prettier": "^1.18.2",
+    "prettier-plugin-solidity": "^1.0.0-alpha.34",
     "sass": "^1.19.0",
     "sass-loader": "^8.0.0",
     "truffle-hdwallet-provider": "^1.0.17",

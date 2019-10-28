@@ -2388,6 +2388,11 @@ dir-glob@^2.0.0, dir-glob@^2.2.2:
   dependencies:
     path-type "^3.0.0"
 
+dir-to-object@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dir-to-object/-/dir-to-object-2.0.0.tgz#29723e9bd1c3e58e4f307bd04ff634c0370c8f8a"
+  integrity sha512-sXs0JKIhymON7T1UZuO2Ud6VTNAx/VTBXIl4+3mjb2RgfOpt+hectX0x04YqPOPdkeOAKoJuKqwqnXXURNPNEA==
+
 dns-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/dns-equal/-/dns-equal-1.0.0.tgz#b39e7f1da6eb0a75ba9c17324b34753c47e0654d"
@@ -2595,6 +2600,11 @@ emoji-regex@^7.0.1:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
   integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
 
+emoji-regex@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
+  integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
+
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -2718,6 +2728,11 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
+escape-string-regexp@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
+  integrity sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==
+
 eslint-scope@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.3.tgz#ca03833310f6889a3264781aa82e63eb9cfe7848"
@@ -2725,6 +2740,13 @@ eslint-scope@^4.0.3:
   dependencies:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
+
+esprima-extract-comments@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/esprima-extract-comments/-/esprima-extract-comments-1.1.0.tgz#0dacab567a5900240de6d344cf18c33617becbc9"
+  integrity sha512-sBQUnvJwpeE9QnPrxh7dpI/dp67erYG4WXEAreAMoelPRpMR7NWb4YtwRPn9b+H1uLQKl/qS8WYmyaljTpjIsw==
+  dependencies:
+    esprima "^4.0.0"
 
 esprima@^4.0.0:
   version "4.0.1"
@@ -3019,6 +3041,14 @@ extglob@^2.0.4:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+extract-comments@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/extract-comments/-/extract-comments-1.1.0.tgz#b90bca033a056bd69b8ba1c6b6b120fc2ee95c18"
+  integrity sha512-dzbZV2AdSSVW/4E7Ti5hZdHWbA+Z80RJsJhr5uiL10oyjl/gy7/o+HI1HwK4/WSZhlq4SNKU3oUzXlM13Qx02Q==
+  dependencies:
+    esprima-extract-comments "^1.1.0"
+    parse-code-context "^1.0.0"
 
 extsprintf@1.3.0:
   version "1.3.0"
@@ -4147,6 +4177,11 @@ is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
   integrity sha1-o7MKXE8ZkYMWeqq5O+764937ZU8=
+
+is-fullwidth-code-point@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
+  integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
 
 is-function@^1.0.1:
   version "1.0.1"
@@ -5666,6 +5701,11 @@ parse-asn1@^5.0.0:
     pbkdf2 "^3.0.3"
     safe-buffer "^5.1.1"
 
+parse-code-context@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/parse-code-context/-/parse-code-context-1.0.0.tgz#718c295c593d0d19a37f898473268cc75e98de1e"
+  integrity sha512-OZQaqKaQnR21iqhlnPfVisFjBWjhnMl5J9MgbP8xC+EwoVqbXrq78lp+9Zb3ahmLzrIX5Us/qbvBnaS3hkH6OA==
+
 parse-headers@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/parse-headers/-/parse-headers-2.0.2.tgz#9545e8a4c1ae5eaea7d24992bca890281ed26e34"
@@ -6205,10 +6245,29 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
+prettier-plugin-solidity@^1.0.0-alpha.34:
+  version "1.0.0-alpha.34"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-solidity/-/prettier-plugin-solidity-1.0.0-alpha.34.tgz#9a2584fb1773569e2b22c0edba36cd4b80aa3905"
+  integrity sha512-cg/HrnS4P6m7rdnazZt3QdN7TwuW+TO5quLpTLzvN2BTsbyNFjBjTBUFIJwlFVhjUjw8mQ2uxKfk3b7pSvXJyw==
+  dependencies:
+    dir-to-object "^2.0.0"
+    emoji-regex "^8.0.0"
+    escape-string-regexp "^2.0.0"
+    extract-comments "^1.1.0"
+    prettier "^1.15.3"
+    semver "^6.3.0"
+    solidity-parser-antlr "^0.4.11"
+    string-width "^4.1.0"
+
 prettier@1.16.3:
   version "1.16.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.16.3.tgz#8c62168453badef702f34b45b6ee899574a6a65d"
   integrity sha512-kn/GU6SMRYPxUakNXhpP0EedT/KmaPzr0H5lIsDogrykbaxOpOfAFfk5XA7DZrJyMAv1wlMV3CPcZruGXVVUZw==
+
+prettier@^1.15.3, prettier@^1.18.2:
+  version "1.18.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
+  integrity sha512-OeHeMc0JhFE9idD4ZdtNibzY0+TPHSpSSb9h8FqtP+YnoZZ1sl8Vc9b1sasjfymH3SonAF4QcA2+mzHPhMvIiw==
 
 pretty-bytes@^5.1.0:
   version "5.3.0"
@@ -7074,6 +7133,11 @@ sockjs@0.3.19:
     faye-websocket "^0.10.0"
     uuid "^3.0.1"
 
+solidity-parser-antlr@^0.4.11:
+  version "0.4.11"
+  resolved "https://registry.yarnpkg.com/solidity-parser-antlr/-/solidity-parser-antlr-0.4.11.tgz#af43e1f13b3b88309a875455f5d6e565b05ee5f1"
+  integrity sha512-4jtxasNGmyC0midtjH/lTFPZYvTTUMy6agYcF+HoMnzW8+cqo3piFrINb4ZCzpPW+7tTVFCGa5ubP34zOzeuMg==
+
 sort-keys@^1.0.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/sort-keys/-/sort-keys-1.1.2.tgz#441b6d4d346798f1b4e49e8920adfba0e543f9ad"
@@ -7306,6 +7370,15 @@ string-width@^3.0.0, string-width@^3.1.0:
     emoji-regex "^7.0.1"
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^5.1.0"
+
+string-width@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.1.0.tgz#ba846d1daa97c3c596155308063e075ed1c99aff"
+  integrity sha512-NrX+1dVVh+6Y9dnQ19pR0pP4FiEIlUvdTGn8pw6CKTNq5sgib2nIhmUNT5TAmhWmvKr3WcxBcP3E8nWezuipuQ==
+  dependencies:
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^5.2.0"
 
 string.prototype.padend@^3.0.0:
   version "3.0.0"

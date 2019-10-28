@@ -29,6 +29,7 @@ const discount = "5"
 
 //other constants
 const etherPrice = "166770000000000000000"
+const wpRatio = "1046338576393856513"
 
 contract("DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
     beforeEach(async function () {
@@ -44,6 +45,8 @@ contract("DebtMarket 💹", ([contractOwner, seller, buyer, random]) => {
             per,
             random, //this is the address of dai. These tests dont need this so can be random
             random, //this is the address of weth
+            wpRatio,
+            etherPrice,
             {
                 from: contractOwner
             })

@@ -115,7 +115,7 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
 
         it("Collateralization Ratio is correctly calculated", async function () {
             //calculate the expected collateralization ratio given the amount of debt in the CDP, the dai drawn and the weth to peth ratio
-            let expected = ink * etherPrice * wpRatio / (art * 10 ** 18)    
+            let expected = ink * etherPrice * wpRatio / (art * 10 ** 18)
             let contractCalculation = await this.unwinder.collateralizationRatio(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Collateralization ratio incorrectly calculated")
         })
@@ -185,7 +185,8 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
     context("CDP Unwinder kyber intergration 💱", function () {
         it("Correctly gets the current ether to dai exchange rate", async function () {
             let contractRate = await this.unwinder.ethToDaiKyberPrice(ether("1"))
-            assert.equal(contractRate.toString(10), etherPrice, "Kyber price intergration returned wrong value")
+            assert.equal(contractRate[0].toString(10), etherPrice, "Kyber price intergration returned wrong value")
+            assert.equal(contractRate[1].toString(10), etherPriceSlippage, "Kyber price intergration returned wrong value")
         })
 
         it("Correctly exchanges weth send to swap for dai function", async function () {
@@ -229,11 +230,11 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             })
             // then see that we can draw the correct amount of eth from it
             let unwinderWethBalanceBefore = await this.weth.balanceOf(this.unwinder.address)
-            
+
             await this.unwinder.drawMaxWethFromCDP(cupId)
-            
+
             let unwinderWethBalanceAfter = await this.weth.balanceOf(this.unwinder.address)
-            
+
             assert.equal(unwinderWethBalanceBefore.toString(10), "0", "Balance did not start correctly")
             assert.equal(unwinderWethBalanceAfter.toString(10), "79220769936659428618", "Balance did not change correctly")
         })
@@ -273,11 +274,20 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
                 from: seller
             })
 
+            let cupBefore = await this.saiTub.cups(cupId)
+            console.log("ink before", cupBefore.ink.toString(10))
+            console.log("art before", cupBefore.art.toString(10))
+            console.log("unwinder dai before", (await this.dai.balanceOf(this.unwinder.address)).toString(10))
+
             // finally unwind the cdp
             let valueReturned = await this.unwinder.unwindCDP(cupId, {
                 from: seller
             })
 
+            let cupAfter = await this.saiTub.cups(cupId)
+            console.log("ink before", cupAfter.ink.toString(10))
+            console.log("art before", cupAfter.art.toString(10))
+            console.log("unwinder dai after", (await this.dai.balanceOf(this.unwinder.address)).toString(10))
             // console.log("valueReturned", valueReturned)
         })
     })

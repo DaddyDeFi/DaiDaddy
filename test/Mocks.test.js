@@ -71,7 +71,10 @@ contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
             rap,
             per,
             this.dai.address,
-            this.weth.address, {
+            this.weth.address,
+            wpRatio,
+            etherPrice,
+            {
                 from: contractOwner
             })
 
@@ -101,7 +104,7 @@ contract("Contract Mocks 🧪", ([contractOwner, seller, daiDaddy, random]) => {
             await this.weth.transfer(seller, ether("10"), {
                 from: contractOwner
             })
-            
+
             await this.weth.approve(this.kyberNetworkProxy.address, ether("1"), {
                 from: seller
             })
