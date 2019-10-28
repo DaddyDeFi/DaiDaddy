@@ -2,6 +2,9 @@
   <div>
     <Nav />
     <MyCDPs />
+    <footer>
+      <MadeBy />
+    </footer>
   </div>
 </template>
 

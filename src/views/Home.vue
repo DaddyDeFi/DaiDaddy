@@ -6,6 +6,9 @@
     <HomeDaiDaddyMarket />
     <a-divider class="divider" />
     <HomeDaiDaddyFinDom />
+    <footer>
+      <MadeBy />
+    </footer>
   </div>
 </template>
 
