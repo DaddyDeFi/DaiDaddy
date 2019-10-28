@@ -30,11 +30,11 @@
         >How it Works</a-button>
       </a-col>
     </a-row>
-    <a-modal v-model="visible" :footer="null" :closable="false" :width="780" :height="420">
+    <a-modal v-model="visible" :footer="null" :closable="false" width="80vw">
       <div
         style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; text-align: center;"
       >
-        <iframe width="720" height="405" src="https://www.youtube.com/embed/JEcj2xi9Ctc"></iframe>
+        <iframe class="iframe" src="https://www.youtube.com/embed/JEcj2xi9Ctc"></iframe>
         <!-- <div style="text-align:center"> -->
         <a-button
           class="close-button"
@@ -68,7 +68,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped>
 .logo {
   width: 100%;
   max-width: 610px;
@@ -89,12 +89,6 @@ export default {
   -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-}
-
-.modal {
-  // height: auto;
-  // width: 30%;
-  border-radius: 40px;
 }
 
 .container1 {
@@ -134,6 +128,11 @@ export default {
   height: 45px;
 }
 
+.iframe {
+  width: 272px;
+  height: 153px;
+}
+
 @media (min-width: 768px) {
   .logo {
     width: 90%;
@@ -148,6 +147,11 @@ export default {
     left: 0;
     width: 50%;
     height: 60px;
+  }
+
+  .iframe {
+    width: 720px;
+    height: 405px;
   }
 }
 </style>
