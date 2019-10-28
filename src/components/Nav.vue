@@ -15,14 +15,14 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='buy'?'font-weight: bolder':''"
+            :style="$route.name=='buy'?'text-decoration:underline':''"
             to="?modalUnwind=true"
           >Unwind</router-link>
         </li>
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='market'?'font-weight: bolder':''"
+            :style="$route.name=='market'?'text-decoration:underline':''"
             to="/market"
           >Market</router-link>
         </li>
@@ -33,7 +33,7 @@
         <li class="nav-item">
           <router-link
             class="nav-link"
-            :style="$route.name=='list'?'font-weight: bolder':''"
+            :style="$route.name=='list'?'text-decoration:underline':''"
             to="/list"
           >My CDPs</router-link>
         </li>

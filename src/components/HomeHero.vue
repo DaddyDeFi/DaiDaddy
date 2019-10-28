@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-row class="container1" justify="center" align="middle" type="flex">
-      <a-col class="col-1" :md="14" :span="24">
+      <a-col class="col-1" :md="10" :span="24">
         <img src="/img/bigMichaelLogo.png" class="logo" />
       </a-col>
       <a-col class="col-2" :md="10" :span="24">
@@ -21,8 +21,8 @@
       </a-col>
     </a-row>
     <a-row class="container2" justify="center" align="middle" type="flex">
-      <a-col class="col-1" :md="14" :span="24"></a-col>
-      <a-col :md="10" :span="24" style="display: flex; justify-content: center">
+      <a-col class="col-1" :md="10" :span="24"></a-col>
+      <a-col :md="8" :span="24" style="display: flex; justify-content: center">
         <a-button
           type="primary"
           class="ant-btn ant-btn-lg ant-btn-block pink-button"

@@ -1,112 +1,113 @@
 <template>
-    <a-modal
-      class="model"
-      :height="400"
-      :width="900"
-      style="width:900px"
-      v-model="visible"
-      @ok="handleOk"
-    >
-      <template slot="footer">
-        <div style="text-align:right">
-          <a-button
-            key="submit"
-            type="secondary"
-            @click="handleOk"
-            style="border-radius: 25px;"
-          >Cancel</a-button>
-          <a-button
-            key="submit"
-            class="BuyButton"
-            type="primary"
-            @click="sellCDP"
-            :disabled="debtOrder.cdpId==null"
-          >Sell CDP</a-button>
-        </div>
-      </template>
-      <h2 style="padding-bottom:25px; font-weight:900;">Sell CDP</h2>
-      <a-row>
-        <a-col :span="16">
-          <h4 style="font-weight: 900;">Select</h4>
-          <a-row>
-            <a-col :span="4">
-              <h4 style="font-weight: 900;"></h4>
-            </a-col>
-            <a-col :span="5">
-              <h4 style="font-weight: 900">CDP #</h4>
-            </a-col>
-            <a-col :span="5">
-              <h4 style="font-weight: 900;">Total Debt</h4>
-            </a-col>
-            <a-col :span="5">
-              <h4 style="font-weight: 900;">Collateral/Ratio</h4>
-            </a-col>
-            <a-col :span="4">
-              <h4 class="PinkText" style="font-weight: 900;">CDP Value</h4>
-            </a-col>
-          </a-row>
-          <hr style="padding:0px; margin:0px" />
-          <div
-            v-for="(cdp, index) in myCdps"
-            :key="index"
-            :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
-          >
-            <div @click="selectCDP(index)" style="cursor: pointer">
-              <a-row style="padding-top:15px; padding-bottom:15px;">
-                <a-col style="padding-left:25px" :span="4">
-                  <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
-                </a-col>
-                <a-col style="padding-top:5px" :span="5">
-                  <p>{{numberWithCommas(cdp.CDPNo)}}</p>
-                </a-col>
-                <a-col style="padding-top:5px" :span="5">
-                  <p>{{numberWithCommas(cdp.daiDrawn)}} DAI</p>
-                </a-col>
-                <a-col style="padding-top:5px" :span="5">
-                  <p>{{cdp.collateralRatio}}</p>
-                </a-col>
-                <a-col style="padding-top:5px" :span="4">
-                  <p class="PinkText">{{cdp.value}} ETH</p>
-                </a-col>
-              </a-row>
-            </div>
-            <hr style="padding:0px; margin:0px" />
+  <a-modal
+    class="model"
+    :height="400"
+    :width="900"
+    style="width:900px"
+    v-model="visible"
+    @ok="handleOk"
+  >
+    <template slot="footer">
+      <div style="text-align:right">
+        <a-button
+          key="submit"
+          type="secondary"
+          @click="handleOk"
+          style="border-radius: 25px;"
+        >Cancel</a-button>
+        <a-button
+          key="submit"
+          class="BuyButton"
+          type="primary"
+          @click="sellCDP"
+          :disabled="debtOrder.cdpId==null"
+        >Sell CDP</a-button>
+      </div>
+    </template>
+    <h2 style="padding-bottom:25px; font-weight:900;">Sell CDP</h2>
+    <a-row>
+      <a-col :span="16">
+        <h4 style="font-weight: 900;">Select</h4>
+        <a-row>
+          <a-col :span="4">
+            <h4 style="font-weight: 900;"></h4>
+          </a-col>
+          <a-col :span="5">
+            <h4 style="font-weight: 900">CDP #</h4>
+          </a-col>
+          <a-col :span="5">
+            <h4 style="font-weight: 900;">Total Debt</h4>
+          </a-col>
+          <a-col :span="5">
+            <h4 style="font-weight: 900;">Collateral/Ratio</h4>
+          </a-col>
+          <a-col :span="4">
+            <h4 class="PinkText" style="font-weight: 900;">CDP Value</h4>
+          </a-col>
+        </a-row>
+        <hr style="padding:0px; margin:0px" />
+        <div
+          v-for="(cdp, index) in myCdps"
+          :key="index"
+          :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
+        >
+          <div @click="selectCDP(index)" style="cursor: pointer">
+            <a-row style="padding-top:15px; padding-bottom:15px;">
+              <a-col style="padding-left:25px" :span="4">
+                <a-radio style="padding-top:5px" :checked="myCdps[index].selected"></a-radio>
+              </a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <p>{{numberWithCommas(cdp.CDPNo)}}</p>
+              </a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <p>{{numberWithCommas(cdp.daiDrawn)}} DAI</p>
+              </a-col>
+              <a-col style="padding-top:5px" :span="5">
+                <p>{{cdp.collateralRatio}}</p>
+              </a-col>
+              <a-col style="padding-top:5px" :span="4">
+                <p class="PinkText">{{cdp.value}} ETH</p>
+              </a-col>
+            </a-row>
           </div>
-        </a-col>
-        <a-col class="verticalLine" :span="1" />
-        <a-col style="padding-left:25px" :span="7">
-          <h3 style="padding:5px; font-weight: 900;">Apply a discount</h3>
-          <p style="padding:5px; font-weight: 900;">Discount</p>
-          <a-input-number
-            class="placeholder"
-            :min="1"
-            :max="100"
-            v-model="debtOrder.discount"
-            data-placeholder="%"
-          />
-          <p
-            v-if="debtOrder.discount>13"
-            style="padding:5px; font-weight: 900; color:#FF2898"
-          >Caution: This discount is above the 13% liquidation penalty!</p>
-          <h4 style="padding:5px; font-weight: 900;">You'll get:</h4>
-          <p v-if="debtOrder.cdpId==null" style="padding:5px; font-weight: 900; color:#FF2898">-</p>
-          <p
-            v-if="debtOrder.cdpId!=null"
-            style="padding:5px; font-weight: 900; color:#FF2898"
-          >{{myCdps[debtOrder.debtIndex].value * (100-debtOrder.discount)/100}} ETH</p>
-        </a-col>
-      </a-row>
-      <p
-        style="padding-top:20px"
-      >Once you've listed your CDP for sale it will be transfered to the DaiDaddy contract where it will be held in escrow until someone buys it. At any point in time up to when it is bought you can cancel the sale. As soon as someone buys it the funds will automatically get transferred to your wallet.</p>
-    </a-modal>
+          <hr style="padding:0px; margin:0px" />
+        </div>
+      </a-col>
+      <a-col class="verticalLine" :span="1" />
+      <a-col style="padding-left:25px" :span="7">
+        <h3 style="padding:5px; font-weight: 900;">Apply a discount</h3>
+        <p style="padding:5px; font-weight: 900;">Discount</p>
+        <a-input-number
+          class="placeholder"
+          :min="1"
+          :max="100"
+          v-model="debtOrder.discount"
+          data-placeholder="%"
+        />
+        <p
+          v-if="debtOrder.discount>13"
+          style="padding:5px; font-weight: 900; color:#FF2898"
+        >Caution: This discount is above the 13% liquidation penalty!</p>
+        <h4 style="padding:5px; font-weight: 900;">You'll get:</h4>
+        <p v-if="debtOrder.cdpId==null" style="padding:5px; font-weight: 900; color:#FF2898">-</p>
+        <p
+          v-if="debtOrder.cdpId!=null"
+          style="padding:5px; font-weight: 900; color:#FF2898"
+        >{{myCdps[debtOrder.debtIndex].value * (100-debtOrder.discount)/100}} ETH</p>
+      </a-col>
+    </a-row>
+    <p
+      style="padding-top:20px"
+    >Once you've listed your CDP for sale it will be transfered to the DaiDaddy contract where it will be held in escrow until someone buys it. At any point in time up to when it is bought you can cancel the sale. As soon as someone buys it the funds will automatically get transferred to your wallet.</p>
+  </a-modal>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "SellCDPModal",
+  props: {visible: {type: Boolean}},
   methods: {
     ...mapActions(["SELL_CDP"]),
     sellCDP() {
@@ -131,6 +132,7 @@ export default {
     handleOk(e) {
       console.log(e);
       this.visible = false;
+      this.$emit("modalVisable",false)
     },
     selectCDP(cdpId) {
       this.myCdps = this.myCdps.map(x => {

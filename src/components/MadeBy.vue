@@ -1,6 +1,6 @@
  <template>
   <a-row class="mb" type="flex" align="center">
-    <a-col :span="12">
+    <a-col :span="18">
       <ul class="mb-list-left">
         <li style="margin-right: 2.25rem;">
           <a class="link" href="https://github.com/DaddyDeFi/DaiDaddy">
@@ -13,7 +13,7 @@
         </li>
       </ul>
     </a-col>
-    <a-col :span="12">
+    <a-col :span="4">
       <ul class="mb-list-right">
         <li class="mb-item">
           <router-link class="link" to="/about">About</router-link>

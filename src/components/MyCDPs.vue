@@ -4,9 +4,6 @@
       <a-col :span="12" style="height:auto">
         <h2 class="title">
           My CDPs
-          <i class="em em-sob" /> Under Construction
-          <i class="em em-sob" /> I'm so close!
-          <i class="em em-tired_face" />
         </h2>
       </a-col>
       <a-col :span="12">
