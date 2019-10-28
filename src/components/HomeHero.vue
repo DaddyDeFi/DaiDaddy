@@ -4,9 +4,9 @@
       <img src="/img/bigMichaelLogo.png" class="logo" />
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
-      <!-- <img src="/img/michaelBoxes.png" class="hero-michael" /> -->
-      <!-- TODO: conditional video rendering dependent on browser -->
-      <video
+      <img src="/img/michaelBoxes.png" class="hero-michael" />
+      <!-- TODO: implement video properly and add conditional rendering -->
+      <!-- <video
         class="MichaelVid"
         src="anim/HeroMichaels.webm"
         type="video/webm"
@@ -14,7 +14,7 @@
         style="height:600px; padding-right:180px "
         autoplay="true"
         muted="true"
-      />
+      /> -->
 
       <router-link to="/?modalUnwind=true" class="cta" />
     </a-col>
