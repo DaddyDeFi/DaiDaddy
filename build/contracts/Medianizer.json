@@ -16,25 +16,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.7+commit.6da8b019\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"read\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol\":\"Medianizer\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol\":{\"keccak256\":\"0x02c79d6fc390059dd46797365d22f7e435212d70a85e9ebf305297b71be8afc5\",\"urls\":[\"bzzr://099b1121809b1ec63c3b168a28a60238158d741b2d52444e51e052b6cae65580\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.7+commit.6da8b019\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"read\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol\":\"Medianizer\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol\":{\"keccak256\":\"0x8f5bcfa70d3f1c43c3bc795210aa533e2b86f210068fc5b3fca790f05f58541e\",\"urls\":[\"bzzr://4359e652427a0e007982ed0435371ca26204d5625e271582e926cc2d9c3dd15f\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.5.7;\n\ninterface Medianizer {\n    function read() external view returns (bytes32);\n}",
+  "source": "pragma solidity ^0.5.7;\n\ninterface Medianizer {\n    function read() external view returns (bytes32);\n}\n",
   "sourcePath": "/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol",
   "ast": {
     "absolutePath": "/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol",
     "exportedSymbols": {
       "Medianizer": [
-        101
+        448
       ]
     },
-    "id": 102,
+    "id": 449,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 95,
+        "id": 442,
         "literals": [
           "solidity",
           "^",
@@ -42,7 +42,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:2"
+        "src": "0:23:3"
       },
       {
         "baseContracts": [],
@@ -50,9 +50,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 101,
+        "id": 448,
         "linearizedBaseContracts": [
-          101
+          448
         ],
         "name": "Medianizer",
         "nodeType": "ContractDefinition",
@@ -60,29 +60,29 @@
           {
             "body": null,
             "documentation": null,
-            "id": 100,
+            "id": 447,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "read",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 96,
+              "id": 443,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "65:2:2"
+              "src": "65:2:3"
             },
             "returnParameters": {
-              "id": 99,
+              "id": 446,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 98,
+                  "id": 445,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 100,
-                  "src": "91:7:2",
+                  "scope": 447,
+                  "src": "91:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -90,10 +90,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 97,
+                    "id": 444,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "91:7:2",
+                    "src": "91:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -103,33 +103,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "90:9:2"
+              "src": "90:9:3"
             },
-            "scope": 101,
-            "src": "52:48:2",
+            "scope": 448,
+            "src": "52:48:3",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 102,
-        "src": "25:77:2"
+        "scope": 449,
+        "src": "25:77:3"
       }
     ],
-    "src": "0:102:2"
+    "src": "0:103:3"
   },
   "legacyAST": {
     "absolutePath": "/Users/chris/Projects/DaiDaddy/contracts/MedianizerInterface.sol",
     "exportedSymbols": {
       "Medianizer": [
-        101
+        448
       ]
     },
-    "id": 102,
+    "id": 449,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 95,
+        "id": 442,
         "literals": [
           "solidity",
           "^",
@@ -137,7 +137,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:2"
+        "src": "0:23:3"
       },
       {
         "baseContracts": [],
@@ -145,9 +145,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 101,
+        "id": 448,
         "linearizedBaseContracts": [
-          101
+          448
         ],
         "name": "Medianizer",
         "nodeType": "ContractDefinition",
@@ -155,29 +155,29 @@
           {
             "body": null,
             "documentation": null,
-            "id": 100,
+            "id": 447,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "read",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 96,
+              "id": 443,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "65:2:2"
+              "src": "65:2:3"
             },
             "returnParameters": {
-              "id": 99,
+              "id": 446,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 98,
+                  "id": 445,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 100,
-                  "src": "91:7:2",
+                  "scope": 447,
+                  "src": "91:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -185,10 +185,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 97,
+                    "id": 444,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "91:7:2",
+                    "src": "91:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -198,20 +198,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "90:9:2"
+              "src": "90:9:3"
             },
-            "scope": 101,
-            "src": "52:48:2",
+            "scope": 448,
+            "src": "52:48:3",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 102,
-        "src": "25:77:2"
+        "scope": 449,
+        "src": "25:77:3"
       }
     ],
-    "src": "0:102:2"
+    "src": "0:103:3"
   },
   "compiler": {
     "name": "solc",
@@ -219,7 +219,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-26T20:50:30.158Z",
+  "updatedAt": "2019-10-28T07:03:38.258Z",
   "devdoc": {
     "methods": {}
   },

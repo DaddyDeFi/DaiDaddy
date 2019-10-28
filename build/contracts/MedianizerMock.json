@@ -27,25 +27,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.5.7+commit.6da8b019\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"read\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_etherPrice\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol\":\"MedianizerMock\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol\":{\"keccak256\":\"0x669d57fd8753012435cbaba6bc1977fe3206885bc417f8388a60ccfeb6a87410\",\"urls\":[\"bzzr://68fd4709db42db0455a25378c5ac923875d9def492fcfed06173c7b9b79d5624\"]}},\"version\":1}",
-  "bytecode": "0x60806040526000805534801561001457600080fd5b506040516020806100dc8339810180604052602081101561003457600080fd5b8101908080519060200190929190505050806000819055505060818061005b6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336049565b6040518082815260200191505060405180910390f35b6000805460001b90509056fea165627a7a72305820d3a8f8bb484cf182d2532dace13f6fda2ebd1c156a81411b521b843ed49414d90029",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336049565b6040518082815260200191505060405180910390f35b6000805460001b90509056fea165627a7a72305820d3a8f8bb484cf182d2532dace13f6fda2ebd1c156a81411b521b843ed49414d90029",
-  "sourceMap": "25:247:8:-;;;76:1;55:22;;88:81;8:9:-1;5:2;;;30:1;27;20:12;5:2;88:81:8;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;88:81:8;;;;;;;;;;;;;;;;151:11;138:10;:24;;;;88:81;25:247;;;;;;",
-  "deployedSourceMap": "25:247:8:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:247:8;;;;;;;;;;;;;;;;;;;179:89;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;216:7;250:10;;242:19;;235:26;;179:89;:::o",
-  "source": "pragma solidity ^0.5.7;\n\ncontract MedianizerMock {\n    uint256 etherPrice = 0;\n    \n    constructor(uint256 _etherPrice) public {\n        etherPrice = _etherPrice;\n    }\n    \n    function read() public view returns (bytes32) {\n        return bytes32(etherPrice);\n    }  \n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.5.7+commit.6da8b019\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[],\"name\":\"read\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_etherPrice\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol\":\"MedianizerMock\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol\":{\"keccak256\":\"0xd1926f1fc0f1f450bbe833ca2b86ead3d0f2f98416ea7e37f55a8aaa30cc4361\",\"urls\":[\"bzzr://46ca058a4358e728e051bfe34f1e50b3252be2573eeb37f553dd4c66f9ca48ac\"]}},\"version\":1}",
+  "bytecode": "0x60806040526000805534801561001457600080fd5b506040516020806100be8339810180604052602081101561003457600080fd5b50516000556077806100476000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336045565b60408051918252519081900360200190f35b6000549056fea165627a7a723058200a544411d8b14c8f34d5ae92487e33ed276fffee3d31784be39349a957de885e0029",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c806357de26a414602d575b600080fd5b60336045565b60408051918252519081900360200190f35b6000549056fea165627a7a723058200a544411d8b14c8f34d5ae92487e33ed276fffee3d31784be39349a957de885e0029",
+  "sourceMap": "25:237:9:-;;;76:1;55:22;;84:81;8:9:-1;5:2;;;30:1;27;20:12;5:2;84:81:9;;;;;;;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;-1:-1;84:81:9;134:10;:24;25:237;;;;;;",
+  "deployedSourceMap": "25:237:9:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;25:237:9;;;;;;;;;;;;;;;;;;;171:89;;;:::i;:::-;;;;;;;;;;;;;;;;;208:7;242:10;171:89;:::o",
+  "source": "pragma solidity ^0.5.7;\n\ncontract MedianizerMock {\n    uint256 etherPrice = 0;\n\n    constructor(uint256 _etherPrice) public {\n        etherPrice = _etherPrice;\n    }\n\n    function read() public view returns (bytes32) {\n        return bytes32(etherPrice);\n    }\n}\n",
   "sourcePath": "/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol",
   "ast": {
     "absolutePath": "/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol",
     "exportedSymbols": {
       "MedianizerMock": [
-        774
+        1412
       ]
     },
-    "id": 775,
+    "id": 1413,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 750,
+        "id": 1388,
         "literals": [
           "solidity",
           "^",
@@ -53,7 +53,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:8"
+        "src": "0:23:9"
       },
       {
         "baseContracts": [],
@@ -61,20 +61,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 774,
+        "id": 1412,
         "linearizedBaseContracts": [
-          774
+          1412
         ],
         "name": "MedianizerMock",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 753,
+            "id": 1391,
             "name": "etherPrice",
             "nodeType": "VariableDeclaration",
-            "scope": 774,
-            "src": "55:22:8",
+            "scope": 1412,
+            "src": "55:22:9",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -82,10 +82,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 751,
+              "id": 1389,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "55:7:8",
+              "src": "55:7:9",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -94,14 +94,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 752,
+              "id": 1390,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "76:1:8",
+              "src": "76:1:9",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_0_by_1",
@@ -113,26 +113,26 @@
           },
           {
             "body": {
-              "id": 762,
+              "id": 1400,
               "nodeType": "Block",
-              "src": "128:41:8",
+              "src": "124:41:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 760,
+                    "id": 1398,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 758,
+                      "id": 1396,
                       "name": "etherPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 753,
-                      "src": "138:10:8",
+                      "referencedDeclaration": 1391,
+                      "src": "134:10:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -142,47 +142,47 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 759,
+                      "id": 1397,
                       "name": "_etherPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 755,
-                      "src": "151:11:8",
+                      "referencedDeclaration": 1393,
+                      "src": "147:11:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "138:24:8",
+                    "src": "134:24:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 761,
+                  "id": 1399,
                   "nodeType": "ExpressionStatement",
-                  "src": "138:24:8"
+                  "src": "134:24:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 763,
+            "id": 1401,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 756,
+              "id": 1394,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 755,
+                  "id": 1393,
                   "name": "_etherPrice",
                   "nodeType": "VariableDeclaration",
-                  "scope": 763,
-                  "src": "100:19:8",
+                  "scope": 1401,
+                  "src": "96:19:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -190,10 +190,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 754,
+                    "id": 1392,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "100:7:8",
+                    "src": "96:7:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -203,25 +203,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "99:21:8"
+              "src": "95:21:9"
             },
             "returnParameters": {
-              "id": 757,
+              "id": 1395,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "128:0:8"
+              "src": "124:0:9"
             },
-            "scope": 774,
-            "src": "88:81:8",
+            "scope": 1412,
+            "src": "84:81:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 772,
+              "id": 1410,
               "nodeType": "Block",
-              "src": "225:43:8",
+              "src": "217:43:9",
               "statements": [
                 {
                   "expression": {
@@ -229,12 +229,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 769,
+                        "id": 1407,
                         "name": "etherPrice",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 753,
-                        "src": "250:10:8",
+                        "referencedDeclaration": 1391,
+                        "src": "242:10:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -248,20 +248,20 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 768,
+                      "id": 1406,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "242:7:8",
+                      "src": "234:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_bytes32_$",
                         "typeString": "type(bytes32)"
                       },
                       "typeName": "bytes32"
                     },
-                    "id": 770,
+                    "id": 1408,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -269,43 +269,43 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "242:19:8",
+                    "src": "234:19:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 767,
-                  "id": 771,
+                  "functionReturnParameters": 1405,
+                  "id": 1409,
                   "nodeType": "Return",
-                  "src": "235:26:8"
+                  "src": "227:26:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 773,
+            "id": 1411,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "read",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 764,
+              "id": 1402,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "192:2:8"
+              "src": "184:2:9"
             },
             "returnParameters": {
-              "id": 767,
+              "id": 1405,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 766,
+                  "id": 1404,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 773,
-                  "src": "216:7:8",
+                  "scope": 1411,
+                  "src": "208:7:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -313,10 +313,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 765,
+                    "id": 1403,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "216:7:8",
+                    "src": "208:7:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -326,33 +326,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "215:9:8"
+              "src": "207:9:9"
             },
-            "scope": 774,
-            "src": "179:89:8",
+            "scope": 1412,
+            "src": "171:89:9",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 775,
-        "src": "25:247:8"
+        "scope": 1413,
+        "src": "25:237:9"
       }
     ],
-    "src": "0:272:8"
+    "src": "0:263:9"
   },
   "legacyAST": {
     "absolutePath": "/Users/chris/Projects/DaiDaddy/contracts/mocks/MedianizerMock.sol",
     "exportedSymbols": {
       "MedianizerMock": [
-        774
+        1412
       ]
     },
-    "id": 775,
+    "id": 1413,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 750,
+        "id": 1388,
         "literals": [
           "solidity",
           "^",
@@ -360,7 +360,7 @@
           ".7"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:8"
+        "src": "0:23:9"
       },
       {
         "baseContracts": [],
@@ -368,20 +368,20 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 774,
+        "id": 1412,
         "linearizedBaseContracts": [
-          774
+          1412
         ],
         "name": "MedianizerMock",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "constant": false,
-            "id": 753,
+            "id": 1391,
             "name": "etherPrice",
             "nodeType": "VariableDeclaration",
-            "scope": 774,
-            "src": "55:22:8",
+            "scope": 1412,
+            "src": "55:22:9",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
@@ -389,10 +389,10 @@
               "typeString": "uint256"
             },
             "typeName": {
-              "id": 751,
+              "id": 1389,
               "name": "uint256",
               "nodeType": "ElementaryTypeName",
-              "src": "55:7:8",
+              "src": "55:7:9",
               "typeDescriptions": {
                 "typeIdentifier": "t_uint256",
                 "typeString": "uint256"
@@ -401,14 +401,14 @@
             "value": {
               "argumentTypes": null,
               "hexValue": "30",
-              "id": 752,
+              "id": 1390,
               "isConstant": false,
               "isLValue": false,
               "isPure": true,
               "kind": "number",
               "lValueRequested": false,
               "nodeType": "Literal",
-              "src": "76:1:8",
+              "src": "76:1:9",
               "subdenomination": null,
               "typeDescriptions": {
                 "typeIdentifier": "t_rational_0_by_1",
@@ -420,26 +420,26 @@
           },
           {
             "body": {
-              "id": 762,
+              "id": 1400,
               "nodeType": "Block",
-              "src": "128:41:8",
+              "src": "124:41:9",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 760,
+                    "id": 1398,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 758,
+                      "id": 1396,
                       "name": "etherPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 753,
-                      "src": "138:10:8",
+                      "referencedDeclaration": 1391,
+                      "src": "134:10:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -449,47 +449,47 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 759,
+                      "id": 1397,
                       "name": "_etherPrice",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 755,
-                      "src": "151:11:8",
+                      "referencedDeclaration": 1393,
+                      "src": "147:11:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "138:24:8",
+                    "src": "134:24:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 761,
+                  "id": 1399,
                   "nodeType": "ExpressionStatement",
-                  "src": "138:24:8"
+                  "src": "134:24:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 763,
+            "id": 1401,
             "implemented": true,
             "kind": "constructor",
             "modifiers": [],
             "name": "",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 756,
+              "id": 1394,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 755,
+                  "id": 1393,
                   "name": "_etherPrice",
                   "nodeType": "VariableDeclaration",
-                  "scope": 763,
-                  "src": "100:19:8",
+                  "scope": 1401,
+                  "src": "96:19:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -497,10 +497,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 754,
+                    "id": 1392,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "100:7:8",
+                    "src": "96:7:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -510,25 +510,25 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "99:21:8"
+              "src": "95:21:9"
             },
             "returnParameters": {
-              "id": 757,
+              "id": 1395,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "128:0:8"
+              "src": "124:0:9"
             },
-            "scope": 774,
-            "src": "88:81:8",
+            "scope": 1412,
+            "src": "84:81:9",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "public"
           },
           {
             "body": {
-              "id": 772,
+              "id": 1410,
               "nodeType": "Block",
-              "src": "225:43:8",
+              "src": "217:43:9",
               "statements": [
                 {
                   "expression": {
@@ -536,12 +536,12 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 769,
+                        "id": 1407,
                         "name": "etherPrice",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 753,
-                        "src": "250:10:8",
+                        "referencedDeclaration": 1391,
+                        "src": "242:10:9",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -555,20 +555,20 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 768,
+                      "id": 1406,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
                       "nodeType": "ElementaryTypeNameExpression",
-                      "src": "242:7:8",
+                      "src": "234:7:9",
                       "typeDescriptions": {
                         "typeIdentifier": "t_type$_t_bytes32_$",
                         "typeString": "type(bytes32)"
                       },
                       "typeName": "bytes32"
                     },
-                    "id": 770,
+                    "id": 1408,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -576,43 +576,43 @@
                     "lValueRequested": false,
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "242:19:8",
+                    "src": "234:19:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
                     }
                   },
-                  "functionReturnParameters": 767,
-                  "id": 771,
+                  "functionReturnParameters": 1405,
+                  "id": 1409,
                   "nodeType": "Return",
-                  "src": "235:26:8"
+                  "src": "227:26:9"
                 }
               ]
             },
             "documentation": null,
-            "id": 773,
+            "id": 1411,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "read",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 764,
+              "id": 1402,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "192:2:8"
+              "src": "184:2:9"
             },
             "returnParameters": {
-              "id": 767,
+              "id": 1405,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 766,
+                  "id": 1404,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 773,
-                  "src": "216:7:8",
+                  "scope": 1411,
+                  "src": "208:7:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -620,10 +620,10 @@
                     "typeString": "bytes32"
                   },
                   "typeName": {
-                    "id": 765,
+                    "id": 1403,
                     "name": "bytes32",
                     "nodeType": "ElementaryTypeName",
-                    "src": "216:7:8",
+                    "src": "208:7:9",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bytes32",
                       "typeString": "bytes32"
@@ -633,20 +633,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "215:9:8"
+              "src": "207:9:9"
             },
-            "scope": 774,
-            "src": "179:89:8",
+            "scope": 1412,
+            "src": "171:89:9",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "public"
           }
         ],
-        "scope": 775,
-        "src": "25:247:8"
+        "scope": 1413,
+        "src": "25:237:9"
       }
     ],
-    "src": "0:272:8"
+    "src": "0:263:9"
   },
   "compiler": {
     "name": "solc",
@@ -654,7 +654,7 @@
   },
   "networks": {},
   "schemaVersion": "3.0.16",
-  "updatedAt": "2019-10-26T20:50:30.167Z",
+  "updatedAt": "2019-10-28T07:03:38.274Z",
   "devdoc": {
     "methods": {}
   },
