@@ -10,55 +10,7 @@
       <i class="em em-two_hearts" />
     </p>
     <!-- View smart contract link -->
-    <a-row>
-      <a-col :span="24">
-        <a-row>
-          <a-col :span="4">
-            <th style="font-weight: 900;"></th>
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900">CDP Number</th>
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900;">CDP Value</th>
-            <!-- i link -->
-          </a-col>
-          <a-col :span="5">
-            <th style="font-weight: 900;">Fees</th>
-            <!-- i link -->
-          </a-col>
-          <a-col :span="4">
-            <th class="PinkText" style="font-weight: 900; padding-top:0px">You'll get:</th>
-          </a-col>
-        </a-row>
-        <hr style="padding:0px; margin:0px" />
-        <!-- <div
-          v-for="(cdp, index) in myCdps"
-          :key="index"
-          :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
-        >
-          <div @click="selectCDP(index)" style="cursor: pointer">
-            <a-row style="padding-top:15px; padding-bottom:15px;">
-              <a-col style="padding-left:25px" :span="4"></a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.CDPNo)}}</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.CDPValue)}} DAI</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{cdp.Fees}} ETH</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="4">
-                <span class="PinkText">{{cdp.final}} ETH</span>
-              </a-col>
-            </a-row>
-          </div>
-          <hr style="padding:0px; margin:0px" />
-        </div>-->
-        <a-divider />
-      </a-col>
-    </a-row>
+  
   </div>
 </template>
 

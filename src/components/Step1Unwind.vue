@@ -65,16 +65,14 @@
             <a-col :span="12">
               <span style="font-size: 16px" class="title">Fees:</span>
               <div v-if="debtOrder.cdpId==null" class="values">-</div>
-              <div v-if="debtOrder.cdpId!=null" class="values">
-                0.00527 ETH (0.95 USD)
-              </div>
+              <div v-if="debtOrder.cdpId!=null" class="values">0.00527 ETH</div>
             </a-col>
 
             <a-col :span="12">
               <span style="font-size: 16px" class="title">You'll get:</span>
               <div v-if="debtOrder.cdpId==null" class="values PinkText" style="padding-top:0px">-</div>
               <div v-if="debtOrder.cdpId!=null" class="values PinkText" style="padding-top:0px">
-                10
+                {{myCdps[debtOrder.debtIndex].value}}
                 ETH
               </div>
             </a-col>
@@ -87,8 +85,8 @@
 
 <script>
 import Vue from "vue";
-import { mapActions, mapState } from "vuex";
-import { Icon } from "ant-design-vue";
+import {mapActions, mapState} from "vuex";
+import {Icon} from "ant-design-vue";
 
 Vue.component(Icon.name, Icon);
 
@@ -150,7 +148,7 @@ export default {
       myCdps: [
         {
           cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
+            "0x0000000000000000000000000000000000000000000000000000000000001bb6",
           CDPNo: 69420,
           daiDrawn: 50,
           collateralRatio: "1 ETH | 421%",
@@ -158,18 +156,6 @@ export default {
           value: 0.75,
           discount: 5,
           finalPrice: 0.7125,
-          selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
           selected: false
         },
       ]

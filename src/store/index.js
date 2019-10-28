@@ -24,8 +24,11 @@ import truffleContract from "truffle-contract";
 import SaiTubABI from "../../build/contracts/SaiTub.json"
 const SaiTub = truffleContract(SaiTubABI);
 
-import DaiDaddyABI from "../../build/contracts/DebtMarket.json"
-const DaiDaddy = truffleContract(DaiDaddyABI);
+// import DaiDaddyABI from "../../build/contracts/DebtMarket.json"
+// const DaiDaddy = truffleContract(DaiDaddyABI);
+
+import UnwinderABI from "../../build/contracts/Unwinder.json"
+const Unwinder = truffleContract(UnwinderABI);
 
 Vue.use(Vuex)
 
@@ -41,7 +44,8 @@ export default new Vuex.Store({
     miningTransactionObject: {
       status: null,
       txHash: ''
-    }
+    },
+    secondaryModalState: null
   },
   mutations: {
     //WEB3 Stuff
@@ -59,6 +63,9 @@ export default new Vuex.Store({
     },
     [mutations.SET_MINING_TRANSACTION_OBJECT](state, miningTransactionObject) {
       state.miningTransactionObject = miningTransactionObject;
+    },
+    [mutations.SET_SECONDARY_MODAL_STATE](state, secondaryModalState) {
+      state.secondaryModalState = secondaryModalState;
     },
   },
   actions: {
@@ -81,7 +88,9 @@ export default new Vuex.Store({
       state
     }, web3) {
       SaiTub.setProvider(web3.currentProvider)
-      DaiDaddy.setProvider(web3.currentProvider)
+      // DaiDaddy.setProvider(web3.currentProvider)
+      Unwinder.setProvider(web3.currentProvider)
+
 
       console.log("IN STORE")
       console.log(web3)
@@ -98,12 +107,12 @@ export default new Vuex.Store({
         commit(mutations.SET_ACCOUNT, account);
       }
 
-      let daiDaddy = await DaiDaddy.deployed()
-      console.log(daiDaddy)
-      let numberOfSales = await daiDaddy.debtItems.call()
-      console.log(numberOfSales)
-      console.log(numberOfSales.toString(10))
-      console.log("Debt boi!")
+      // let daiDaddy = await DaiDaddy.deployed()
+      // console.log(daiDaddy)
+      // let numberOfSales = await daiDaddy.debtItems.call()
+      // console.log(numberOfSales)
+      // console.log(numberOfSales.toString(10))
+      // console.log("Debt boi!")
       // let fundFactory = await FundFactory.at(state.factoryAddress)
       // console.log("logging vyper from UI")
       // let numberOfFunds = await fundFactory.getAllFundUids()
@@ -140,7 +149,7 @@ export default new Vuex.Store({
         return "0x" + n;
       }
 
-      let tubId = numStringToBytes32(7093)
+      let tubId = numStringToBytes32(7095)
 
       console.log("tubId", tubId)
 
@@ -214,6 +223,45 @@ export default new Vuex.Store({
         status: null,
         txHash: ""
       })
+    },
+    [actions.UNWIND_CDP]: async function ({
+      commit,
+      dispatch,
+      state
+    }, unwindObject) {
+      console.log(unwindObject)
+      let unwinder = await Unwinder.deployed()
+      let saiTub = await SaiTub.at(state.saiTubAddress)
+
+      commit(mutations.SET_SECONDARY_MODAL_STATE, "approve")
+      let tx
+
+      if (unwindObject.step == 0) {
+        tx = await unwinder.proveOwnershipOfCDP(unwindObject.cdpId, {
+          from: state.account
+        })
+      }
+
+      if (unwindObject.step == 1) {
+        tx = await saiTub.give(unwindObject.cdpId, unwinder.address, {
+          from: state.account
+        })
+      }
+      if (unwindObject.step == 2) {
+        tx = await unwinder.unwindCDP(unwindObject.cdpId, {
+          from: state.account
+        })
+      }
+
+
+      commit(mutations.SET_SECONDARY_MODAL_STATE, "pending")
+
+      if (tx) {
+        console.log("TX found")
+        commit(mutations.SET_SECONDARY_MODAL_STATE, null)
+      }
+
+
     },
   }
 })

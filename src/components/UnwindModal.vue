@@ -48,16 +48,16 @@
 
     <!-- Secondary Modal -->
     <secondary-modal
-      :isVisible="this.secondaryModalVisible"
-      :emojis="this.secondaryModalData[this.current].approve.emojis"
-      :texts="this.secondaryModalData[this.current].approve.texts"
+      :isVisible="secondaryModalVisible && secondaryModalState != null"
+      :emojis="secondaryModalData[current][secondaryModalState].emojis"
+      :texts="secondaryModalData[current][secondaryModalState].texts"
     />
   </a-modal>
 </template>
 
 <script>
 import Vue from "vue";
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 import Step1Unwind from "@/components/Step1Unwind.vue";
 import Step2Unwind from "@/components/Step2Unwind.vue";
 import Step3Unwind from "@/components/Step3Unwind.vue";
@@ -78,7 +78,7 @@ export default {
     Step3Unwind
   },
   methods: {
-    ...mapActions(["SELL_CDP"]),
+    ...mapActions(["UNWIND_CDP"]),
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
@@ -86,21 +86,20 @@ export default {
       if (this.current == 0) {
         //insert logic
         //fire metamask and loading modal
+        this.UNWIND_CDP({step: 0, cdpId: this.unwindOrder});
         this.current++;
         this.secondaryModalVisible = true;
         return;
       }
       if (this.current == 1) {
-        // TODO: insert logic
-        // TODO: fire metamask and loading modal
+        this.UNWIND_CDP({step: 1, cdpId: this.unwindOrder});
         this.current++;
         return;
       }
       if (this.current == 2) {
         this.visible = false;
 
-        // TODO: insert logic
-        // TODO: fire metamask and loading modal
+        this.UNWIND_CDP({step: 2, cdpId: this.unwindOrder});
         setTimeout(function() {
           this.current = 0;
         }, 2000);
@@ -109,12 +108,16 @@ export default {
       // TODO: insert logic
     },
     handleCancel() {
-      this.$router.replace({ query: { modalUnwind: undefined } });
+      this.$router.replace({query: {modalUnwind: undefined}});
       this.current = 0;
     },
     onChildInit(selectedCDP) {
+      console.log("emit", selectedCDP);
       this.unwindOrder = selectedCDP;
     }
+  },
+  computed: {
+    ...mapState(["secondaryModalState"])
   },
   data() {
     return {
@@ -133,7 +136,7 @@ export default {
         }
       ],
       secondaryModalVisible: false,
-      secondaryModalState: "approve", // should dynamically update. Value is either approve or pending.
+      // secondaryModalState: "approve", // should dynamically update. Value is either approve or pending.
       secondaryModalData: [
         {
           approve: {
@@ -143,7 +146,8 @@ export default {
           pending: {
             texts: ["Transaction pending", "I'm almost ready baby!"],
             emojis: ["em-see_no_evil", "em-tongue", "em-alarm_clock"]
-          }
+          },
+          null: {text: [], emojis: []}
         },
         {
           approve: {
@@ -157,7 +161,8 @@ export default {
           pending: {
             texts: ["Transaction pending", "Don't stop now baby."],
             emojis: ["em-eyes", "em-peach", "em-raised_hands"]
-          }
+          },
+          null: {text: [], emojis: []}
         },
         {
           approve: {
@@ -167,7 +172,8 @@ export default {
           pending: {
             texts: ["Transaction pending", "I'm so close baby"],
             emojis: ["em-tongue", "em-peach", "em-weary"]
-          }
+          },
+          null: {text: [], emojis: []}
         }
       ],
       current: 0,

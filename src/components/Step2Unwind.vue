@@ -10,49 +10,48 @@
     <a-row>
       <a-col :span="24">
         <a-row>
-          <a-col :span="4">
-            <th style="font-weight: 900;"></th>
-          </a-col>
-          <a-col :span="5">
+          <a-col :span="6">
             <th style="font-weight: 900">CDP Number</th>
           </a-col>
-          <a-col :span="5">
+          <a-col :span="6">
             <th style="font-weight: 900;">CDP Value</th>
             <!-- i link -->
           </a-col>
-          <a-col :span="5">
+          <a-col :span="6">
             <th style="font-weight: 900;">Fees</th>
             <!-- i link -->
           </a-col>
-          <a-col :span="5">
+          <a-col :span="6">
             <th class="PinkText" style="font-weight: 900; padding-top:0px">You'll get</th>
           </a-col>
         </a-row>
-        <!-- <hr style="padding:0px; margin:0px" /> -->
-        <!-- <div
-          v-for="(cdp, index) in myCdps"
-          :key="index"
-          :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
-        >
-          <div @click="selectCDP(index)" style="cursor: pointer">
-            <a-row style="padding-top:15px; padding-bottom:15px;">
-              <a-col style="padding-left:25px" :span="4"></a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.CDPNo)}}</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{numberWithCommas(cdp.CDPValue)}} DAI</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="5">
-                <span>{{cdp.Fees}} ETH</span>
-              </a-col>
-              <a-col style="padding-top:5px" :span="4">
-                <span class="PinkText">{{cdp.final}} ETH</span>
-              </a-col>
-            </a-row>
+        <hr style="padding:0px; margin:0px" />
+        <div class="rows-container">
+          <div
+            v-for="(cdp, index) in myCdps"
+            :key="index"
+            :style="index==debtOrder.debtIndex?'background:#FFF5F7':'background:white'"
+          >
+            <hr style="padding:0px; margin:0px" />
+            <div>
+              <a-row style="padding-top:15px; padding-bottom:15px;">
+                <a-col style="padding-top:5px" :span="6">
+                  <span>{{numberWithCommas(cdp.CDPNo)}}</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="6">
+                  <span>{{numberWithCommas(cdp.daiDrawn)}} DAI</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="6">
+                  <span>{{cdp.collateralRatio}}</span>
+                </a-col>
+                <a-col style="padding-top:5px" :span="6">
+                  <span>{{cdp.value}} ETH</span>
+                </a-col>
+              </a-row>
+            </div>
+            <hr style="padding:0px; margin:0px" />
           </div>
-          <hr style="padding:0px; margin:0px" />
-        </div>-->
+        </div>
         <a-divider />
       </a-col>
     </a-row>
@@ -60,7 +59,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 export default {
   name: "Step2Unwind",
   methods: {
@@ -98,7 +97,7 @@ export default {
       this.debtOrder.cdpId = this.myCdps[cdpId].cdpId;
     },
     numberWithCommas(x) {
-      //   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   },
   mounted() {
@@ -126,18 +125,6 @@ export default {
           value: 0.75,
           discount: 5,
           finalPrice: 0.7125,
-          selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
           selected: false
         }
       ]
