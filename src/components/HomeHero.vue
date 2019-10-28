@@ -30,11 +30,11 @@
         >How it Works</a-button>
       </a-col>
     </a-row>
-    <a-modal v-model="visible" :footer="null" :closable="false" width="80vw">
+    <a-modal v-model="visible" :footer="null" :closable="false" width="55vw">
       <div
         style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; text-align: center;"
       >
-        <iframe class="iframe" src="https://www.youtube.com/embed/JEcj2xi9Ctc"></iframe>
+        <iframe class="iframe" src="https://www.youtube.com/embed/bfzwfRxMHvA"></iframe>
         <!-- <div style="text-align:center"> -->
         <a-button
           class="close-button"
@@ -54,25 +54,10 @@ export default {
   name: "HomeHero",
   methods: {
     showModal() {
-      if (!isMobile) {
-        this.visible = true;
-      } else {
-        window.location.href = "https://www.youtube.com/embed/JEcj2xi9Ctc";
-      }
+      this.visible = true;
     },
     handleClose(e) {
       this.visible = false;
-    },
-    isMobile() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        return true;
-      } else {
-        return false;
-      }
     }
   },
   data() {
