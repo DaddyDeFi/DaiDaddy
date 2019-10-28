@@ -94,19 +94,24 @@
         @click="showModal"
       >Sell a CDP</a-button>
     </div>
-
-    <!-- TODO: Add Sell Modal -->
+    <SellCDPModal :visible="visible" @modalVisable="visible" />
   </div>
 </template>
 
 <script>
 import {mapActions, mapState} from "vuex";
 
+import SellCDPModal from "../components/SellCDPModal";
+
 export default {
   name: "MyCDPMarketForSale",
+  components: {SellCDPModal},
   methods: {
     numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+    showModal() {
+      this.visible = true;
     }
   },
   mounted() {
