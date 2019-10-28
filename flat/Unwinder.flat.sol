@@ -163,7 +163,7 @@ contract Unwinder {
         return ceil(repaymentsNeeded / (10**14), 10000) / 10000;
     }
 
-    function freeableCollateral(
+    function freeableCollateralEth(
         uint256 ink,
         uint256 art,
         uint256 etherPrice,
@@ -178,8 +178,7 @@ contract Unwinder {
     function freeableCollateralWeth(
         uint256 ink,
         uint256 art,
-        uint256 etherPrice,
-        uint256
+        uint256 etherPrice
     ) public view returns (uint256) {
         if (art == 0) return ink; //if there is no debt then all ink is freeable
         return ink - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
@@ -246,9 +245,7 @@ contract Unwinder {
         uint256 freeableWeth = freeableCollateralWeth(
             ink,
             art,
-            getEtherPrice(),
-            getWpRatio()
-        );
+            getEtherPrice());
 
         // free peth from cdp
         saiTubContract.free(_cup, freeableWeth);
@@ -269,7 +266,10 @@ contract Unwinder {
         return saiTubContract.per() / (10**9);
     }
 
-    function giveCDPBack() public {}
+    function giveCDPBack(bytes32 _cup) public {
+        require(cupOwners[msg.sender] == _cup, "Cant send back a cup you down own");
+        saiTubContract.give(_cup, msg.sender);
+    }
 
     function unwindCDP(bytes32 _cup) public {
         (address lad, uint256 ink, uint256 art, uint256 ire) = saiTubContract

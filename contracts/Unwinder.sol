@@ -18,6 +18,8 @@ contract Unwinder {
     KyberNetworkProxy public kyberNetworkProxyContract;
     ERC20 public daiContract;
     ERC20 public wethContract;
+    ERC20 public dSToken;
+    ERC20 public mkrToken;
 
     // state variables
     mapping(address => bytes32) public cupOwners; // prove that you owned the CDP before transfering it to DaiDaddy
@@ -36,7 +38,9 @@ contract Unwinder {
         address _kyberNetworkProxyAddress,
         address _daiTokenAddress,
         address _wethTokenAddress,
-        address _daiDaddyFeeCollector
+        address _daiDaddyFeeCollector,
+        address _dSToken,
+        address _mkrToken
     ) public {
         saiTubContract = SaiTub(_saiTubAddress);
         medianizerContract = Medianizer(_medianizerAddress);
@@ -45,8 +49,10 @@ contract Unwinder {
         );
         daiContract = ERC20(_daiTokenAddress);
         wethContract = ERC20(_wethTokenAddress);
+        dSToken = ERC20(_dSToken);
+        mkrToken = ERC20(_mkrToken);
         daiDaddyFeeCollector = _daiDaddyFeeCollector;
-
+        
         require(
             daiContract.approve(address(kyberNetworkProxyContract), 10**26),
             "Token approve did not complete successfully"
@@ -57,6 +63,15 @@ contract Unwinder {
         );
         require(
             wethContract.approve(address(kyberNetworkProxyContract), 10**26),
+            "Token approve did not complete successfully"
+        );
+        require(
+            dSToken.approve(address(saiTubContract), 10**26),
+            "Token approve did not complete successfully"
+        );
+
+        require(
+            mkrToken.approve(address(saiTubContract), 10**26),
             "Token approve did not complete successfully"
         );
     }
@@ -89,7 +104,7 @@ contract Unwinder {
         return ceil(repaymentsNeeded / (10**14), 10000) / 10000;
     }
 
-    function freeableCollateral(
+    function freeableCollateralEth(
         uint256 ink,
         uint256 art,
         uint256 etherPrice,
@@ -104,8 +119,7 @@ contract Unwinder {
     function freeableCollateralWeth(
         uint256 ink,
         uint256 art,
-        uint256 etherPrice,
-        uint256
+        uint256 etherPrice
     ) public view returns (uint256) {
         if (art == 0) return ink; //if there is no debt then all ink is freeable
         return ink - (art * SAFE_NO_LIQUIDATION_RATE) / etherPrice;
@@ -172,9 +186,7 @@ contract Unwinder {
         uint256 freeableWeth = freeableCollateralWeth(
             ink,
             art,
-            getEtherPrice(),
-            getWpRatio()
-        );
+            getEtherPrice());
 
         // free peth from cdp
         saiTubContract.free(_cup, freeableWeth);
@@ -195,7 +207,10 @@ contract Unwinder {
         return saiTubContract.per() / (10**9);
     }
 
-    function giveCDPBack() public {}
+    function giveCDPBack(bytes32 _cup) public {
+        require(cupOwners[msg.sender] == _cup, "Cant send back a cup you down own");
+        saiTubContract.give(_cup, msg.sender);
+    }
 
     function unwindCDP(bytes32 _cup) public {
         (address lad, uint256 ink, uint256 art, uint256 ire) = saiTubContract

@@ -24,8 +24,8 @@ import truffleContract from "truffle-contract";
 import SaiTubABI from "../../build/contracts/SaiTub.json"
 const SaiTub = truffleContract(SaiTubABI);
 
-// import DaiDaddyABI from "../../build/contracts/DaiDaddy.json"
-// const DaiDaddy = truffleContract(DaiDaddyABI);
+import DaiDaddyABI from "../../build/contracts/DebtMarket.json"
+const DaiDaddy = truffleContract(DaiDaddyABI);
 
 Vue.use(Vuex)
 
@@ -140,7 +140,7 @@ export default new Vuex.Store({
         return "0x" + n;
       }
 
-      let tubId = numStringToBytes32(3905)
+      let tubId = numStringToBytes32(7093)
 
       console.log("tubId", tubId)
 

@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import MyLists from '../views/MyLists.vue'
 import Market from '../views/Market.vue'
 import About from '../views/About.vue'
+import ListCDPs from '../components/ListCDPs.vue'
 
 Vue.use(VueRouter)
 
@@ -27,7 +28,12 @@ const routes = [
     path: '/about',
     name: 'about',
     component: About
-  }
+  },
+    {
+      path: '/ListCDPs',
+      name: 'ListCDPs',
+      component: ListCDPs
+    }
 ]
 
 const router = new VueRouter({

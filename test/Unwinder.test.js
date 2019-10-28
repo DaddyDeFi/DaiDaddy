@@ -93,12 +93,17 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
             from: contractOwner
         })
 
+        //the DS token and mkr address are set to the dai token so tha the construcor 
+        // does not revert. In migrations this is set correctly.
         this.unwinder = await Unwinder.new(this.saiTub.address,
             this.medianizer.address,
             this.kyberNetworkProxy.address,
             this.dai.address,
             this.weth.address,
-            contractOwner, {
+            contractOwner,
+            this.dai.address, //this should be the DS token
+            this.dai.address, //this should be the mkr address
+            {
                 from: contractOwner
             });
     });
@@ -160,12 +165,12 @@ contract("Unwinder 🎩", ([contractOwner, seller, buyer, random]) => {
 
         it("Correctly calculates freeable ether", async function () {
             let expected = "86921692228644935517" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
-            let contractCalculation = await this.unwinder.freeableCollateral.call(ink, art, etherPrice, wpRatio)
+            let contractCalculation = await this.unwinder.freeableCollateralEth.call(ink, art, etherPrice, wpRatio)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Wrong freeable ether calculated")
         })
         it("Correctly calculates freeable weth", async function () {
             let expected = "79220769936659428618" //this was calculated in the spreasheet. Future tests should be written in python to validate this computation correctly.
-            let contractCalculation = await this.unwinder.freeableCollateralWeth.call(ink, art, etherPrice, wpRatio)
+            let contractCalculation = await this.unwinder.freeableCollateralWeth.call(ink, art, etherPrice)
             assert.equal((Math.round(contractCalculation / 10 ** 10)).toString(10), (Math.round(expected / 10 ** 10)).toString(10), "Wrong freeable ether calculated")
         })
     })
