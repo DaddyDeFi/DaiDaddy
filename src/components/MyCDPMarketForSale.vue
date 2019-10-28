@@ -10,12 +10,7 @@
         <i class="em em-cry" />
         <br />Looking for a Dai daddy?
       </h2>
-      <a-button
-        type="primary"
-        class="SellButton"
-        style="font-weight: 900;"
-        @click="showModal"
-      >Sell a CDP</a-button>
+      <a-button type="primary" class="pink-button button-small" @click="showModal">Sell a CDP</a-button>
     </div>
     <div v-if="myListings.length>0">
       <a-row>
@@ -97,7 +92,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "MyCDPMarketForSale",
@@ -213,16 +208,6 @@ export default {
 
 .modal {
   font-family: "Nunito" !important;
-}
-
-.SellButton {
-  background: #ff95cd;
-  border: green;
-  border-radius: 25px;
-  font-weight: 900;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 
 .PinkText {

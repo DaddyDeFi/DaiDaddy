@@ -53,7 +53,7 @@
         </p>
         <div style="text-align:center">
           <a-button
-            class="close-button"
+            class="pink-button button-small"
             key="close"
             type="primary"
             @click="handleClose"
@@ -104,19 +104,6 @@ export default {
 .emojis {
   text-align: center;
   font-size: 48px;
-}
-.close-button {
-  background: #ffc1cc !important;
-  color: #ffffff !important;
-  border: green;
-  border-radius: 25px;
-  font-family: Nunito;
-  font-weight: 600;
-  font-size: 16px;
-  width: 40%;
-  -webkit-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  -moz-box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.15);
 }
 .col-1 {
   display: flex;

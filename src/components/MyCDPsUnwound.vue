@@ -12,7 +12,7 @@
       </h4>
       <router-link
         to="/list?modalUnwind=true"
-        class="ant-btn ant-btn-lg ant-btn-block pink-button"
+        class="ant-btn ant-btn-lg pink-button button-small"
       >Unwind Me Daddy</router-link>
     </div>
     <div v-if="myWallet.length>0">
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "MyCDPUnwound",

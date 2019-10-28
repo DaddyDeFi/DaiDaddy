@@ -15,7 +15,12 @@
           @click="handleOk"
           style="border-radius: 25px;"
         >Cancel</a-button>
-        <a-button key="submit" class="BuyButton" type="primary" @click="buyCDP">Confirm</a-button>
+        <a-button
+          key="submit"
+          class="pink-button button-small"
+          type="primary"
+          @click="buyCDP"
+        >Confirm</a-button>
       </div>
     </template>
     <h2 style="padding-bottom:25px; font-weight:900">Buy CDP</h2>
@@ -96,7 +101,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 import BuyCDPModal from "@/components/BuyCDPModal.vue";
 console.log(this);
 export default {
