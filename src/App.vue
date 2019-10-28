@@ -2,9 +2,6 @@
   <div id="app">
     <router-view />
     <mining-transaction />
-    <footer>
-      <MadeBy />
-    </footer>
     <unwind-modal :isVisible="this.$route.query.modalUnwind == 'true'" />
     <buy-cdp-modal :isVisible="this.$route.query.modalBuyCDP == 'true'" />
   </div>

@@ -2,6 +2,9 @@
   <div>
     <Nav />
     <Marketplace />
+    <footer>
+      <MadeBy />
+    </footer>
   </div>
 </template>
 
