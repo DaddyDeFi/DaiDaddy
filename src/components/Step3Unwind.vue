@@ -25,7 +25,7 @@ export default {
       this.SELL_CDP(this.debtOrder);
       this.myListings.push({
         cdpId:
-          "0x0000000000000000000000000000000000000000000000000000000000001b4e",
+          "0x0000000000000000000000000000000000000000000000000000000000001bb7",
         CDPNo: 3905,
         daiDrawn: 9605,
         collateralRatio: "166.19 ETH | 307.93%",

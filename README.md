@@ -32,39 +32,52 @@ The number of withdraw/repay iterations required depends on the collateralisatio
 - 🇳🇿 Liesl Eichholz - UX/UI, Design
 
 ## Technical Description
-DAI Daddy works by transferring the ownership of a MakerDao CDP to the `DaiDaddy` contract which holds the CDP in escrow until someone buys it. At that point the CDP is transferred to the buyer and the funds for the purchase are sent to the seller.
+For a technical Description of the Dai Daddy Debt market please see version 1 of the project [$dai daddy](https://github.com/diffusioncon/DAI-Daddy-MakerDAO). The description that follows below is specifically for the unwinding done in the Dai Daddy V2 submitted to the Kyber Hackathon.
 
-The value of the CDP is calculated by looking at the underlying collateral and debt associated with the CDP. These values can be found by querying the MakerDao Single Collateral Dai(SAI) `tub` contract which acts as the SAI CDP engine. From `tub` values associated with a `cup` (an instance of a CDP) can be extracted as follows:
+The Dai Daddy V2 system starts with 3 transactions:
+1) Prove to the Dai Daddy that you own a CDP.
+2) Transfer the CDP to Dai Daddy's `Unwinder`
+3) Unwind the CDP position
 
-```
-struct Cup {
-        address  lad;      // CDP owner
-        uint256  ink;      // Locked collateral (in SKR)
-        uint256  art;      // Outstanding normalised debt (tax only)
-        uint256  ire;      // Outstanding normalised debt
-    }
-```
+These are required to be done in 3 separate transactions because CDP's are not always owned by a smart contract wallet. In future versions we will integrate directly with the MakerDao dashboard proxy contract which can bundle these three tx's into one go.
 
-Using these values the total value of the CDP can be found by finding the difference between the underlying collateral and debt. DAI Daddy enables you to sell your debt at a discount, which is also considered in this equation as shown below in the `debtPrice` function.
+Once the Dai Daddy `Unwinder` contract has ownership of the CDP it preforms the following steps when conducting an unwind:
 
-```
-function debtPrice(uint _art, uint _ire, uint _discount) public pure returns(uint) {
-        return _art * (_ire/10 - 10 ** 18) * (100 - _discount) / 10 ** 20;
-    }
-```
+1) Get's info on the CDP from the `tub` contract from MakerDao
+2) Extracts the maximum `Weth` possible from the CDP by first calculating the amount that can be drawn and then calling `free` followed by `exit` on the `tub` contract. This acts to convert Collateral to `Peth` and then `peth` to `weth`. This `weth` can now be traded on Kyber.
+3) Initiate a trade against the `kyberNetworkProxy` Contract. The trade price is calculated with the `getExpectedRate` function where we are trading from `weth` to `dai`.
+4) At this point the DaiDaddy contract has dai from the drawn collateral. This is now `wipe`d from the CDP's debt to remove outstanding debt.
+5) Now that debt is `wipe`d we can draw out more `peth` collateral from the CDP and convert this to `weth`. If need be this process can be repeated as many times as required to pay off all the outstanding debt.
+6) Finally the freed `weth` and `dai` is sent back to the original user along with `shut`ing the CDP.
 
-This function returns value of the CDP in atto (`10^-18` fractions of a USD, as defined by a Dai being `1*10^18` atto). 
+The graph below shows the number of times that `draw`, `exit`, `trade` and `wipe` need to be done to close a CDP based on the collateralization ratio of the Position. The lower the collateral in the CDP the more times this process needs to get looped to unwind the CDP.
 
-To find the value of the CDP in Ether the MakerDao price oracle is used via the `Medianzer`. This price is then used to find quantify the value of the CDP in ETH as.
+![Graph](./img/graph.png)
 
 ## Smart Contract
-DAI Daddy consists of one main smart contract: `DaiDaddy.sol` which stores all buisness logic and acts as the escrow for the CDP's during the transfer. This contract imports instances of the MakerDao `SaiTub.sol` and `Medianizer.sol` to get information on CDPs and current ether price.
+DAI Daddy consists of one main smart contracts are rather complex because they need to integrate with a number of different moving parts and systems. DaiDaddy's main contract is called `Unwinder.sol` which is responsible for all main logic in the Dai Daddy platform. 
 
+This contract integrates with and knows about and operates the following other contracts:
+1) `KyberNetworkProxy` for trading `Weth` to `Dai`
+2) `saiTub` MakerDao's sai main contract for interacting with CDPs.
+3) `Medianizer` for getting latest price feeds from MakerDao
+4) `ERC20` to facilitate a number of different token interactions from Dai Daddy. This includes:
+   1) `Peth` for underlying collateral from the CDP
+   2) `Weth` for free'ed collateral and to trade Dai with Kyber
+   3) `Dai` to pay off outstanding debt.
+   4) `Mkr` to pay stability fee
+
+
+Testing and mocking was done by implementing the required functionality from within each of the above contracts in a contract mock. These mocks mimic the functionality of the integrated system. For example the `trade` function in kyber was mocked by creating a fake function that behaved exactly the same as the real kyber trade function but without needing to implement all the business logic of the contract. It simply accepted one token and sent back a proportional amount of the other token. 
+
+All integrations with all the major contracts was done using Interfaces to simplify the integrations. All contracts were tested and the mocks were tested to ensure expected mocked bahvour. 
 ![Logo](./img/unitTests.gif)
 
 
-The provided migrations script deploys into a local test enviroment. All contracts have also been deployed to the kovan test net and can be found here: `0x130fa137765A189E2132C2AB06F8E2617414b424`
+The provided migrations script deploys into a kovan. All contracts have also been deployed to the kovan test net and can be found [here](https://kovan.etherscan.io/address/0xab605771d0c8ad55fce8d52e009673c62d4ff5a3) with verified code.
 
+## CDP unwinding mathematics
+There are a number of complex calculations that are needed to be performed to unwind the CDP sussesfully. Specifically these are involved with converting from one currency to another as well as calculating how much tokens to send to each function call. Additional complexity comes from the itterative nature of the unwinding process. Lastly, Because Dai uses `weth` all computations need to consider the `weth` to `peth` to `dai` ratios when finding the exact values. An extensive back testing and model validation was performed to check the calculations used. These can be found in a spreadsheet [here](https://docs.google.com/spreadsheets/d/118z6e2dp9PFzla9QqMUGS5vI_kQx-5purT44Ut4maJM/edit?usp=sharing).
 
 ## Environment
 Everything can be set up using one command within `yarn`.
