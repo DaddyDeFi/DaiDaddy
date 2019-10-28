@@ -99,14 +99,12 @@ export default {
       this.SELL_CDP(this.debtOrder);
       this.myListings.push({
         cdpId:
-          "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-        CDPNo: 3905,
-        daiDrawn: 9605,
-        collateralRatio: "166.19 ETH | 307.93%",
-        fee: 884.0,
-        value: 118.165,
-        discount: 2,
-        finalPrice: 115.801,
+          "0x0000000000000000000000000000000000000000000000000000000000001bb7",
+        CDPNo: 7095,
+        daiDrawn: 25,
+        collateralRatio: "0.5 ETH | 464.22%",
+        fee: 0.042069,
+        value: 0.361,
         selected: false
       });
     },
@@ -148,16 +146,14 @@ export default {
       myCdps: [
         {
           cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001bb6",
-          CDPNo: 69420,
-          daiDrawn: 50,
-          collateralRatio: "1 ETH | 421%",
+            "0x0000000000000000000000000000000000000000000000000000000000001bb7",
+          CDPNo: 7095,
+          daiDrawn: 25,
+          collateralRatio: "0.5 ETH | 464.22%",
           fee: 0.042069,
-          value: 0.75,
-          discount: 5,
-          finalPrice: 0.7125,
+          value: 0.361,
           selected: false
-        },
+        }
       ]
     };
   }

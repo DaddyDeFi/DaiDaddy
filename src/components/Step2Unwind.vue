@@ -117,14 +117,12 @@ export default {
       myCdps: [
         {
           cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69420,
-          daiDrawn: 50,
-          collateralRatio: "1 ETH | 421%",
+            "0x0000000000000000000000000000000000000000000000000000000000001bb7",
+          CDPNo: 7095,
+          daiDrawn: 25,
+          collateralRatio: "0.5 ETH | 464.22%",
           fee: 0.042069,
-          value: 0.75,
-          discount: 5,
-          finalPrice: 0.7125,
+          value: 0.361,
           selected: false
         }
       ]
