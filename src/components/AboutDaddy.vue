@@ -2,10 +2,14 @@
   <div class="about">
     <a-row class="container" justify="center" align="middle" type="flex">
       <a-col :md="14" :span="24" class="col-1">
-        <div style="max-width: 463px"></div>
+        <div style="max-width: 463px">
+          <img src="/img/aboutMichael1.png" class="images" />
+        </div>
       </a-col>
       <a-col :md="10" :span="24" class="col-2">
-        <div style="max-width: 420px"></div>
+        <div style="max-width: 420px">
+          <img src="/img/aboutMichael2.png" class="images" />
+        </div>
       </a-col>
     </a-row>
     <a-row class="container" justify="center" align="middle" type="flex">
@@ -43,5 +47,14 @@ export default {
   max-width: 80%;
   height: auto;
   object-fit: contain;
+}
+.col-1 {
+  display: flex;
+  justify-content: center;
+}
+
+.col-2 {
+  display: flex;
+  justify-content: center;
 }
 </style>
