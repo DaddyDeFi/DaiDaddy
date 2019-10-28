@@ -22,29 +22,28 @@
     </a-row>
     <a-row class="container2" justify="center" align="middle" type="flex">
       <a-col class="col-1" :md="14" :span="24"></a-col>
-      <a-col class="col-2" :md="10" :span="24">
+      <a-col :md="10" :span="24" style="display: flex; justify-content: center">
         <a-button
           type="primary"
           class="ant-btn ant-btn-lg ant-btn-block pink-button"
           @click="showModal"
-          style="padding-right: 100px"
         >How it Works</a-button>
       </a-col>
     </a-row>
-    <a-modal class="modal" v-model="visible" :footer="null" :closable="false">
+    <a-modal v-model="visible" :footer="null" :closable="false" :width="780" :height="420">
       <div
-        style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important;"
+        style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; text-align: center;"
       >
-        <iframe width="1280" height="720" src="https://www.youtube.com/watch?v=JEcj2xi9Ctc"></iframe>
-        <div style="text-align:center">
-          <a-button
-            class="close-button"
-            key="close"
-            type="primary"
-            @click="handleClose"
-            style="border-radius: 25px;"
-          >Close</a-button>
-        </div>
+        <iframe width="720" height="405" src="https://www.youtube.com/embed/JEcj2xi9Ctc"></iframe>
+        <!-- <div style="text-align:center"> -->
+        <a-button
+          class="close-button"
+          key="close"
+          type="primary"
+          @click="handleClose"
+          style="border-radius: 25px;"
+        >Close</a-button>
+        <!-- </div> -->
       </div>
     </a-modal>
   </div>
@@ -93,8 +92,8 @@ export default {
 }
 
 .modal {
-  height: auto;
-  width: 30%;
+  // height: auto;
+  // width: 30%;
   border-radius: 40px;
 }
 
