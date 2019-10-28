@@ -52,7 +52,7 @@ Once the Dai Daddy `Unwinder` contract has ownership of the CDP it preforms the 
 
 The graph below shows the number of times that `draw`, `exit`, `trade` and `wipe` need to be done to close a CDP based on the collateralization ratio of the Position. The lower the collateral in the CDP the more times this process needs to get looped to unwind the CDP.
 
-![Graph](./img/graph.png)
+![Graph](./img/Graph.png)
 
 ## Smart Contract
 DAI Daddy consists of one main smart contracts are rather complex because they need to integrate with a number of different moving parts and systems. DaiDaddy's main contract is called `Unwinder.sol` which is responsible for all main logic in the Dai Daddy platform. 
