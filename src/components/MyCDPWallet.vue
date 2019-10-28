@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>
-      <h3 class="PinkText" style="font-size:24px">In My Wallet</h3>
-      <p class="addy">ETHER ADDY GOES HERE</p>
+      <!-- <h3 class="PinkText" style="font-size:24px">In My Wallet</h3>
+      <p class="addy">ETHER ADDY GOES HERE</p> -->
     </div>
     <div
       v-if="myWallet.length==0"
