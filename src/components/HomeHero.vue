@@ -54,10 +54,25 @@ export default {
   name: "HomeHero",
   methods: {
     showModal() {
-      this.visible = true;
+      if (!isMobile) {
+        this.visible = true;
+      } else {
+        window.location.href = "https://www.youtube.com/embed/JEcj2xi9Ctc";
+      }
     },
     handleClose(e) {
       this.visible = false;
+    },
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   data() {
