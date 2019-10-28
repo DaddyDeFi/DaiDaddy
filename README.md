@@ -8,7 +8,9 @@ DAI Daddy is an autonomous, open-source platform for unwinding Maker CDPs.
 ## Links
 - [App Demo](https://daidaddy.xyz/)
 - [Devpost](https://devpost.com/software/dai-daddy-ii-uncensored)
-- [Smart Contract](XXX)
+- [Smart Contract](https://kovan.etherscan.io/address/0xab605771d0c8ad55fce8d52e009673c62d4ff5a3)
+- [Product Video](https://www.youtube.com/watch?v=bfzwfRxMHvA)
+- [Dapp Demo](https://youtu.be/AysT--v-ehE)
 
 ## Why DAI Daddy?
 14% of Maker CDPs to date have been forcibly liquidated. When this happens, the ETH held as collateral in the CDP is automatically sold at a 3% discount to pay off the CDP holder's DAI debt, and on top of this a 13% liquidation penalty is applied.

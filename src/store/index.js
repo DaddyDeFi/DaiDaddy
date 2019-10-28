@@ -24,8 +24,8 @@ import truffleContract from "truffle-contract";
 import SaiTubABI from "../../build/contracts/SaiTub.json"
 const SaiTub = truffleContract(SaiTubABI);
 
-// import DaiDaddyABI from "../../build/contracts/DebtMarket.json"
-// const DaiDaddy = truffleContract(DaiDaddyABI);
+import DaiDaddyABI from "../../build/contracts/DebtMarket.json"
+const DaiDaddy = truffleContract(DaiDaddyABI);
 
 import UnwinderABI from "../../build/contracts/Unwinder.json"
 const Unwinder = truffleContract(UnwinderABI);
@@ -88,7 +88,7 @@ export default new Vuex.Store({
       state
     }, web3) {
       SaiTub.setProvider(web3.currentProvider)
-      // DaiDaddy.setProvider(web3.currentProvider)
+      DaiDaddy.setProvider(web3.currentProvider)
       Unwinder.setProvider(web3.currentProvider)
 
 
