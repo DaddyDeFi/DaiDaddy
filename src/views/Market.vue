@@ -10,7 +10,7 @@
 import Marketplace from "@/components/Marketplace.vue";
 import Vue from "vue";
 export default {
-  name: "home",
+  name: "market",
   components: {
     Marketplace
   }
