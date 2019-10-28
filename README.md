@@ -2,7 +2,7 @@
 DAI Daddy is an autonomous, open-source platform for unwinding Maker CDPs.
 <br/>
 
-![Logo](https://github.com/DaddyDeFi/DaiDaddy/blob/master/dai_daddy_ii_uncensored.png)
+![Logo](./img/dai_daddy_ii_uncensored.png)
 <br/>
 
 ## Links
@@ -59,6 +59,9 @@ To find the value of the CDP in Ether the MakerDao price oracle is used via the 
 
 ## Smart Contract
 DAI Daddy consists of one main smart contract: `DaiDaddy.sol` which stores all buisness logic and acts as the escrow for the CDP's during the transfer. This contract imports instances of the MakerDao `SaiTub.sol` and `Medianizer.sol` to get information on CDPs and current ether price.
+
+![Logo](./img/unitTests.gif)
+
 
 The provided migrations script deploys into a local test enviroment. All contracts have also been deployed to the kovan test net and can be found here: `0x130fa137765A189E2132C2AB06F8E2617414b424`
 
