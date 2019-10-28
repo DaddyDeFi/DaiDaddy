@@ -10,7 +10,7 @@
 import MyCDPs from "@/components/MyCDPs.vue";
 
 export default {
-  name: "home",
+  name: "list",
   components: {
     MyCDPs
   }

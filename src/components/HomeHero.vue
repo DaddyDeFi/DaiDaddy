@@ -5,13 +5,13 @@
     </a-col>
     <a-col class="col-2" :md="10" :span="24">
       <!-- <img src="/img/michaelBoxes.png" class="hero-michael" /> -->
-
+      <!-- TODO: conditional video rendering dependent on browser -->
       <video
         class="MichaelVid"
         src="anim/HeroMichaels.webm"
         type="video/webm"
         alt="step logo"
-        style="height:600px;"
+        style="height:600px; padding-right:180px "
         autoplay="true"
         muted="true"
       />
@@ -28,9 +28,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .MichaelVid {
-//   width: 80%;
-// }
 .logo {
   width: 100%;
   max-width: 610px;

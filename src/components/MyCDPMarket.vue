@@ -1,14 +1,19 @@
 <template>
-  <MyCDPMarketForSale />
+  <div>
+    <MyCDPMarketForSale />
+    <MyCDPMarketSold />
+  </div>
 </template>
 
 <script>
 import MyCDPMarketForSale from "@/components/MyCDPMarketForSale.vue";
+import MyCDPMarketSold from "@/components/MyCDPMarketSold.vue";
 
 export default {
   name: "MyCDPMarket",
   components: {
-    MyCDPMarketForSale
+    MyCDPMarketForSale,
+    MyCDPMarketSold
   },
   methods: {},
   data() {

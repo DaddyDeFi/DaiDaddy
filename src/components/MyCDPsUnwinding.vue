@@ -1,24 +1,27 @@
 <template>
   <div>
-    <h3 class="PinkText" style="font-size:33px">Unwinding</h3>
+    <h3 class="PinkText" style="font-size:24px">Unwinding</h3>
     <div
       v-if="myWallet.length==0"
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
-      <h4 style="font-weight: 900;">
+      <h4 style="font-weight: 900; font-size:24px">
         You're all wound up
         <i class="em em-raised_hands"></i>
         <br />Looking for a DAI daddy?
       </h4>
-      <!-- TODO: button to open unwind modal -->
+      <router-link
+        to="/list?modalUnwind=true"
+        class="ant-btn ant-btn-lg ant-btn-block pink-button"
+      >Unwind Me Daddy</router-link>
     </div>
     <div v-if="myWallet.length>0">
       <a-row>
         <a-col :span="3">
-          <h4 style="font-weight: 900; padding-left:15px">CDP #</h4>
+          <h4 class="tbh" style="padding-left:15px">CDP #</h4>
         </a-col>
         <a-col :span="3">
-          <h4 style="font-weight: 900;">
+          <h4 class="tbh">
             Total Debt
             <a-popover title="Total Debt">
               <template
@@ -29,10 +32,10 @@
           </h4>
         </a-col>
         <a-col :span="4">
-          <h4 style="font-weight: 900;">Collateral/Ratio</h4>
+          <h4 class="tbh">Collateral/Ratio</h4>
         </a-col>
         <a-col :span="3">
-          <h4 style="font-weight: 900;">
+          <h4 class="tbh">
             CDP Value
             <a-popover title="CDP Value">
               <template
@@ -43,16 +46,16 @@
           </h4>
         </a-col>
         <a-col :span="3">
-          <h4 style="font-weight: 900;">Fees</h4>
+          <h4>Fees</h4>
         </a-col>
         <a-col :span="3">
-          <h4 class="PinkText" style="font-weight: 900; padding-top:10px;">You'll get</h4>
+          <h4 class="PinkText">You'll get</h4>
         </a-col>
         <a-col :span="4" style="text-align:center">
-          <h4 style="font-weight: 900;"></h4>
+          <h4 style="font-weight: 600;"></h4>
         </a-col>
         <a-col :span="3" style="text-align:center">
-          <h4 style="font-weight: 900;"></h4>
+          <h4></h4>
         </a-col>
       </a-row>
       <hr />
@@ -111,7 +114,13 @@ export default {
 <style>
 .PinkText {
   color: #ff1491;
-  font-weight: 900;
+  font-weight: 600;
+  padding-top: 10px;
+  font-size: 16px;
+}
+.tbh {
+  font-size: 16px;
+  font-weight: 600;
 }
 </style>
 

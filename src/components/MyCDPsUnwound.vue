@@ -1,16 +1,19 @@
 <template>
   <div>
-    <h3 class="PinkText" style="font-size:33px">Unwound</h3>
+    <h3 class="PinkText" style="font-size:24px">Unwound</h3>
     <div
       v-if="myWallet.length==0"
       style="text-align:center;padding-top:100px; padding-bottom:100px"
     >
-      <h4 style="font-weight: 900;">
+      <h4 style="font-weight: 900; font-size:24px">
         Someone's a bit uptight!
         <i class="em em-tired_face" />
         <br />You've never unwound before...
       </h4>
-      <!-- TODO: button to unwind modal -->
+      <router-link
+        to="/list?modalUnwind=true"
+        class="ant-btn ant-btn-lg ant-btn-block pink-button"
+      >Unwind Me Daddy</router-link>
     </div>
     <div v-if="myWallet.length>0">
       <a-row>
@@ -59,6 +62,10 @@
       <a-row>
         <!-- TODO: populate table with correct shit -->
       </a-row>
+      <router-link
+        to="/list?modalUnwind=true"
+        class="ant-btn ant-btn-lg ant-btn-block pink-button"
+      >Unwind more CDPs</router-link>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="PinkText">For Sale</h2>
+    <h3 class="PinkText" style="font-size:24px">For Sale</h3>
     <div
       v-if="myListings.length==0"
       style="text-align:center;padding-top:100px; padding-bottom:100px"
@@ -15,7 +15,7 @@
         class="SellButton"
         style="font-weight: 900;"
         @click="showModal"
-      >Sell your CDP</a-button>
+      >Sell a CDP</a-button>
     </div>
     <div v-if="myListings.length>0">
       <a-row>
