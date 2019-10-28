@@ -58,24 +58,23 @@
           </div>
         </div>
         <a-divider />
-        <a-row style="padding-left:5px" :span="5">
+        <a-row style="padding-left:5px" :span="24">
           <div class="title">Summary</div>
 
           <a-row>
-            <a-col :span="12" :md="5">
+            <a-col :span="12">
               <span style="font-size: 16px" class="title">Fees:</span>
               <div v-if="debtOrder.cdpId==null" class="values">-</div>
               <div v-if="debtOrder.cdpId!=null" class="values">
-                <!-- TODO:  calculate fees -->
-                ETH
+                0.00527 ETH (0.95 USD)
               </div>
             </a-col>
 
-            <a-col :span="12" :md="5">
+            <a-col :span="12">
               <span style="font-size: 16px" class="title">You'll get:</span>
-              <div v-if="debtOrder.cdpId==null" class="values PinkText">-</div>
-              <div v-if="debtOrder.cdpId!=null" class="values PinkText">
-                <!-- calculate final -->
+              <div v-if="debtOrder.cdpId==null" class="values PinkText" style="padding-top:0px">-</div>
+              <div v-if="debtOrder.cdpId!=null" class="values PinkText" style="padding-top:0px">
+                10
                 ETH
               </div>
             </a-col>
@@ -173,30 +172,6 @@ export default {
           finalPrice: 0.95,
           selected: false
         },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
-          selected: false
-        },
-        {
-          cdpId:
-            "0x0000000000000000000000000000000000000000000000000000000000001b4e",
-          CDPNo: 69421,
-          daiDrawn: 666,
-          collateralRatio: "2 ETH | 200%",
-          fee: 0.042069,
-          value: 1,
-          discount: 5,
-          finalPrice: 0.95,
-          selected: false
-        }
       ]
     };
   }

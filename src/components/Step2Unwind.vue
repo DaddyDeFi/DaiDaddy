@@ -8,14 +8,14 @@
     </p>
     <!-- View smart contract link -->
     <a-row>
-      <a-col :span="16">
+      <a-col :span="24">
         <a-row>
           <a-col :span="4">
             <th style="font-weight: 900;"></th>
           </a-col>
           <a-col :span="5">
             <th style="font-weight: 900">CDP Number</th>
-          </a-col>h4
+          </a-col>
           <a-col :span="5">
             <th style="font-weight: 900;">CDP Value</th>
             <!-- i link -->
@@ -24,11 +24,11 @@
             <th style="font-weight: 900;">Fees</th>
             <!-- i link -->
           </a-col>
-          <a-col :span="4">
-            <th class="PinkText" style="font-weight: 900;">You'll get:</th>
+          <a-col :span="5">
+            <th class="PinkText" style="font-weight: 900; padding-top:0px">You'll get</th>
           </a-col>
         </a-row>
-        <hr style="padding:0px; margin:0px" />
+        <!-- <hr style="padding:0px; margin:0px" /> -->
         <!-- <div
           v-for="(cdp, index) in myCdps"
           :key="index"
