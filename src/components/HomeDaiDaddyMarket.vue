@@ -1,5 +1,5 @@
 <template>
-  <a-row class="container direction" type="flex">
+  <a-row class="container" type="flex">
     <a-col class="col-1" :md="14" :span="24">
       <div style="max-width: 420px">
         <img src="/img/buyCdp.png" class="img" />
