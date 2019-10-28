@@ -86,7 +86,7 @@
             <!-- TODO: fix routing -->
             <button
               @click="showModal(cdp.debtId)"
-              class="ant-btn ant-btn-lg ant-btn-block pink-button"
+              class="ant-btn ant-btn-lg ant-btn-block pink-button button-small"
             >Buy CDP</button>
           </a-col>
         </a-row>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 import BuyCDPModal from "@/components/BuyCDPModal.vue";
 export default {
   name: "Marketplace",
@@ -194,7 +194,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .card {
   font-family: "Nunito" !important;
   background: white;

@@ -10,12 +10,7 @@
         <i class="em em-princess" />
         <br />You've never sold a CDP
       </h2>
-      <a-button
-        type="primary"
-        class="SellButton"
-        style="font-weight: 900;"
-        @click="showModal"
-      >Sell a CDP</a-button>
+      <a-button type="primary" class="pink-button button-small" @click="showModal">Sell a CDP</a-button>
     </div>
     <div v-if="myListings.length>0">
       <a-row>
@@ -105,7 +100,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import {mapActions, mapState} from "vuex";
 
 export default {
   name: "MyCDPMarketForSale",
