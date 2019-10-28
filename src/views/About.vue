@@ -1,11 +1,22 @@
 <template>
   <div class="about">
     <Nav />
-    <h1>This is an about page</h1>
+    <AboutDaddy />
   </div>
 </template>
 <script>
+import AboutDaddy from "@/components/AboutDaddy.vue";
+
 export default {
-  name: "About"
+  name: "about",
+  components: {
+    AboutDaddy
+  },
+  data() {
+    return {};
+  }
 };
 </script>
+
+<style>
+</style>

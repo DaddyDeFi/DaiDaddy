@@ -15,7 +15,6 @@ export default {
     MyCDPMarketForSale,
     MyCDPMarketSold
   },
-  methods: {},
   data() {
     return {};
   }

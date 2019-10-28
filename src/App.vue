@@ -21,7 +21,7 @@ import * as mutations from "@/store/mutation-types";
 import ClickableAddress from "@/components/widgets/ClickableAddress";
 import UnwindModal from "@/components/UnwindModal";
 import BuyCDPModal from "@/components/BuyCDPModal";
-import {mapActions, mapState} from "vuex";
+import { mapActions, mapState } from "vuex";
 import router from "@/router";
 
 Vue.component(UnwindModal.name, UnwindModal);
@@ -29,7 +29,7 @@ Vue.component(BuyCDPModal.name, BuyCDPModal);
 
 export default {
   name: "app",
-  components: {ClickableAddress, MiningTransaction},
+  components: { ClickableAddress, MiningTransaction },
   data() {
     return {
       web3Detected: true,
@@ -39,7 +39,7 @@ export default {
   methods: {
     ...mapActions(["INIT_APP"]),
     redirect(_path) {
-      router.push({name: _path});
+      router.push({ name: _path });
     }
   },
   async mounted() {
@@ -96,7 +96,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   color: #2c3e50;
-  background-image: linear-gradient(#ff94ce, 10%, #fff);
+  background-image: linear-gradient(#ff94ce, 50vh, #fff);
 }
 
 #nav {
