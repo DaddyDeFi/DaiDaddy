@@ -52,7 +52,7 @@ Once the Dai Daddy `Unwinder` contract has ownership of the CDP it preforms the 
 
 The graph below shows the number of times that `draw`, `exit`, `trade` and `wipe` need to be done to close a CDP based on the collateralization ratio of the Position. The lower the collateral in the CDP the more times this process needs to get looped to unwind the CDP.
 
-![Graph](./img/graph.png)
+![Graph](./img/Graph.png)
 
 ## Smart Contract
 DAI Daddy consists of one main smart contracts are rather complex because they need to integrate with a number of different moving parts and systems. DaiDaddy's main contract is called `Unwinder.sol` which is responsible for all main logic in the Dai Daddy platform. 
@@ -78,6 +78,8 @@ The provided migrations script deploys into a kovan. All contracts have also bee
 
 ## CDP unwinding mathematics
 There are a number of complex calculations that are needed to be performed to unwind the CDP sussesfully. Specifically these are involved with converting from one currency to another as well as calculating how much tokens to send to each function call. Additional complexity comes from the itterative nature of the unwinding process. Lastly, Because Dai uses `weth` all computations need to consider the `weth` to `peth` to `dai` ratios when finding the exact values. An extensive back testing and model validation was performed to check the calculations used. These can be found in a spreadsheet [here](https://docs.google.com/spreadsheets/d/118z6e2dp9PFzla9QqMUGS5vI_kQx-5purT44Ut4maJM/edit?usp=sharing).
+
+The main calculations needed in the process are finding the amount of maximum ether that can be drawn from the CDP, calculating the `freeableCollateralWeth`, the number of `unwindsNeeded` and the `collateralizationRatio`. Please check the smart contract and the spreadsheet for implementation details.
 
 ## Environment
 Everything can be set up using one command within `yarn`.

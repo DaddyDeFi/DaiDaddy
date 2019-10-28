@@ -37,7 +37,7 @@ module.exports = async (deployer, network, accounts) => {
         kyberNetworkProxyAddress = "0x692f391bCc85cefCe8C237C01e1f636BbD70EA4D"
         daiTokenAddress = "0xc4375b7de8af5a38a93548eb8453a498222c4ff2"
         wethTokenAddress = "0xd0a1e359811322d97991e03f863a0c30c2cf029c"
-        daiDaddyFeeCollector = "0xB3c5485526F7Dbe5b8067DE2C59c819937782066"
+    daiDaddyFeeCollector = "0xB3c5485526F7Dbe5b8067DE2C59c819937782066"
         dSToken = "0xf4d791139cE033Ad35DB2B2201435fAd668B1b64"
         mkrToken = "0xAaF64BFCC32d0F15873a02163e7E500671a4ffcD"
     }
