@@ -34,7 +34,7 @@
       <div
         style="border-radius: 25px !important; -moz-border-radius: 0px !important; -webkit-border-radius: 0px !important; text-align: center;"
       >
-        <iframe class="iframe" src="https://www.youtube.com/watch?v=bfzwfRxMHvA"></iframe>
+        <iframe class="iframe" src="https://www.youtube.com/embed/bfzwfRxMHvA"></iframe>
         <!-- <div style="text-align:center"> -->
         <a-button
           class="close-button"
