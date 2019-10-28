@@ -3,7 +3,7 @@
     <a-col :span="18">
       <ul class="mb-list-left">
         <li style="margin-right: 2.25rem;">
-          <a class="link" href="https://github.com/DaddyDeFi/DaiDaddy">
+          <a class="link" target="_blank" href="https://github.com/DaddyDeFi/DaiDaddy">
             <i class="em em-candy" />
             <i class="em em-lollipop" /> Made with
             <i class="em em-sparkling_heart" /> by DAI daddy
@@ -16,7 +16,7 @@
     <a-col :span="4">
       <ul class="mb-list-right">
         <li class="mb-item">
-          <router-link class="link" to="/about">About</router-link>
+          <a class="link" target="_blank" href="https://devpost.com/software/dai-daddy-ii-uncensored">About</a>
         </li>
       </ul>
     </a-col>
