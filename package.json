@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^1.4.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "chai": "^4.2.0",
     "core-js": "^3.1.2",
     "emoji-awesome": "^0.0.2",
