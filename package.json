@@ -25,7 +25,7 @@
     "web3": "^1.2.1"
   },
   "devDependencies": {
-    "@openzeppelin/contracts": "^2.3.0",
+    "@openzeppelin/contracts": "^4.4.2",
     "@vue/cli-plugin-pwa": "^4.0.0",
     "@vue/cli-service": "^4.0.0",
     "openzeppelin-test-helpers": "^0.5.1",
